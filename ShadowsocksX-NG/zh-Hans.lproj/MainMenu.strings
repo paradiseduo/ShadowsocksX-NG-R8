@@ -2,6 +2,9 @@
 /* Class = "NSMenuItem"; title = "Export All Server To Json..."; ObjectID = "6k0-gn-DQv"; */
 "6k0-gn-DQv.title" = "导出全部服务器配置...";
 
+/* Class = "NSMenuItem"; title = "Import Server URLs From Pasteboard"; ObjectID = "gM9-ym-4L0"; */
+"gM9-ym-4L0.title" = "从剪贴板导入服务器配置链接";
+
 /* Class = "NSMenuItem"; title = "Manual Mode"; ObjectID = "8PR-gs-c5N"; */
 "8PR-gs-c5N.title" = "手动模式";
 

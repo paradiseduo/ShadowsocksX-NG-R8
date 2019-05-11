@@ -38,7 +38,7 @@ class SubscribePreferenceWindowController: NSWindowController
     }
     
     override func awakeFromNib() {
-        SubscribeTableView.register(forDraggedTypes: [tableViewDragType])
+        SubscribeTableView.registerForDraggedTypes(convertToNSPasteboardPasteboardTypeArray([tableViewDragType]))
         SubscribeTableView.allowsMultipleSelection = true
     }
     
@@ -112,17 +112,17 @@ class SubscribePreferenceWindowController: NSWindowController
         if index >= 0 && index < sbMgr.subscribes.count {
             editingSubscribe = sbMgr.subscribes[index]
             
-            FeedTextField.bind("value", to: editingSubscribe, withKeyPath: "subscribeFeed", options: [NSContinuouslyUpdatesValueBindingOption: true])
-            TokenTextField.bind("value", to: editingSubscribe, withKeyPath: "token", options: [NSContinuouslyUpdatesValueBindingOption: true])
-            GroupTextField.bind("value", to: editingSubscribe, withKeyPath: "groupName", options: [NSContinuouslyUpdatesValueBindingOption: true])
-            MaxCountTextField.bind("value", to: editingSubscribe, withKeyPath: "maxCount", options: [NSContinuouslyUpdatesValueBindingOption: true])
+            FeedTextField.bind(NSBindingName(rawValue: "value"), to: editingSubscribe, withKeyPath: "subscribeFeed", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
+            TokenTextField.bind(NSBindingName(rawValue: "value"), to: editingSubscribe, withKeyPath: "token", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
+            GroupTextField.bind(NSBindingName(rawValue: "value"), to: editingSubscribe, withKeyPath: "groupName", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
+            MaxCountTextField.bind(NSBindingName(rawValue: "value"), to: editingSubscribe, withKeyPath: "maxCount", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
             
         } else {
             editingSubscribe = nil
-            FeedTextField.unbind("value")
-            TokenTextField.unbind("value")
-            GroupTextField.unbind("value")
-            MaxCountTextField.unbind("value")
+            FeedTextField.unbind(convertToNSBindingName("value"))
+            TokenTextField.unbind(convertToNSBindingName("value"))
+            GroupTextField.unbind(convertToNSBindingName("value"))
+            MaxCountTextField.unbind(convertToNSBindingName("value"))
         }
     }
     
@@ -148,12 +148,22 @@ class SubscribePreferenceWindowController: NSWindowController
         
         let title = getDataAtRow(row)
         
-        if tableColumn?.identifier == "main" {
+//        if convertFromNSUserInterfaceItemIdentifier(tableColumn?.identifier) == "main" {
+//            if title != "" {return title}
+//            else {return "S"}
+//        } else if convertFromNSUserInterfaceItemIdentifier(tableColumn?.identifier) == "status" {
+//            return NSImage(named: "menu_icon")
+//        }
+        
+        if tableColumn?.identifier == NSUserInterfaceItemIdentifier("main") {
             if title != "" {return title}
             else {return "S"}
-        } else if tableColumn?.identifier == "status" {
-            return NSImage(named: "menu_icon")
+        } else if tableColumn?.identifier == NSUserInterfaceItemIdentifier("status") {
+
+            return NSImage(named: NSImage.Name("menu_icon"))
+
         }
+
         return ""
     }
     
@@ -161,12 +171,12 @@ class SubscribePreferenceWindowController: NSWindowController
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
         let item = NSPasteboardItem()
-        item.setString(String(row), forType: tableViewDragType)
+        item.setString(String(row), forType: convertToNSPasteboardPasteboardType(tableViewDragType))
         return item
     }
     
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int
-        , proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation {
+        , proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
         if dropOperation == .above {
             return .move
         }
@@ -174,14 +184,22 @@ class SubscribePreferenceWindowController: NSWindowController
     }
     
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo
-        , row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
+        , row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
         if let mgr = sbMgr {
             var oldIndexes = [Int]()
-            info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:]) {
-                if let str = ($0.0.item as! NSPasteboardItem).string(forType: self.tableViewDragType), let index = Int(str) {
+//            info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:]) {,<#arg#>,<#arg#> ,<#arg#>,<#arg#> ,<#arg#>,<#arg#> ,<#arg#>,<#arg#> ,<#arg#>,<#arg#> ,<#arg#>,<#arg#> ,<#arg#>,<#arg#>
+//                if let str = ($0.item as! NSPasteboardItem).string(forType: convertToNSPasteboardPasteboardType(self.tableViewDragType)), let index = Int(str) {
+//                    oldIndexes.append(index)
+//                }
+//            }
+            
+            info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:], using: {
+                (draggingItem: NSDraggingItem, idx: Int, stop: UnsafeMutablePointer<ObjCBool>) in
+                if let str = (draggingItem.item as! NSPasteboardItem).string(forType: NSPasteboard.PasteboardType(rawValue: self.tableViewDragType)), let index = Int(str) {
                     oldIndexes.append(index)
                 }
-            }
+            })
+
             
             var oldIndexOffset = 0
             var newIndexOffset = 0
@@ -277,4 +295,35 @@ class SubscribePreferenceWindowController: NSWindowController
         window?.animations = ["frameOrigin":shakeAnimation]
         window?.animator().setFrameOrigin(window!.frame.origin)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSPasteboardPasteboardTypeArray(_ input: [String]) -> [NSPasteboard.PasteboardType] {
+	return input.map { key in NSPasteboard.PasteboardType(key) }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSBindingOptionDictionary(_ input: [String: Any]?) -> [NSBindingOption: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSBindingOption(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSBindingOption(_ input: NSBindingOption) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSBindingName(_ input: String) -> NSBindingName {
+	return NSBindingName(rawValue: input)
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSUserInterfaceItemIdentifier(_ input: NSUserInterfaceItemIdentifier) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSPasteboardPasteboardType(_ input: String) -> NSPasteboard.PasteboardType {
+	return NSPasteboard.PasteboardType(rawValue: input)
 }

@@ -46,13 +46,13 @@ open class StatusItemView: NSControl {
         statusItem.drawStatusBarBackground(in: dirtyRect, withHighlight: mouseDown)
         
         fontColor = (darkMode||mouseDown) ? NSColor.white : NSColor.black
-        let fontAttributes = [NSFontAttributeName: NSFont.systemFont(ofSize: fontSize), NSForegroundColorAttributeName: fontColor] as [String : Any]
+        let fontAttributes = [convertFromNSAttributedStringKey(NSAttributedString.Key.font): NSFont.systemFont(ofSize: fontSize), convertFromNSAttributedStringKey(NSAttributedString.Key.foregroundColor): fontColor] as [String : Any]
         if showSpeed{
-            let upRateString = NSAttributedString(string: upRate+" ↑", attributes: fontAttributes)
+            let upRateString = NSAttributedString(string: upRate+" ↑", attributes: convertToOptionalNSAttributedStringKeyDictionary(fontAttributes))
             let upRateRect = upRateString.boundingRect(with: NSSize(width: 100, height: 100), options: .usesLineFragmentOrigin)
             upRateString.draw(at: NSMakePoint(bounds.width - upRateRect.width - 5, 10))
 
-            let downRateString = NSAttributedString(string: downRate+" ↓", attributes: fontAttributes)
+            let downRateString = NSAttributedString(string: downRate+" ↓", attributes: convertToOptionalNSAttributedStringKeyDictionary(fontAttributes))
             let downRateRect = downRateString.boundingRect(with: NSSize(width: 100, height: 100), options: .usesLineFragmentOrigin)
             downRateString.draw(at: NSMakePoint(bounds.width - downRateRect.width - 5, 0))
         }
@@ -105,7 +105,7 @@ open class StatusItemView: NSControl {
         }
     }
     
-    func changeMode() {
+    @objc func changeMode() {
         darkMode = SystemThemeChangeHelper.isCurrentDark()
         setNeedsDisplay()
     }
@@ -132,4 +132,15 @@ extension StatusItemView: NSMenuDelegate{
         mouseDown = false
         setNeedsDisplay()
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSAttributedStringKey(_ input: NSAttributedString.Key) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSAttributedStringKeyDictionary(_ input: [String: Any]?) -> [NSAttributedString.Key: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSAttributedString.Key(rawValue: key), value)})
 }

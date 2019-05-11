@@ -70,9 +70,9 @@ class ProxyPreferencesController: NSWindowController, NSTableViewDataSource, NST
         
         let key = (networkServices[row] as AnyObject)["key"] as! String
         if selectedNetworkServices.contains(key) {
-            cell.state = 1
+            cell.state = convertToNSControlStateValue(1)
         } else {
-            cell.state = 0
+            cell.state = convertToNSControlStateValue(0)
         }
         let userDefinedName = (networkServices[row] as AnyObject)["userDefinedName"] as! String
         cell.title = userDefinedName
@@ -90,4 +90,9 @@ class ProxyPreferencesController: NSWindowController, NSTableViewDataSource, NST
             selectedNetworkServices.remove(key)
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSControlStateValue(_ input: Int) -> NSControl.StateValue {
+	return NSControl.StateValue(rawValue: input)
 }

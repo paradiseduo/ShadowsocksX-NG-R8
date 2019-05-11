@@ -94,10 +94,16 @@ class PreferencesWindowController: NSWindowController
         updateProfileBoxVisible()
     }
     
+//    override func awakeFromNib() {
+//        profilesTableView.registerForDraggedTypes(convertToNSPasteboardPasteboardTypeArray([tableViewDragType]))
+//        profilesTableView.allowsMultipleSelection = true
+//    }
+    
     override func awakeFromNib() {
-        profilesTableView.register(forDraggedTypes: [tableViewDragType])
+        profilesTableView.registerForDraggedTypes([NSPasteboard.PasteboardType(rawValue: tableViewDragType)])
         profilesTableView.allowsMultipleSelection = true
     }
+
     
     @IBAction func addProfile(_ sender: NSButton) {
         if editingProfile != nil && !editingProfile.isValid(){
@@ -136,7 +142,7 @@ class PreferencesWindowController: NSWindowController
         updateProfileBoxVisible()
         if profileMgr.profiles.count == 0 {
             defaults.set(true, forKey: "ShadowsocksOn")
-            (NSApplication.shared().delegate as! AppDelegate).toggleRunning((NSApplication.shared().delegate as! AppDelegate).toggleRunningMenuItem)
+            (NSApplication.shared.delegate as! AppDelegate).toggleRunning((NSApplication.shared.delegate as! AppDelegate).toggleRunningMenuItem)
         }
     }
     
@@ -192,9 +198,10 @@ class PreferencesWindowController: NSWindowController
             let ssURL = profile.URL()
             if let url = ssURL {
                 
-                let pboard = NSPasteboard.general()
+                let pboard = NSPasteboard.general
                 pboard.clearContents()
-                let rs = pboard.setString(String(describing: url), forType: NSStringPboardType)//writeObjects([url])
+                //let rs = pboard.setString(String(describing: url), forType: convertToNSPasteboardPasteboardType(NSStringPboardType.rawValue))//writeObjects([url])
+                let rs = pboard.writeObjects([url as NSPasteboardWriting])
                 if rs {
                     NSLog("copy to pasteboard success")
                 } else {
@@ -223,42 +230,42 @@ class PreferencesWindowController: NSWindowController
         if index >= 0 && index < profileMgr.profiles.count {
             editingProfile = profileMgr.profiles[index]
             
-            hostTextField.bind("value", to: editingProfile, withKeyPath: "serverHost"
-                , options: [NSContinuouslyUpdatesValueBindingOption: true])
-            portTextField.bind("value", to: editingProfile, withKeyPath: "serverPort"
-                , options: [NSContinuouslyUpdatesValueBindingOption: true])
+            hostTextField.bind(NSBindingName(rawValue: "value"), to: editingProfile, withKeyPath: "serverHost"
+                , options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
+            portTextField.bind(NSBindingName(rawValue: "value"), to: editingProfile, withKeyPath: "serverPort"
+                , options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
             
-            methodTextField.bind("value", to: editingProfile, withKeyPath: "method"
-                , options: [NSContinuouslyUpdatesValueBindingOption: true])
-            passwordTextField.bind("value", to: editingProfile, withKeyPath: "password"
-                , options: [NSContinuouslyUpdatesValueBindingOption: true])
+            methodTextField.bind(NSBindingName(rawValue: "value"), to: editingProfile, withKeyPath: "method"
+                , options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
+            passwordTextField.bind(NSBindingName(rawValue: "value"), to: editingProfile, withKeyPath: "password"
+                , options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
             
-            remarkTextField.bind("value", to: editingProfile, withKeyPath: "remark"
-                , options: [NSContinuouslyUpdatesValueBindingOption: true])
+            remarkTextField.bind(NSBindingName(rawValue: "value"), to: editingProfile, withKeyPath: "remark"
+                , options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
             
-            ProtocolTextField.bind("value", to: editingProfile, withKeyPath: "ssrProtocol", options: [NSContinuouslyUpdatesValueBindingOption: true])
+            ProtocolTextField.bind(NSBindingName(rawValue: "value"), to: editingProfile, withKeyPath: "ssrProtocol", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
             
-            ProtocolParamTextField.bind("value", to: editingProfile, withKeyPath: "ssrProtocolParam", options: [NSContinuouslyUpdatesValueBindingOption: true])
+            ProtocolParamTextField.bind(NSBindingName(rawValue: "value"), to: editingProfile, withKeyPath: "ssrProtocolParam", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
             
-            ObfsTextField.bind("value", to: editingProfile, withKeyPath: "ssrObfs", options: [NSContinuouslyUpdatesValueBindingOption: true])
+            ObfsTextField.bind(NSBindingName(rawValue: "value"), to: editingProfile, withKeyPath: "ssrObfs", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
             
-            ObfsParamTextField.bind("value", to: editingProfile, withKeyPath: "ssrObfsParam", options: [NSContinuouslyUpdatesValueBindingOption: true])
-            groupTextField.bind("value", to: editingProfile, withKeyPath: "ssrGroup", options: [NSContinuouslyUpdatesValueBindingOption: true])
+            ObfsParamTextField.bind(NSBindingName(rawValue: "value"), to: editingProfile, withKeyPath: "ssrObfsParam", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
+            groupTextField.bind(NSBindingName(rawValue: "value"), to: editingProfile, withKeyPath: "ssrGroup", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
             
         } else {
             editingProfile = nil
-            hostTextField.unbind("value")
-            portTextField.unbind("value")
+            hostTextField.unbind(convertToNSBindingName("value"))
+            portTextField.unbind(convertToNSBindingName("value"))
             
-            methodTextField.unbind("value")
-            passwordTextField.unbind("value")
+            methodTextField.unbind(convertToNSBindingName("value"))
+            passwordTextField.unbind(convertToNSBindingName("value"))
             
-            ProtocolTextField.unbind("value")
-            ProtocolParamTextField.unbind("value")
-            ObfsTextField.unbind("value")
-            ObfsParamTextField.unbind("value")
+            ProtocolTextField.unbind(convertToNSBindingName("value"))
+            ProtocolParamTextField.unbind(convertToNSBindingName("value"))
+            ObfsTextField.unbind(convertToNSBindingName("value"))
+            ObfsParamTextField.unbind(convertToNSBindingName("value"))
             
-            remarkTextField.unbind("value")
+            remarkTextField.unbind(convertToNSBindingName("value"))
             
         }
     }
@@ -289,15 +296,26 @@ class PreferencesWindowController: NSWindowController
         
         let (title, isActive) = getDataAtRow(row)
         
-        if tableColumn?.identifier == "main" {
+        if tableColumn?.identifier == NSUserInterfaceItemIdentifier("main") {
             return title
-        } else if tableColumn?.identifier == "status" {
+        } else if tableColumn?.identifier == NSUserInterfaceItemIdentifier("status") {
             if isActive {
-                return NSImage(named: "NSMenuOnStateTemplate")
+                return NSImage(named: NSImage.Name("NSMenuOnStateTemplate"))
             } else {
                 return nil
             }
         }
+
+        
+//        if convertFromNSUserInterfaceItemIdentifier(tableColumn?.identifier) == "main" {
+//            return title
+//        } else if convertFromNSUserInterfaceItemIdentifier(tableColumn?.identifier) == "status" {
+//            if isActive {
+//                return NSImage(named: "NSMenuOnStateTemplate")
+//            } else {
+//                return nil
+//            }
+//        }
         return ""
     }
     
@@ -305,12 +323,12 @@ class PreferencesWindowController: NSWindowController
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
         let item = NSPasteboardItem()
-        item.setString(String(row), forType: tableViewDragType)
+        item.setString(String(row), forType: convertToNSPasteboardPasteboardType(tableViewDragType))
         return item
     }
     
     func tableView(_ tableView: NSTableView, validateDrop info: NSDraggingInfo, proposedRow row: Int
-        , proposedDropOperation dropOperation: NSTableViewDropOperation) -> NSDragOperation {
+        , proposedDropOperation dropOperation: NSTableView.DropOperation) -> NSDragOperation {
         if dropOperation == .above {
             return .move
         }
@@ -318,14 +336,23 @@ class PreferencesWindowController: NSWindowController
     }
     
     func tableView(_ tableView: NSTableView, acceptDrop info: NSDraggingInfo
-        , row: Int, dropOperation: NSTableViewDropOperation) -> Bool {
+        , row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
         if let mgr = profileMgr {
             var oldIndexes = [Int]()
-            info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:]) {
-                if let str = ($0.0.item as! NSPasteboardItem).string(forType: self.tableViewDragType), let index = Int(str) {
+//            info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:]) {arg,arg,arg,
+//                if let str = ($0.item as! NSPasteboardItem).string(forType: convertToNSPasteboardPasteboardType(self.tableViewDragType)), let index = Int(str) {
+//                    oldIndexes.append(index)
+//                }
+//            }
+            
+            info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:], using: {
+                (draggingItem: NSDraggingItem, idx: Int, stop: UnsafeMutablePointer<ObjCBool>) in
+                if let str = (draggingItem.item as! NSPasteboardItem).string(forType: NSPasteboard.PasteboardType(rawValue: self.tableViewDragType)), let index = Int(str) {
                     oldIndexes.append(index)
                 }
-            }
+            })
+            
+
             
             var oldIndexOffset = 0
             var newIndexOffset = 0
@@ -414,4 +441,35 @@ class PreferencesWindowController: NSWindowController
         window?.animations = ["frameOrigin":shakeAnimation]
         window?.animator().setFrameOrigin(window!.frame.origin)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSPasteboardPasteboardTypeArray(_ input: [String]) -> [NSPasteboard.PasteboardType] {
+	return input.map { key in NSPasteboard.PasteboardType(key) }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSPasteboardPasteboardType(_ input: String) -> NSPasteboard.PasteboardType {
+	return NSPasteboard.PasteboardType(rawValue: input)
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToOptionalNSBindingOptionDictionary(_ input: [String: Any]?) -> [NSBindingOption: Any]? {
+	guard let input = input else { return nil }
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSBindingOption(rawValue: key), value)})
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSBindingOption(_ input: NSBindingOption) -> String {
+	return input.rawValue
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToNSBindingName(_ input: String) -> NSBindingName {
+	return NSBindingName(rawValue: input)
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromNSUserInterfaceItemIdentifier(_ input: NSUserInterfaceItemIdentifier) -> String {
+	return input.rawValue
 }
