@@ -97,6 +97,7 @@ class Subscribe: NSObject{
         let headers: HTTPHeaders = [
             //            "Authorization": "Basic U2hhZG93c29ja1gtTkctUg==",
             //            "Accept": "application/json",
+            "Cache-control": "no-cache",
             "token": self.token,
             "User-Agent": "ShadowsocksX-NG-R " + (getLocalInfo()["CFBundleShortVersionString"] as! String) + " Version " + (getLocalInfo()["CFBundleVersion"] as! String)
         ]
@@ -143,25 +144,40 @@ class Subscribe: NSObject{
             // Should push a notification about it and correct the user filled maxCOunt?
             let maxN = (self.maxCount > urls.count) ? urls.count : (self.maxCount == -1) ? urls.count: self.maxCount
             // TODO change the loop into random pick
+            var profiles = [ServerProfile]()
             for index in 0..<maxN {
                 if let profileDict = ParseAppURLSchemes(URL(string: urls[index])) {
                     let profile = ServerProfile.fromDictionary(profileDict as [String : AnyObject])
-                    let (dupResult, _) = self.profileMgr.isDuplicated(profile: profile)
-                    let (existResult, existIndex) = self.profileMgr.isExisted(profile: profile)
-                    if dupResult {
-                        continue
-                    }
-                    if existResult {
-                        self.profileMgr.profiles.replaceSubrange(Range(existIndex..<existIndex + 1), with: [profile])
-                        continue
-                    }
-                    self.profileMgr.profiles.append(profile)
+                    profiles.append(profile)
                 }
             }
+            // clear and add
+            let clearOldGroup = true
+            let group = profiles.first?.ssrGroup
+            let groupSame = profiles.allSatisfy({ $0.ssrGroup == group })
+            if groupSame && clearOldGroup {
+                // 原有的 group 中的 profile 全部清除
+                self.profileMgr.profiles = self.profileMgr.profiles.filter { $0.ssrGroup != group }
+            }
+            
+            var successCount = 0
+            for profile in profiles {
+                let (dupResult, _) = self.profileMgr.isDuplicated(profile: profile)
+                let (existResult, existIndex) = self.profileMgr.isExisted(profile: profile)
+                if dupResult {
+                    continue
+                }
+                if existResult {
+                    self.profileMgr.profiles.replaceSubrange(Range(existIndex..<existIndex + 1), with: [profile])
+                    continue
+                }
+                self.profileMgr.profiles.append(profile)
+                successCount += 1
+            }
             self.profileMgr.save()
-            pushNotification(title: "成功更新订阅", subtitle: "", info: "更新来自\(subscribeFeed)的订阅")
-            (NSApplication.shared().delegate as! AppDelegate).updateServersMenu()
-            (NSApplication.shared().delegate as! AppDelegate).updateRunningModeMenu()
+            pushNotification(title: "成功更新订阅\(successCount)/\(maxN)个", subtitle: "", info: "更新来自\(subscribeFeed)的订阅")
+            (NSApplication.shared.delegate as! AppDelegate).updateServersMenu()
+            (NSApplication.shared.delegate as! AppDelegate).updateRunningModeMenu()
         }
         
         if (!isActive){ return }
