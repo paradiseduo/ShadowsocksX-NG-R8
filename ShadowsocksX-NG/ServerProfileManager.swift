@@ -103,6 +103,7 @@ class ServerProfileManager: NSObject {
         return (false, -1)
     }
     
+    // add by sbmzhcn, 分组不同不算重复
     func isDuplicated(profile: ServerProfile) -> (Bool, Int){
         for (index, value) in profiles.enumerated() {
             let ret = value.serverHost == profile.serverHost
@@ -113,6 +114,7 @@ class ServerProfileManager: NSObject {
                 && value.ssrObfsParam == profile.ssrObfsParam
                 && value.ssrProtocolParam == profile.ssrProtocolParam
                 && value.remark == profile.remark
+                && value.ssrGroup == profile.ssrGroup
             if ret {
                 return (ret, index)
             }

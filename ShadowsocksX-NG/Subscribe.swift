@@ -155,27 +155,33 @@ class Subscribe: NSObject{
             let clearOldGroup = true
             let group = profiles.first?.ssrGroup
             let groupSame = profiles.allSatisfy({ $0.ssrGroup == group })
+            var cleanCount = 0
             if groupSame && clearOldGroup {
                 // 原有的 group 中的 profile 全部清除
+                cleanCount = self.profileMgr.profiles.filter { $0.ssrGroup == group }.count
                 self.profileMgr.profiles = self.profileMgr.profiles.filter { $0.ssrGroup != group }
             }
             
             var successCount = 0
+            var dupCount = 0
+            var existCount = 0
             for profile in profiles {
                 let (dupResult, _) = self.profileMgr.isDuplicated(profile: profile)
                 let (existResult, existIndex) = self.profileMgr.isExisted(profile: profile)
                 if dupResult {
+                    dupCount += 1
                     continue
                 }
                 if existResult {
                     self.profileMgr.profiles.replaceSubrange(Range(existIndex..<existIndex + 1), with: [profile])
+                    existCount += 1
                     continue
                 }
                 self.profileMgr.profiles.append(profile)
                 successCount += 1
             }
             self.profileMgr.save()
-            pushNotification(title: "成功更新订阅\(successCount)/\(maxN)个", subtitle: "", info: "更新来自\(subscribeFeed)的订阅")
+            pushNotification(title: "成功更新订阅", subtitle: "总数:\(maxN) 成功:\(successCount) 清除:\(cleanCount) 重复:\(dupCount) 已存在:\(existCount)", info: "更新来自\(subscribeFeed)的订阅")
             (NSApplication.shared.delegate as! AppDelegate).updateServersMenu()
             (NSApplication.shared.delegate as! AppDelegate).updateRunningModeMenu()
         }
