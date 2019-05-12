@@ -103,11 +103,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
 
         setUpMenu(defaults.bool(forKey: "enable_showSpeed"))
         
-        statusItem = NSStatusBar.system.statusItem(withLength: 20)
-        let image = NSImage(named: "menu_icon")
-        image?.isTemplate = true
-        statusItem?.image = image
-        statusItem?.menu = statusMenu
+//        statusItem = NSStatusBar.system.statusItem(withLength: 20)
+//        let image = NSImage(named: "menu_icon")
+//        image?.isTemplate = true
+//        statusItem?.image = image
+//        statusItem?.menu = statusMenu
 
         let notifyCenter = NotificationCenter.default
         notifyCenter.addObserver(forName: NSNotification.Name(rawValue: NOTIFY_ADV_PROXY_CONF_CHANGED), object: nil, queue: nil
@@ -676,9 +676,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         }
         let titleWidth:CGFloat = 0//statusItem?.title!.size(withAttributes: [NSFontAttributeName: statusItem?.button!.font!]).width//这里不包含IP白名单模式等等，需要重新调整//PS还是给上游加上白名单模式？
         let imageWidth:CGFloat = 22
-        statusItem?.length = titleWidth + imageWidth
+        //        statusItem?.length = titleWidth + imageWidth
         image.isTemplate = true
         statusItem!.image = image
+        if statusItemView != nil {
+            statusItemView.setIcon(image)
+        } else {
+            statusItem?.length = titleWidth + imageWidth
+        }
     }
     
     func updateMainMenu() {
@@ -696,8 +701,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             image = NSImage(named: "menu_icon_disabled")!
             image.isTemplate = true
             statusItem!.image = image
+            if statusItemView != nil {
+                statusItemView.setIcon(image)
+            }
         }
-
+        
         ShowNetworkSpeedItem.state          = NSControl.StateValue(rawValue: defaults.bool(forKey: "enable_showSpeed") ? 1 : 0)
         connectAtLaunchMenuItem.state       = NSControl.StateValue(rawValue: defaults.bool(forKey: "ConnectAtLaunch")  ? 1 : 0)
         checkUpdateAtLaunchMenuItem.state   = NSControl.StateValue(rawValue: defaults.bool(forKey: "AutoCheckUpdate")  ? 1 : 0)
@@ -723,9 +731,28 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         let autoUpdateSubscribeItem = updateSubscribeAtLaunchMenuItem
         let editSubscribeItem = editSubscribeMenuItem
         let copyHttpProxyExportCmdLineItem = copyHttpProxyExportCmdLineMenuItem
-//        let pingItem = pingserverMenuItem
-
+        //        let pingItem = pingserverMenuItem
+        
+        serversMenuItem.submenu?.addItem(editSubscribeItem!)
+        serversMenuItem.submenu?.addItem(autoUpdateSubscribeItem!)
+        autoUpdateSubscribeItem?.state = NSControl.StateValue(rawValue: UserDefaults.standard.bool(forKey: "AutoUpdateSubscribe") ? 1 : 0)
+        serversMenuItem.submenu?.addItem(updateSubscribeItem!)
+        serversMenuItem.submenu?.addItem(showQRItem!)
+        serversMenuItem.submenu?.addItem(scanQRItem!)
+        serversMenuItem.submenu?.addItem(copyHttpProxyExportCmdLineItem!)
+        serversMenuItem.submenu?.addItem(showBunch!)
+        serversMenuItem.submenu?.addItem(importBuntch!)
+        serversMenuItem.submenu?.addItem(exportAllServer!)
+        serversMenuItem.submenu?.addItem(NSMenuItem.separator())
+        serversMenuItem.submenu?.addItem(preferencesItem!)
+        //        serversMenuItem.submenu?.addItem(pingItem)
+        
+        if !mgr.profiles.isEmpty {
+            serversMenuItem.submenu?.addItem(NSMenuItem.separator())
+        }
+        
         var i = 0
+        var serverMenuItems = [NSMenuItem]()
         for p in mgr.profiles {
             let item = NSMenuItem()
             item.tag = i //+ kProfileMenuItemIndexBase
@@ -772,50 +799,38 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 }
             }
             
-            serversMenuItem.submenu?.addItem(item)
+//            serversMenuItem.submenu?.addItem(item)
+            serverMenuItems.append(item)
             i += 1
         }
-        if !mgr.profiles.isEmpty {
-            serversMenuItem.submenu?.addItem(NSMenuItem.separator())
+        // 把没有分组的放到最下面，如果有100个服务器的时候对用户很有用
+        for item in serverMenuItems {
+            serversMenuItem.submenu?.addItem(item)
         }
-        serversMenuItem.submenu?.addItem(editSubscribeItem!)
-        serversMenuItem.submenu?.addItem(autoUpdateSubscribeItem!)
-        autoUpdateSubscribeItem?.state = NSControl.StateValue(rawValue: UserDefaults.standard.bool(forKey: "AutoUpdateSubscribe") ? 1 : 0)
-        serversMenuItem.submenu?.addItem(updateSubscribeItem!)
-        serversMenuItem.submenu?.addItem(showQRItem!)
-        serversMenuItem.submenu?.addItem(scanQRItem!)
-        serversMenuItem.submenu?.addItem(copyHttpProxyExportCmdLineItem!)
-        serversMenuItem.submenu?.addItem(showBunch!)
-        serversMenuItem.submenu?.addItem(importBuntch!)
-        serversMenuItem.submenu?.addItem(exportAllServer!)
-        serversMenuItem.submenu?.addItem(NSMenuItem.separator())
-        serversMenuItem.submenu?.addItem(preferencesItem!)
-//        serversMenuItem.submenu?.addItem(pingItem)
-
     }
     
     func setUpMenu(_ showSpeed:Bool){
         // should not operate the system status bar
         // we can add sub menu like bittorrent sync
-//        if statusItem == nil{
-//            statusItem = NSStatusBar.system().statusItem(withLength: 85)
-//            let image = NSImage(named: "menu_icon")
-//            image?.isTemplate = true
-//            statusItem!.image = image
-//            statusItemView = StatusItemView(statusItem: statusItem!, menu: statusMenu)
-//            statusItem!.view = statusItemView
-//        }
-//        if showSpeed{
-//            if speedMonitor == nil{
-//                speedMonitor = NetWorkMonitor(statusItemView: statusItemView)
-//            }
-//            statusItem?.length = 85
-//            speedMonitor?.start()
-//        }else{
-//            speedMonitor?.stop()
-//            speedMonitor = nil
-//            statusItem?.length = 20
-//        }
+        if statusItem == nil{
+            statusItem = NSStatusBar.system.statusItem(withLength: 85)
+            let image = NSImage(named: "menu_icon")
+            image?.isTemplate = true
+            statusItem?.image = image
+            statusItemView = StatusItemView(statusItem: statusItem!, menu: statusMenu)
+            statusItem!.view = statusItemView
+        }
+        if showSpeed{
+            if speedMonitor == nil{
+                speedMonitor = NetWorkMonitor(statusItemView: statusItemView)
+            }
+            statusItem?.length = 85
+            speedMonitor?.start()
+        }else{
+            speedMonitor?.stop()
+            speedMonitor = nil
+            statusItem?.length = 20
+        }
     }
     
     func checkForUpdate(mustShowAlert: Bool) -> Void {
@@ -834,7 +849,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         }
     }
     
-    // MARK: 
+    // MARK:
 
     @objc func handleURLEvent(_ event: NSAppleEventDescriptor, withReplyEvent replyEvent: NSAppleEventDescriptor) {
         if let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue {

@@ -124,7 +124,7 @@ class PingServers:NSObject{
     
     func pingSingleHost(host:String,completionHandler:@escaping (Double?) -> Void){
         DispatchQueue.global(qos: .userInteractive).async {
-            if let outputString = self.runCommand(cmd: "/sbin/ping", args: "-c","1","-t","1.5",host).output.last{
+            if let outputString = self.runCommand(cmd: "/sbin/ping", args: "-c","5","-t","5",host).output.last{
                 completionHandler(self.getlatencyFromString(result: outputString))
             }
         }
@@ -148,7 +148,8 @@ class PingServers:NSObject{
             })
         }
         //        after two seconds ,time out
-        delay(3){
+        // 这种方式需要改进吧 ？
+        delay(15){
             DispatchQueue.main.async {
                 
                 for k in 0..<self.SerMgr.profiles.count {
