@@ -158,8 +158,9 @@ class Subscribe: NSObject{
             var cleanCount = 0
             if groupSame && clearOldGroup {
                 // 原有的 group 中的 profile 全部清除
+                let active_profile = self.profileMgr.getActiveProfile()
                 cleanCount = self.profileMgr.profiles.filter { $0.ssrGroup == group }.count
-                self.profileMgr.profiles = self.profileMgr.profiles.filter { $0.ssrGroup != group }
+                self.profileMgr.profiles = self.profileMgr.profiles.filter { $0.ssrGroup != group || $0 == active_profile}    
             }
             
             var successCount = 0
