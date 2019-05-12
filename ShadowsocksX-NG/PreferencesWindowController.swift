@@ -59,6 +59,9 @@ class PreferencesWindowController: NSWindowController
             "aes-128-ctr",
             "aes-192-ctr",
             "aes-256-ctr",
+            "aes-128-gcm",
+            "aes-192-gcm",
+            "aes-256-gcm",
             "bf-cfb",
             "camellia-128-cfb",
             "camellia-192-cfb",
@@ -71,6 +74,8 @@ class PreferencesWindowController: NSWindowController
             "salsa20",
             "chacha20",
             "chacha20-ietf",
+            "chacha20-ietf-poly1305",
+            "xchacha20-ietf-poly1305",
             ])
         ProtocolTextField.addItems(withObjectValues: [
             "origin",
