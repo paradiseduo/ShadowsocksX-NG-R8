@@ -111,7 +111,27 @@ open class StatusItemView: NSControl {
     }
     
     func setIcon(_ image: NSImage) {
-        self.image = image
+        // 支持 darks 模式，应该不需要这么复杂，但我也不会代码，尝试这样解决
+        if darkMode {
+            switch image.name() {
+            case "menu_icon_disabled":
+                self.image = NSImage(named: "menu_icon_disabled_dark_mode")
+            case "menu_icon_pac":
+                self.image = NSImage(named: "menu_icon_pac_dark_mode")
+            case "menu_icon_global":
+                self.image = NSImage(named: "menu_icon_global_dark_mode")
+            case "menu_icon_white":
+                self.image = NSImage(named: "menu_icon_white_dark_mode")
+            case "menu_icon_manual":
+                self.image = NSImage(named: "menu_icon_manual_dark_mode")
+            case "menu_icon_acl":
+                self.image = NSImage(named: "menu_icon_acl_dark_mode")
+            default:
+                self.image = NSImage(named: "menu_icon_dark_mode")
+            }
+        } else {
+            self.image = image
+        }
         setNeedsDisplay()
     }
 
