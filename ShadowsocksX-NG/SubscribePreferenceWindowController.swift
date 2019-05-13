@@ -49,6 +49,8 @@ class SubscribePreferenceWindowController: NSWindowController
                 shakeWindows()
                 return
             }
+            // added by sbmzhcn
+            editingSubscribe.updateServerFromFeed()
         }
         sbMgr.save()
         window?.performClose(self)

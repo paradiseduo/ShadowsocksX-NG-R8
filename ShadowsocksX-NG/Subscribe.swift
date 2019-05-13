@@ -94,6 +94,7 @@ class Subscribe: NSObject{
         return ret
     }
     fileprivate func sendRequest(url: String, options: Any, callback: @escaping (String) -> Void) {
+        if url.isEmpty { return }
         let headers: HTTPHeaders = [
             //            "Authorization": "Basic U2hhZG93c29ja1gtTkctUg==",
             //            "Accept": "application/json",
@@ -160,7 +161,7 @@ class Subscribe: NSObject{
                 // 原有的 group 中的 profile 全部清除
                 let active_profile = self.profileMgr.getActiveProfile()
                 cleanCount = self.profileMgr.profiles.filter { $0.ssrGroup == group }.count
-                self.profileMgr.profiles = self.profileMgr.profiles.filter { $0.ssrGroup != group || $0 == active_profile}    
+                self.profileMgr.profiles = self.profileMgr.profiles.filter { $0.ssrGroup != group || $0 == active_profile}
             }
             
             var successCount = 0
