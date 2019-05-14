@@ -29,6 +29,8 @@ class PreferencesWindowController: NSWindowController
     @IBOutlet weak var remarkTextField: NSTextField!
     @IBOutlet weak var groupTextField: NSTextField!
     
+    @IBOutlet weak var ssrURLTextField: NSTextField!
+    
     @IBOutlet weak var copyURLBtn: NSButton!
     
     @IBOutlet weak var removeButton: NSButton!
@@ -257,6 +259,7 @@ class PreferencesWindowController: NSWindowController
             
             ObfsParamTextField.bind(NSBindingName(rawValue: "value"), to: editingProfile, withKeyPath: "ssrObfsParam", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
             groupTextField.bind(NSBindingName(rawValue: "value"), to: editingProfile, withKeyPath: "ssrGroup", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
+            ssrURLTextField.bind(NSBindingName(rawValue: "value"), to: editingProfile, withKeyPath: "ssrURL", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
             
         } else {
             editingProfile = nil
