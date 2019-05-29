@@ -14,6 +14,9 @@ class SubscribePreferenceWindowController: NSWindowController
     @IBOutlet weak var FeedLabel: NSTextField!
     @IBOutlet weak var OKButton: NSButton!
 
+    @IBOutlet weak var ActiveButton: NSButton!
+    @IBOutlet weak var AutoUpdateButton: NSButton!
+    
     @IBOutlet weak var FeedTextField: NSTextField!
     @IBOutlet weak var TokenTextField: NSTextField!
     @IBOutlet weak var GroupTextField: NSTextField!
@@ -49,12 +52,35 @@ class SubscribePreferenceWindowController: NSWindowController
                 shakeWindows()
                 return
             }
-            // added by sbmzhcn
-            editingSubscribe.updateServerFromFeed()
+            
+            if editingSubscribe.isActive{
+                editingSubscribe.updateServerFromFeed()
+            }
         }
         sbMgr.save()
         window?.performClose(self)
     }
+    
+    @IBAction func onActive(_ sender: NSButton){
+        if editingSubscribe != nil {
+            if sender.state == .off {
+                editingSubscribe.diactivateSubscribe()
+            }else{
+                editingSubscribe.activateSubscribe()
+            }
+        }
+    }
+    
+    @IBAction func onAutoUpdate(_ sender: NSButton){
+        if editingSubscribe != nil {
+            if sender.state == .off {
+                editingSubscribe.disableAutoUpdate()
+            }else{
+                editingSubscribe.enableAutoUpdate()
+            }
+        }
+    }
+
     
     @IBAction func onAdd(_ sender: NSButton) {
         if editingSubscribe != nil && !editingSubscribe.feedValidator(){
@@ -62,7 +88,7 @@ class SubscribePreferenceWindowController: NSWindowController
             return
         }
         SubscribeTableView.beginUpdates()
-        let subscribe = Subscribe(initUrlString: "", initGroupName: "", initToken: "", initMaxCount: -1)
+        let subscribe = Subscribe(initUrlString: "", initGroupName: "", initToken: "", initMaxCount: -1, initActive: true,initAutoUpdate: true)
         sbMgr.subscribes.append(subscribe)
         
         let index = IndexSet(integer: sbMgr.subscribes.count-1)
@@ -101,12 +127,16 @@ class SubscribePreferenceWindowController: NSWindowController
             TokenTextField.isEnabled = false
             GroupTextField.isEnabled = false
             MaxCountTextField.isEnabled = false
+            ActiveButton.isEnabled = false
+            AutoUpdateButton.isEnabled = false
         }else{
             DeleteSubscribeBtn.isEnabled = true
             FeedTextField.isEnabled = true
             TokenTextField.isEnabled = true
             GroupTextField.isEnabled = true
             MaxCountTextField.isEnabled = true
+            ActiveButton.isEnabled = true
+            AutoUpdateButton.isEnabled = true
         }
     }
     
@@ -118,6 +148,9 @@ class SubscribePreferenceWindowController: NSWindowController
             TokenTextField.bind(NSBindingName(rawValue: "value"), to: editingSubscribe, withKeyPath: "token", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
             GroupTextField.bind(NSBindingName(rawValue: "value"), to: editingSubscribe, withKeyPath: "groupName", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
             MaxCountTextField.bind(NSBindingName(rawValue: "value"), to: editingSubscribe, withKeyPath: "maxCount", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
+            ActiveButton.bind(NSBindingName(rawValue: "value"), to: editingSubscribe, withKeyPath: "isActive", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
+            AutoUpdateButton.bind(NSBindingName(rawValue: "value"), to: editingSubscribe, withKeyPath: "autoUpdateEnable", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
+
             
         } else {
             editingSubscribe = nil
@@ -125,6 +158,8 @@ class SubscribePreferenceWindowController: NSWindowController
             TokenTextField.unbind(convertToNSBindingName("value"))
             GroupTextField.unbind(convertToNSBindingName("value"))
             MaxCountTextField.unbind(convertToNSBindingName("value"))
+            ActiveButton.unbind(convertToNSBindingName("value"))
+            AutoUpdateButton.unbind(convertToNSBindingName("value"))
         }
     }
     

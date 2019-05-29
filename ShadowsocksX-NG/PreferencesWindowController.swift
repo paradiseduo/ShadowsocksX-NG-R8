@@ -208,7 +208,7 @@ class PreferencesWindowController: NSWindowController
                 let pboard = NSPasteboard.general
                 pboard.clearContents()
                 //let rs = pboard.setString(String(describing: url), forType: convertToNSPasteboardPasteboardType(NSStringPboardType.rawValue))//writeObjects([url])
-                let textUrl = "\(url)"  // 这样才起效？不知道为什么 by sbmzhcn
+                let textUrl = "\(url)"  
                 let rs = pboard.writeObjects([textUrl as NSPasteboardWriting])
                 if rs {
                     NSLog("copy to pasteboard success")

@@ -8,7 +8,7 @@
 
 import Foundation
 
-let _VERSION_XML_URL = "https://raw.githubusercontent.com/sbmzhcn/ShadowsocksX-NG-R/develop/ShadowsocksX-NG/Info.plist"
+let _VERSION_XML_URL = "https://raw.githubusercontent.com/wzdnzd/ShadowsocksX-NG-R/develop/ShadowsocksX-NG/Info.plist"
 let _VERSION_XML_LOCAL:String = Bundle.main.bundlePath + "/Contents/Info.plist"
 
 class VersionChecker: NSObject {

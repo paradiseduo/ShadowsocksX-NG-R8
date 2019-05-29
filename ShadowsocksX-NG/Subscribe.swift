@@ -13,6 +13,7 @@ class Subscribe: NSObject{
     
     var subscribeFeed = ""
     var isActive = true
+    var autoUpdateEnable = true
     var maxCount = 0 // -1 is not limited
     var groupName = ""
     var token = ""
@@ -20,11 +21,15 @@ class Subscribe: NSObject{
     
     var profileMgr: ServerProfileManager!
     
-    init(initUrlString:String, initGroupName: String, initToken: String, initMaxCount: Int){
+    init(initUrlString:String, initGroupName: String, initToken: String, initMaxCount: Int,initActive: Bool,initAutoUpdate:Bool){
         super.init()
         subscribeFeed = initUrlString
 
         token = initToken
+        
+        isActive = initActive
+        
+        autoUpdateEnable = initAutoUpdate
     
         setMaxCount(initMaxCount: initMaxCount)
         setGroupName(newGroupName: initGroupName)
@@ -42,6 +47,16 @@ class Subscribe: NSObject{
     func activateSubscribe(){
         isActive = true
     }
+    func enableAutoUpdate(){
+        autoUpdateEnable = true
+    }
+    func disableAutoUpdate(){
+        autoUpdateEnable = false
+    }
+    func getAutoUpdateEnable() -> Bool {
+        return autoUpdateEnable
+    }
+    
     func setGroupName(newGroupName: String) {
         func getGroupNameFromRes(resString: String) {
             let decodeRes = decode64(resString)!
@@ -69,6 +84,10 @@ class Subscribe: NSObject{
         var group:String = ""
         var token:String = ""
         var maxCount:Int = -1
+        var isActive:Bool = true
+        var autoUpdateEnable:Bool = true
+        
+        
         for (key, value) in data {
             switch key {
             case "feed":
@@ -79,11 +98,15 @@ class Subscribe: NSObject{
                 token = value as! String
             case "maxCount":
                 maxCount = value as! Int
+            case "isActive":
+                isActive = value as! Bool
+            case "autoUpdateEnable":
+                autoUpdateEnable = value as! Bool
             default:
                 print("")
             }
         }
-        return Subscribe.init(initUrlString: feed, initGroupName: group, initToken: token, initMaxCount: maxCount)
+        return Subscribe.init(initUrlString: feed, initGroupName: group, initToken: token, initMaxCount: maxCount,initActive: isActive,initAutoUpdate: autoUpdateEnable)
     }
     static func toDictionary(_ data: Subscribe) -> [String: AnyObject] {
         var ret : [String: AnyObject] = [:]
@@ -91,6 +114,8 @@ class Subscribe: NSObject{
         ret["group"] = data.groupName as AnyObject
         ret["token"] = data.token as AnyObject
         ret["maxCount"] = data.maxCount as AnyObject
+        ret["isActive"] = data.isActive as AnyObject
+        ret["autoUpdateEnable"] = data.autoUpdateEnable as AnyObject
         return ret
     }
     fileprivate func sendRequest(url: String, options: Any, callback: @escaping (String) -> Void) {
@@ -159,9 +184,9 @@ class Subscribe: NSObject{
             var cleanCount = 0
             if groupSame && clearOldGroup {
                 // 原有的 group 中的 profile 全部清除
-                let active_profile = self.profileMgr.getActiveProfile()
+                let activeProfile = self.profileMgr.getActiveProfile()
                 cleanCount = self.profileMgr.profiles.filter { $0.ssrGroup == group }.count
-                self.profileMgr.profiles = self.profileMgr.profiles.filter { $0.ssrGroup != group || $0 == active_profile}
+                self.profileMgr.profiles = self.profileMgr.profiles.filter { $0.ssrGroup != group || $0 == activeProfile}
             }
             
             var successCount = 0

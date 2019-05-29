@@ -1,8 +1,7 @@
-
 /* Class = "NSButtonCell"; title = "OK"; ObjectID = "CfK-8Y-YNP"; */
 "CfK-8Y-YNP.title" = "OK";
 
-/* Class = "NSWindow"; title = "Window"; ObjectID = "F0z-JX-Cv5"; */
+/* Class = "NSWindow"; title = "Subscribe Preference"; ObjectID = "F0z-JX-Cv5"; */
 "F0z-JX-Cv5.title" = "订阅设置";
 
 /* Class = "NSTextFieldCell"; title = "Token"; ObjectID = "IrJ-D8-tlX"; */
@@ -14,11 +13,14 @@
 /* Class = "NSTextFieldCell"; title = "Text"; ObjectID = "ik7-wS-gok"; */
 "ik7-wS-gok.title" = "Text";
 
-/* Class = "NSTextFieldCell"; title = "Subscribe Feed URL"; ObjectID = "rMX-5B-Fvs"; */
-"rMX-5B-Fvs.title" = "订阅设置";
-
 /* Class = "NSTextFieldCell"; title = "Count"; ObjectID = "wbG-HT-bdN"; */
 "wbG-HT-bdN.title" = "最大数量";
 
 /* Class = "NSTextFieldCell"; title = "URL"; ObjectID = "yBp-oB-gbL"; */
 "yBp-oB-gbL.title" = "订阅地址";
+
+/* Class = "NSButtonCell"; title = "AutoUpdate"; ObjectID = "wAH-F1-KhY"; */
+"wAH-F1-KhY.title" = "自动更新";
+
+/* Class = "NSButtonCell"; title = "Active"; ObjectID = "xDA-ea-y72"; */
+"xDA-ea-y72.title" = "激活";

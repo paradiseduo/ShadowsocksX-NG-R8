@@ -216,7 +216,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 self.checkForUpdate(mustShowAlert: false)
             }
             if defaults.bool(forKey: "AutoUpdateSubscribe") {
-                SubscribeManager.instance.updateAllServerFromSubscribe()
+                SubscribeManager.instance.updateAllServerFromSubscribe(auto: true)
             }
             DispatchQueue.main.async {
 
@@ -415,7 +415,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     }
     
     @IBAction func updateSubscribe(_ sender: NSMenuItem) {
-        SubscribeManager.instance.updateAllServerFromSubscribe()
+        SubscribeManager.instance.updateAllServerFromSubscribe(auto: false)
     }
     
     @IBAction func updateSubscribeAtLaunch(_ sender: NSMenuItem) {
@@ -569,7 +569,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
 
     
     @IBAction func feedback(_ sender: NSMenuItem) {
-        NSWorkspace.shared.open(URL(string: "https://github.com/sbmzhcn/ShadowsocksX-NG-R/issues")!)
+        NSWorkspace.shared.open(URL(string: "https://github.com/wzdnzd/ShadowsocksX-NG-R/issues")!)
     }
     
     @IBAction func checkForUpdate(_ sender: NSMenuItem) {
@@ -842,7 +842,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                     let alertResult = versionChecker.showAlertView(Title: newVersion["Title"] as! String, SubTitle: newVersion["SubTitle"] as! String, ConfirmBtn: newVersion["ConfirmBtn"] as! String, CancelBtn: newVersion["CancelBtn"] as! String)
                     print(alertResult)
                     if (newVersion["newVersion"] as! Bool && alertResult == 1000){
-                        NSWorkspace.shared.open(URL(string: "https://github.com/sbmzhcn/ShadowsocksX-NG-R/releases")!)
+                        NSWorkspace.shared.open(URL(string: "https://github.com/wzdnzd/ShadowsocksX-NG-R/releases")!)
                     }
                 }
             }

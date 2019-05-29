@@ -58,9 +58,17 @@ class SubscribeManager:NSObject{
         }
         return ret
     }
-    func updateAllServerFromSubscribe(){
+    func updateAllServerFromSubscribe(auto: Bool){
+        if !auto{
         subscribes.forEach{ value in
             value.updateServerFromFeed()
+            }
+        }else{
+            for value in subscribes{
+                if value.getAutoUpdateEnable(){
+                    value.updateServerFromFeed()
+                }
+            }
         }
     }
 }
