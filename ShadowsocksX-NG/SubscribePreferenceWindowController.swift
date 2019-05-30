@@ -65,8 +65,10 @@ class SubscribePreferenceWindowController: NSWindowController
         if editingSubscribe != nil {
             if sender.state == .off {
                 editingSubscribe.diactivateSubscribe()
+                AutoUpdateButton.isEnabled = false
             }else{
                 editingSubscribe.activateSubscribe()
+                AutoUpdateButton.isEnabled = true
             }
         }
     }
@@ -293,6 +295,9 @@ class SubscribePreferenceWindowController: NSWindowController
 //                duplicateProfileButton.isEnabled = false
             } else {
 //                duplicateProfileButton.isEnabled = true
+            }
+            if !editingSubscribe.isActive{
+                AutoUpdateButton.isEnabled = false
             }
         } else {
             if !sbMgr.subscribes.isEmpty {
