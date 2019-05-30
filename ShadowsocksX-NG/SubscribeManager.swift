@@ -60,8 +60,8 @@ class SubscribeManager:NSObject{
     }
     func updateAllServerFromSubscribe(auto: Bool){
         if !auto{
-        subscribes.forEach{ value in
-            value.updateServerFromFeed()
+            subscribes.forEach{ value in
+                value.updateServerFromFeed()
             }
         }else{
             for value in subscribes{

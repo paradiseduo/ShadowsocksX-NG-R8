@@ -9,7 +9,7 @@
 import Cocoa
 
 class PreferencesWindowController: NSWindowController
-    , NSTableViewDataSource, NSTableViewDelegate {
+, NSTableViewDataSource, NSTableViewDelegate {
     
     @IBOutlet weak var profilesTableView: NSTableView!
     
@@ -40,11 +40,11 @@ class PreferencesWindowController: NSWindowController
     var profileMgr: ServerProfileManager!
     
     var editingProfile: ServerProfile!
-
-
+    
+    
     override func windowDidLoad() {
         super.windowDidLoad()
-
+        
         // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
         defaults = UserDefaults.standard
         profileMgr = ServerProfileManager.instance
@@ -101,16 +101,16 @@ class PreferencesWindowController: NSWindowController
         updateProfileBoxVisible()
     }
     
-//    override func awakeFromNib() {
-//        profilesTableView.registerForDraggedTypes(convertToNSPasteboardPasteboardTypeArray([tableViewDragType]))
-//        profilesTableView.allowsMultipleSelection = true
-//    }
+    //    override func awakeFromNib() {
+    //        profilesTableView.registerForDraggedTypes(convertToNSPasteboardPasteboardTypeArray([tableViewDragType]))
+    //        profilesTableView.allowsMultipleSelection = true
+    //    }
     
     override func awakeFromNib() {
         profilesTableView.registerForDraggedTypes([NSPasteboard.PasteboardType(rawValue: tableViewDragType)])
         profilesTableView.allowsMultipleSelection = true
     }
-
+    
     
     @IBAction func addProfile(_ sender: NSButton) {
         if editingProfile != nil && !editingProfile.isValid(){
@@ -163,7 +163,7 @@ class PreferencesWindowController: NSWindowController
         }
         profileMgr.save()
         window?.performClose(nil)
-
+        
         
         NotificationCenter.default
             .post(name: Notification.Name(rawValue: NOTIFY_SERVER_PROFILES_CHANGED), object: nil)
@@ -225,7 +225,7 @@ class PreferencesWindowController: NSWindowController
         }else{
             removeButton.isEnabled = true
         }
-
+        
         if profileMgr.profiles.isEmpty {
             profileBox.isHidden = true
         } else {
@@ -314,17 +314,17 @@ class PreferencesWindowController: NSWindowController
                 return nil
             }
         }
-
         
-//        if convertFromNSUserInterfaceItemIdentifier(tableColumn?.identifier) == "main" {
-//            return title
-//        } else if convertFromNSUserInterfaceItemIdentifier(tableColumn?.identifier) == "status" {
-//            if isActive {
-//                return NSImage(named: "NSMenuOnStateTemplate")
-//            } else {
-//                return nil
-//            }
-//        }
+        
+        //        if convertFromNSUserInterfaceItemIdentifier(tableColumn?.identifier) == "main" {
+        //            return title
+        //        } else if convertFromNSUserInterfaceItemIdentifier(tableColumn?.identifier) == "status" {
+        //            if isActive {
+        //                return NSImage(named: "NSMenuOnStateTemplate")
+        //            } else {
+        //                return nil
+        //            }
+        //        }
         return ""
     }
     
@@ -348,11 +348,11 @@ class PreferencesWindowController: NSWindowController
         , row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
         if let mgr = profileMgr {
             var oldIndexes = [Int]()
-//            info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:]) {arg,arg,arg,
-//                if let str = ($0.item as! NSPasteboardItem).string(forType: convertToNSPasteboardPasteboardType(self.tableViewDragType)), let index = Int(str) {
-//                    oldIndexes.append(index)
-//                }
-//            }
+            //            info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:]) {arg,arg,arg,
+            //                if let str = ($0.item as! NSPasteboardItem).string(forType: convertToNSPasteboardPasteboardType(self.tableViewDragType)), let index = Int(str) {
+            //                    oldIndexes.append(index)
+            //                }
+            //            }
             
             info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:], using: {
                 (draggingItem: NSDraggingItem, idx: Int, stop: UnsafeMutablePointer<ObjCBool>) in
@@ -361,7 +361,7 @@ class PreferencesWindowController: NSWindowController
                 }
             })
             
-
+            
             
             var oldIndexOffset = 0
             var newIndexOffset = 0
@@ -383,7 +383,7 @@ class PreferencesWindowController: NSWindowController
                 }
             }
             tableView.endUpdates()
-        
+            
             return true
         }
         return false
@@ -426,24 +426,24 @@ class PreferencesWindowController: NSWindowController
             }
         }
     }
-
+    
     func shakeWindows(){
         let numberOfShakes:Int = 8
         let durationOfShake:Float = 0.5
         let vigourOfShake:Float = 0.05
-
+        
         let frame:CGRect = (window?.frame)!
         let shakeAnimation = CAKeyframeAnimation()
-
+        
         let shakePath = CGMutablePath()
         
         shakePath.move(to: CGPoint(x:NSMinX(frame), y:NSMinY(frame)))
-
+        
         for _ in 1...numberOfShakes{
             shakePath.addLine(to: CGPoint(x: NSMinX(frame) - frame.size.width * CGFloat(vigourOfShake), y: NSMinY(frame)))
             shakePath.addLine(to: CGPoint(x: NSMinX(frame) + frame.size.width * CGFloat(vigourOfShake), y: NSMinY(frame)))
         }
-
+        
         shakePath.closeSubpath()
         shakeAnimation.path = shakePath
         shakeAnimation.duration = CFTimeInterval(durationOfShake)
@@ -454,31 +454,31 @@ class PreferencesWindowController: NSWindowController
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToNSPasteboardPasteboardTypeArray(_ input: [String]) -> [NSPasteboard.PasteboardType] {
-	return input.map { key in NSPasteboard.PasteboardType(key) }
+    return input.map { key in NSPasteboard.PasteboardType(key) }
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToNSPasteboardPasteboardType(_ input: String) -> NSPasteboard.PasteboardType {
-	return NSPasteboard.PasteboardType(rawValue: input)
+    return NSPasteboard.PasteboardType(rawValue: input)
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToOptionalNSBindingOptionDictionary(_ input: [String: Any]?) -> [NSBindingOption: Any]? {
-	guard let input = input else { return nil }
-	return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSBindingOption(rawValue: key), value)})
+    guard let input = input else { return nil }
+    return Dictionary(uniqueKeysWithValues: input.map { key, value in (NSBindingOption(rawValue: key), value)})
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromNSBindingOption(_ input: NSBindingOption) -> String {
-	return input.rawValue
+    return input.rawValue
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertToNSBindingName(_ input: String) -> NSBindingName {
-	return NSBindingName(rawValue: input)
+    return NSBindingName(rawValue: input)
 }
 
 // Helper function inserted by Swift 4.2 migrator.
 fileprivate func convertFromNSUserInterfaceItemIdentifier(_ input: NSUserInterfaceItemIdentifier) -> String {
-	return input.rawValue
+    return input.rawValue
 }
