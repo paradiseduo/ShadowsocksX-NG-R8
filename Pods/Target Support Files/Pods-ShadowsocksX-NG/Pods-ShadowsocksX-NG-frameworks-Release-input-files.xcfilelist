@@ -1,0 +1,3 @@
+${PODS_ROOT}/Target Support Files/Pods-ShadowsocksX-NG/Pods-ShadowsocksX-NG-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/GCDWebServer/GCDWebServer.framework
