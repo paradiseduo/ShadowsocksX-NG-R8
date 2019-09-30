@@ -62,7 +62,9 @@ open class StatusItemView: NSControl {
     open func setRateData(up:Float, down: Float) {
         upRate = formatRateData(up)
         downRate = formatRateData(down)
-        setNeedsDisplay()
+        DispatchQueue.main.async {
+            self.setNeedsDisplay()
+        }
     }
     
     func formatRateData(_ data:Float) -> String {
@@ -107,7 +109,9 @@ open class StatusItemView: NSControl {
     
     @objc func changeMode() {
         darkMode = SystemThemeChangeHelper.isCurrentDark()
-        setNeedsDisplay()
+        DispatchQueue.main.async {
+            self.setNeedsDisplay()
+        }
     }
     
     func setIcon(_ image: NSImage) {
@@ -132,7 +136,9 @@ open class StatusItemView: NSControl {
         } else {
             self.image = image
         }
-        setNeedsDisplay()
+        DispatchQueue.main.async {
+            self.setNeedsDisplay()
+        }
     }
 
 }
@@ -145,12 +151,16 @@ extension StatusItemView: NSMenuDelegate{
     
     public func menuWillOpen(_ menu: NSMenu) {
         mouseDown = true
-        setNeedsDisplay()
+        DispatchQueue.main.async {
+            self.setNeedsDisplay()
+        }
     }
     
     public func menuDidClose(_ menu: NSMenu) {
         mouseDown = false
-        setNeedsDisplay()
+        DispatchQueue.main.async {
+            self.setNeedsDisplay()
+        }
     }
 }
 
