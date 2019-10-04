@@ -166,30 +166,23 @@ func UpdatePACFromGFWList() {
     }
     
     let url = UserDefaults.standard.string(forKey: "GFWListURL")
-    Alamofire.request(url!)
+    AF.request(url!)
         .responseString {
             response in
-            if response.result.isSuccess {
-                if let v = response.result.value {
-                    do {
-                        try v.write(toFile: GFWListFilePath, atomically: true, encoding: String.Encoding.utf8)
-                        if GeneratePACFile() {
-                            // Popup a user notification
-                            let notification = NSUserNotification()
-                            notification.title = "PAC has been updated by latest GFW List.".localized
-                            NSUserNotificationCenter.default
-                                .deliver(notification)
-                        }
-                    } catch {
-                        
-                    }
+            do {
+                let value = try response.result.get()
+                try value.write(toFile: GFWListFilePath, atomically: true, encoding: String.Encoding.utf8)
+                if GeneratePACFile() {
+                    // Popup a user notification
+                    let notification = NSUserNotification()
+                    notification.title = "PAC has been updated by latest GFW List.".localized
+                    NSUserNotificationCenter.default.deliver(notification)
                 }
-            } else {
+            } catch {
                 // Popup a user notification
                 let notification = NSUserNotification()
                 notification.title = "Failed to download latest GFW List.".localized
-                NSUserNotificationCenter.default
-                    .deliver(notification)
+                NSUserNotificationCenter.default.deliver(notification)
             }
         }
 }
@@ -242,58 +235,44 @@ func UpdateACL(){
     }
     
     let url = UserDefaults.standard.string(forKey: "ACLWhiteListURL")
-    Alamofire.request(url!)// request(.GET, url!)
+    AF.request(url!)// request(.GET, url!)
         .responseString {
             response in
-            if response.result.isSuccess {
-                if let v = response.result.value {
-                    do {
-                        try v.write(toFile: ACLWhiteListFilePath, atomically: true, encoding: String.Encoding.utf8)
-                        if GeneratePACFile() {
-                            // Popup a user notification
-                            let notification = NSUserNotification()
-                            notification.title = "White List update succeed.".localized
-                            NSUserNotificationCenter.default
-                                .deliver(notification)
-                        }
-                    } catch {
-                        
-                    }
+            do {
+                let value = try response.result.get()
+                try value.write(toFile: ACLWhiteListFilePath, atomically: true, encoding: String.Encoding.utf8)
+                if GeneratePACFile() {
+                    // Popup a user notification
+                    let notification = NSUserNotification()
+                    notification.title = "White List update succeed.".localized
+                    NSUserNotificationCenter.default.deliver(notification)
                 }
-            } else {
+            } catch {
                 // Popup a user notification
                 let notification = NSUserNotification()
                 notification.title = "Failed to download latest White List update succeed.".localized
-                NSUserNotificationCenter.default
-                    .deliver(notification)
+                NSUserNotificationCenter.default.deliver(notification)
             }
     }
     
     let IPURL = UserDefaults.standard.string(forKey: "ACLAutoListURL")
-    Alamofire.request(IPURL!)
+    AF.request(IPURL!)
         .responseString {
             response in
-            if response.result.isSuccess {
-                if let v = response.result.value {
-                    do {
-                        try v.write(toFile: ACLGFWListFilePath, atomically: true, encoding: String.Encoding.utf8)
-                        if GeneratePACFile() {
-                            // Popup a user notification
-                            let notification = NSUserNotification()
-                            notification.title = "White List update succeed.".localized
-                            NSUserNotificationCenter.default
-                                .deliver(notification)
-                        }
-                    } catch {
-                        
-                    }
+            do {
+                let value = try response.result.get()
+                try value.write(toFile: ACLGFWListFilePath, atomically: true, encoding: String.Encoding.utf8)
+                if GeneratePACFile() {
+                    // Popup a user notification
+                    let notification = NSUserNotification()
+                    notification.title = "White List update succeed.".localized
+                    NSUserNotificationCenter.default.deliver(notification)
                 }
-            } else {
+            } catch {
                 // Popup a user notification
                 let notification = NSUserNotification()
                 notification.title = "Failed to download latest White List update succeed.".localized
-                NSUserNotificationCenter.default
-                    .deliver(notification)
+                NSUserNotificationCenter.default.deliver(notification)
             }
     }
 }

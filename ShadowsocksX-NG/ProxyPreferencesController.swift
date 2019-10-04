@@ -32,7 +32,7 @@ class ProxyPreferencesController: NSWindowController, NSTableViewDataSource, NST
             selectedNetworkServices = NSMutableSet()
         }
         
-        networkServices = ProxyConfTool.networkServicesList() as NSArray!
+        networkServices = ProxyConfTool.networkServicesList() as NSArray?
         tableView.reloadData()
     }
     

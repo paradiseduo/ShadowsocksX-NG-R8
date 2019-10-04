@@ -9,7 +9,7 @@
 #ifndef QRCodeUtils_h
 #define QRCodeUtils_h
 
-void ScanQRCodeOnScreen();
+void ScanQRCodeOnScreen(void);
 
 NSString* decode64(NSString* str);
 

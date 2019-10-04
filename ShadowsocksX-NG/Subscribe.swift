@@ -128,13 +128,13 @@ class Subscribe: NSObject{
             "User-Agent": "ShadowsocksX-NG-R " + (getLocalInfo()["CFBundleShortVersionString"] as! String) + " Version " + (getLocalInfo()["CFBundleVersion"] as! String)
         ]
         
-        Alamofire.request(url, headers: headers)
+        AF.request(url, headers: headers)
             .responseString{
                 response in
-                if response.result.isSuccess {
-                    callback(response.result.value!)
-                }
-                else{
+                do {
+                    let value = try response.result.get()
+                    callback(value)
+                } catch {
                     callback("")
                     self.pushNotification(title: "请求失败", subtitle: "", info: "发送到\(url)的请求失败，请检查您的网络")
                 }
@@ -145,9 +145,8 @@ class Subscribe: NSObject{
             let maxCountReg = "MAX=[0-9]+"
             let decodeRes = decode64(resString)!
             let range = decodeRes.range(of: maxCountReg, options: .regularExpression)
-            if range != nil {
-                let result = decodeRes.substring(with:range!)
-                self.maxCount = Int(result.replacingOccurrences(of: "MAX=", with: ""))!
+            if let r = range {
+                self.maxCount = Int(decodeRes[r].replacingOccurrences(of: "MAX=", with: ""))!
             }
             else{
                 self.maxCount = -1
@@ -200,7 +199,7 @@ class Subscribe: NSObject{
                     continue
                 }
                 if existResult {
-                    self.profileMgr.profiles.replaceSubrange(Range(existIndex..<existIndex + 1), with: [profile])
+                    self.profileMgr.profiles.replaceSubrange((existIndex..<existIndex + 1), with: [profile])
                     existCount += 1
                     continue
                 }

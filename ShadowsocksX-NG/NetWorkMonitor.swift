@@ -71,7 +71,7 @@ open class NetWorkMonitor: NSObject {
         let pattern = "\\.\\d+\\s+(\\d+)\\s+(\\d+)\\n"
         do {
             let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.caseInsensitive)
-            let results = regex.matches(in: string, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, string.characters.count))
+            let results = regex.matches(in: string, options: NSRegularExpression.MatchingOptions(rawValue: 0), range: NSMakeRange(0, string.count))
             for result in results {
                 bytesIn += Double((string as NSString).substring(with: result.range(at: 1)))!
                 bytesOut += Double((string as NSString).substring(with: result.range(at: 2)))!

@@ -116,7 +116,7 @@ class PingServers:NSObject{
             return nil
         }
         res.removeSubrange(res.range(of: "round-trip min/avg/max/stddev = ")!)
-        res = String(res.characters.dropLast(3))
+        res = String(res.dropLast(3))
         res = res.components(separatedBy: "/")[1]
         let latency = Double(res)
         return latency

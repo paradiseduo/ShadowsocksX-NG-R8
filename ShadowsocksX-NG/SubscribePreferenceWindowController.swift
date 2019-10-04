@@ -146,12 +146,12 @@ class SubscribePreferenceWindowController: NSWindowController
         if index >= 0 && index < sbMgr.subscribes.count {
             editingSubscribe = sbMgr.subscribes[index]
             
-            FeedTextField.bind(NSBindingName(rawValue: "value"), to: editingSubscribe, withKeyPath: "subscribeFeed", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
-            TokenTextField.bind(NSBindingName(rawValue: "value"), to: editingSubscribe, withKeyPath: "token", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
-            GroupTextField.bind(NSBindingName(rawValue: "value"), to: editingSubscribe, withKeyPath: "groupName", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
-            MaxCountTextField.bind(NSBindingName(rawValue: "value"), to: editingSubscribe, withKeyPath: "maxCount", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
-            ActiveButton.bind(NSBindingName(rawValue: "value"), to: editingSubscribe, withKeyPath: "isActive", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
-            AutoUpdateButton.bind(NSBindingName(rawValue: "value"), to: editingSubscribe, withKeyPath: "autoUpdateEnable", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
+            FeedTextField.bind(NSBindingName(rawValue: "value"), to: editingSubscribe!, withKeyPath: "subscribeFeed", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
+            TokenTextField.bind(NSBindingName(rawValue: "value"), to: editingSubscribe!, withKeyPath: "token", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
+            GroupTextField.bind(NSBindingName(rawValue: "value"), to: editingSubscribe!, withKeyPath: "groupName", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
+            MaxCountTextField.bind(NSBindingName(rawValue: "value"), to: editingSubscribe!, withKeyPath: "maxCount", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
+            ActiveButton.bind(NSBindingName(rawValue: "value"), to: editingSubscribe!, withKeyPath: "isActive", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
+            AutoUpdateButton.bind(NSBindingName(rawValue: "value"), to: editingSubscribe!, withKeyPath: "autoUpdateEnable", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
 
             
         } else {

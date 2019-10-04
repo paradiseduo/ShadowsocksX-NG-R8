@@ -43,16 +43,23 @@ class VersionChecker: NSObject {
         return action.rawValue
     }
     func parserVersionString(strIn: String) -> Array<Int>{
-        var strTmp = strIn.substring(to: (strIn.range(of: "-")?.lowerBound)!)
+        var strTmp = strIn
+        if let index = strIn.range(of: "-")?.lowerBound {
+            strTmp = String(strIn[..<index])
+        }
         if !strTmp.hasSuffix(".") {
             strTmp += "."
         }
         var ret = [Int]()
         
         repeat {
-            ret.append(Int(strTmp.substring(to: strTmp.range(of: ".")!.lowerBound))!)
-            print(strTmp.substring(to: strTmp.range(of: ".")!.lowerBound))
-            strTmp = strTmp.substring(from: strTmp.range(of: ".")!.upperBound)
+            if let index = strTmp.range(of: ".")?.lowerBound, let num = Int(String(strTmp[..<index])) {
+                ret.append(num)
+                print(String(strTmp[..<index]))
+            }
+            if let index = strTmp.range(of: ".")?.upperBound {
+                strTmp = String(strTmp[index...])
+            }
         } while(strTmp.range(of: ".") != nil);
         
         return ret

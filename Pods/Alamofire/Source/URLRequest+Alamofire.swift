@@ -1,7 +1,7 @@
 //
-//  DispatchQueue+Alamofire.swift
+//  URLRequest+Alamofire.swift
 //
-//  Copyright (c) 2014-2018 Alamofire Software Foundation (http://alamofire.org/)
+//  Copyright (c) 2019 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -22,16 +22,18 @@
 //  THE SOFTWARE.
 //
 
-import Dispatch
 import Foundation
 
-extension DispatchQueue {
-    /// Execute the provided closure after a `TimeInterval`.
-    ///
-    /// - Parameters:
-    ///   - delay:   `TimeInterval` to delay execution.
-    ///   - closure: Closure to execute.
-    func after(_ delay: TimeInterval, execute closure: @escaping () -> Void) {
-        asyncAfter(deadline: .now() + delay, execute: closure)
+public extension URLRequest {
+    /// Returns the `httpMethod` as Alamofire's `HTTPMethod` type.
+    var method: HTTPMethod? {
+        get { return httpMethod.flatMap(HTTPMethod.init) }
+        set { httpMethod = newValue?.rawValue }
+    }
+
+    func validate() throws {
+        if method == .get, let bodyData = httpBody {
+            throw AFError.urlRequestValidationFailed(reason: .bodyDataInGETRequest(bodyData))
+        }
     }
 }
