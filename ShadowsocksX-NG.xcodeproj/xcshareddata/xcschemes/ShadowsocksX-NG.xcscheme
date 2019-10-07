@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1010"
+   LastUpgradeVersion = "1100"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "88E9EC28B8B46C3631E6B242B50F4442"
+               BlueprintIdentifier = "EAAA1AD3A8A1B59AB91319EE40752C6D"
                BuildableName = "Alamofire.framework"
                BlueprintName = "Alamofire"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3CB2B8006B2B1ACAF9ADCA1DC82E2290"
+               BlueprintIdentifier = "00F92A6698B766C4479D7B608F28D680"
                BuildableName = "libBRLOptionParser.a"
                BlueprintName = "BRLOptionParser"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -42,7 +42,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "76AB1BA247F8CB57FCB2BA6577D40FE6"
+               BlueprintIdentifier = "E9FDECF69808DB0491D4B4C08CF920DC"
                BuildableName = "Pods_ShadowsocksX_NG.framework"
                BlueprintName = "Pods-ShadowsocksX-NG"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -56,7 +56,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "339CC546E4A1696296EFEDC2FA79ADE0"
+               BlueprintIdentifier = "2E91F9FD8B0C7DA58DD330CBF2096926"
                BuildableName = "Pods_ShadowsocksX_NGTests.framework"
                BlueprintName = "Pods-ShadowsocksX-NGTests"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -70,7 +70,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "05800FAF969AA3CD7F8AEB1C36988B53"
+               BlueprintIdentifier = "9155E0B9A1C6F689BA4B61F3B690FDA1"
                BuildableName = "libPods-proxy_conf_helper.a"
                BlueprintName = "Pods-proxy_conf_helper"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
@@ -97,6 +97,15 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "9B0BFFE41D0460A70040E62B"
+            BuildableName = "ShadowsocksX-NG.app"
+            BlueprintName = "ShadowsocksX-NG"
+            ReferencedContainer = "container:ShadowsocksX-NG.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -109,17 +118,6 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9B0BFFE41D0460A70040E62B"
-            BuildableName = "ShadowsocksX-NG.app"
-            BlueprintName = "ShadowsocksX-NG"
-            ReferencedContainer = "container:ShadowsocksX-NG.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -141,8 +139,6 @@
             ReferencedContainer = "container:ShadowsocksX-NG.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"

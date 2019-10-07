@@ -44,8 +44,9 @@ func splitor(url: String, regexp: String) -> [String] {
     var ssrUrl = url
     while ssrUrl.range(of:regexp, options: .regularExpression) != nil {
         if let range = ssrUrl.range(of:regexp, options: .regularExpression) {
+            let result = String(ssrUrl[range])
             ssrUrl.replaceSubrange(range, with: "")
-            ret.append(String(ssrUrl[range]))
+            ret.append(result)
         }
     }
     return ret

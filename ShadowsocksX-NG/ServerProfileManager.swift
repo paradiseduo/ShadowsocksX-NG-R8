@@ -144,7 +144,7 @@ class ServerProfileManager: NSObject {
                     for item in jsonArr1.object(forKey: "configs") as! [[String: AnyObject]]{
                         let profile = ServerProfile()
                         profile.serverHost = item["server"] as! String
-                        profile.serverPort = UInt16((item["server_port"] as! Int))
+                        profile.serverPort = item["server_port"] as! String
                         profile.method = item["method"] as! String
                         profile.password = item["password"] as! String
                         profile.remark = item["remarks"] as! String
@@ -200,7 +200,7 @@ class ServerProfileManager: NSObject {
             //standard ss profile
             configProfile.setValue(true, forKey: "enable")
             configProfile.setValue(profile.serverHost, forKey: "server")
-            configProfile.setValue(NSNumber(value: profile.serverPort as UInt16), forKey: "server_port")//not work
+            configProfile.setValue(profile.serverPort, forKey: "server_port")//not work
             configProfile.setValue(profile.password, forKey: "password")
             configProfile.setValue(profile.method, forKey: "method")
             configProfile.setValue(profile.remark, forKey: "remarks")

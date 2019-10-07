@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-class Subscribe: NSObject{
+@objcMembers class Subscribe: NSObject{
     
     var subscribeFeed = ""
     var isActive = true
