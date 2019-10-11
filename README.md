@@ -96,3 +96,12 @@ Solved [Issue 1.]() Auto PAC & White list is not working on macOS 10.12 Serria b
 
 The project is released under the terms of GPLv3.
 
+
+## 本工具是为了方便学习，毕竟很多东西上Google搜比Baidu更靠谱，因此希望大家注意以下几点
+
+== GFW=智商墙，请注意提高自己的智力，勿被境外利益集团洗 ==
+
+== 墙外≠法外，请注意自己言行，本工具是为了学习而不是让你叛国 ==
+
+== 爱国富强的前提是自己要有独立思考问题的能力，而不是秀智力 ==
+
