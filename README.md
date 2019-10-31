@@ -1,8 +1,8 @@
 # ShadowsocksX-NG-R
 
-Current version is 1.4.6-R8
+Current version is 1.4.7
 
-Continuesly release under 1.4.6-R8-buildVersion
+Continuesly release under 1.4.7
 
 [![Build Status](https://travis-ci.org/shadowsocksr/ShadowsocksX-NG.svg?branches=develop)](https://travis-ci.org/shadowsocksr/ShadowsocksX-NG)
 
@@ -34,12 +34,12 @@ Then I rewrite the GUI code by swift.
 
 ### Running
 
-- macOS 10.11 +
+- macOS 10.12 +
 
 ### Building
 
-- Xcode 8.2.1+
-- cocoapod 1.0.1+
+- Xcode 11.1+
+- cocoapod 1.8.4+
 
 ## Fetures
 
@@ -99,9 +99,10 @@ The project is released under the terms of GPLv3.
 
 ## 本工具是为了方便学习，毕竟很多东西上Google搜比Baidu更靠谱，因此希望大家注意以下几点
 
-== GFW=智商墙，请注意提高自己的智力，勿被境外利益集团洗 ==
+- GFW=智商墙，请注意提高自己的智力，勿被境外利益集团洗脑 
 
-== 墙外≠法外，请注意自己言行，本工具是为了学习而不是让你叛国 ==
+- 墙外≠法外，请注意自己言行，本工具是为了学习而不是让你叛国
 
-== 爱国富强的前提是自己要有独立思考问题的能力，而不是秀智力 ==
+- 爱国富强的前提是自己要有独立思考问题的能力，而不是秀智力
 
+- 本项目关闭Issues和Wikis，不参与任何购买梯子或者搭建梯子的讨论
