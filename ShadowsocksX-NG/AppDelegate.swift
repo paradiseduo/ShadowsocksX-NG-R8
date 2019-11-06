@@ -20,6 +20,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     var editUserRulesWinCtrl: UserRulesController!
     var httpPreferencesWinCtrl : HTTPPreferencesWindowController!
     var subscribePreferenceWinCtrl: SubscribePreferenceWindowController!
+    var toastWindowCtrl: ToastWindowController!
     
     var launchAtLoginController: LaunchAtLoginController = LaunchAtLoginController()
     
@@ -57,6 +58,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     @IBOutlet var updateSubscribeAtLaunchMenuItem: NSMenuItem!
     @IBOutlet var manualUpdateSubscribeMenuItem: NSMenuItem!
     @IBOutlet var editSubscribeMenuItem: NSMenuItem!
+    
+    @IBOutlet weak var copyCommandLine: NSMenuItem!
+    
     
     // MARK: Variables
     var statusItemView:StatusItemView!
@@ -315,6 +319,27 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         let defaults = UserDefaults.standard
         defaults.set(!defaults.bool(forKey: "ConnectAtLaunch"), forKey: "ConnectAtLaunch")
         updateMainMenu()
+    }
+    
+    
+    @IBAction func toggleCopyCommandLine(_ sender: NSMenuItem) {
+        // Get the Http proxy config.
+        let defaults = UserDefaults.standard
+        let address = defaults.string(forKey: "LocalHTTP.ListenAddress")
+        let port = defaults.string(forKey: "LocalHTTP.ListenPort")
+        
+        if let a = address, let p = port {
+            let command = "export http_proxy=http://\(a):\(p);export https_proxy=http://\(a):\(p);"
+            
+            // Copy to paste board.
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString(command, forType: NSPasteboard.PasteboardType.string)
+            
+            // Show a toast notification.
+            self.makeToast("Export Command Copied.".localized)
+        } else {
+            self.makeToast("Export Command Copied Failed.".localized)
+        }
     }
     
     // MARK: Server submenu function
@@ -694,12 +719,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             runningStatusMenuItem.title = "Shadowsocks: On".localized
             toggleRunningMenuItem.title = "Turn Shadowsocks Off".localized
             //image = NSImage(named: "menu_icon")!
+            copyCommandLine.isHidden = false
             updateStatusItemUI()
         } else {
             runningStatusMenuItem.title = "Shadowsocks: Off".localized
             toggleRunningMenuItem.title = "Turn Shadowsocks On".localized
             image = NSImage(named: "menu_icon_disabled")!
             image.isTemplate = true
+            copyCommandLine.isHidden = true
             statusItem!.image = image
             if statusItemView != nil {
                 statusItemView.setIcon(image)
@@ -872,6 +899,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     func userNotificationCenter(_ center: NSUserNotificationCenter
         , shouldPresent notification: NSUserNotification) -> Bool {
         return true
+    }
+    
+    func makeToast(_ message: String) {
+        if toastWindowCtrl != nil {
+            toastWindowCtrl.close()
+        }
+        
+        toastWindowCtrl = ToastWindowController(windowNibName: NSNib.Name("ToastWindowController"))
+        toastWindowCtrl.message = message
+        toastWindowCtrl.showWindow(self)
+        //NSApp.activate(ignoringOtherApps: true)
+        //toastWindowCtrl.window?.makeKeyAndOrderFront(self)
+        toastWindowCtrl.fadeInHud()
     }
 }
 

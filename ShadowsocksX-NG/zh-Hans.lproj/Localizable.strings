@@ -96,3 +96,8 @@
 "It's failed to update PAC by User Rules." = "It's failed to update PAC by User Rules.";
 
 "Servers" = "服务器";
+
+"Export Command Copied." = "Export 命令已复制至剪贴板";
+
+
+"Export Command Copied Failed." = "Export 命令复制至剪贴板失败";

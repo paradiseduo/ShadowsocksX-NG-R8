@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -23,6 +23,7 @@
                 <outlet property="checkUpdateAtLaunchMenuItem" destination="3nJ-zQ-Agj" id="bbR-eO-uCo"/>
                 <outlet property="checkUpdateMenuItem" destination="wyZ-4G-qg9" id="Sva-xA-VQY"/>
                 <outlet property="connectAtLaunchMenuItem" destination="aB3-cf-5j0" id="kW6-UF-38P"/>
+                <outlet property="copyCommandLine" destination="Lod-lA-Gfa" id="ivF-xD-08g"/>
                 <outlet property="copyHttpProxyExportCmdLineMenuItem" destination="gM9-ym-4L0" id="62x-pY-NaN"/>
                 <outlet property="editSubscribeMenuItem" destination="QJ6-eg-mzv" id="KC0-uH-8q0"/>
                 <outlet property="exportAllServerProfileItem" destination="6k0-gn-DQv" id="1xA-cd-5Ia"/>
@@ -238,6 +239,12 @@
                         <action selector="toggleConnectAtLaunch:" target="Voe-Tx-rLC" id="NEO-dn-WnC"/>
                     </connections>
                 </menuItem>
+                <menuItem title="HTTP Proxy Export Line To Pasteboard" id="Lod-lA-Gfa">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="toggleCopyCommandLine:" target="Voe-Tx-rLC" id="aYt-tZ-MHl"/>
+                    </connections>
+                </menuItem>
                 <menuItem isSeparatorItem="YES" id="DTJ-NF-Wxr"/>
                 <menuItem title="Show Logs..." id="Jfy-sf-Fhl">
                     <modifierMask key="keyEquivalentModifierMask"/>
@@ -276,6 +283,7 @@
                     </connections>
                 </menuItem>
             </items>
+            <point key="canvasLocation" x="140" y="152"/>
         </menu>
         <menu id="2oY-e9-q1Z">
             <items>

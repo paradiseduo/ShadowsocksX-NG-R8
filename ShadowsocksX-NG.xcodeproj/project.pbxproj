@@ -77,6 +77,8 @@
 		C6E28E951DA79705004F8330 /* HTTPPreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6E28E971DA79705004F8330 /* HTTPPreferencesWindowController.xib */; };
 		C8E42A6C1D4F270A0074C7EA /* UserRulesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E42A6A1D4F270A0074C7EA /* UserRulesController.swift */; };
 		C8E42A6E1D4F2CAF0074C7EA /* UserRulesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8E42A701D4F2CAF0074C7EA /* UserRulesController.xib */; };
+		E8CD016C23726D14006CB1F6 /* ToastWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CD016B23726D14006CB1F6 /* ToastWindowController.swift */; };
+		E8CD016E23726D6C006CB1F6 /* ToastWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8CD016D23726D6C006CB1F6 /* ToastWindowController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -206,6 +208,8 @@
 		C8E42A6A1D4F270A0074C7EA /* UserRulesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRulesController.swift; sourceTree = "<group>"; };
 		C8E42A6F1D4F2CAF0074C7EA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/UserRulesController.xib; sourceTree = "<group>"; };
 		C8E42A721D4F2CB10074C7EA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/UserRulesController.strings"; sourceTree = "<group>"; };
+		E8CD016B23726D14006CB1F6 /* ToastWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWindowController.swift; sourceTree = "<group>"; };
+		E8CD016D23726D6C006CB1F6 /* ToastWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToastWindowController.xib; sourceTree = "<group>"; };
 		F6B3FAF6354B1AD5CB2BA051 /* Pods-ShadowsocksX-NG.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShadowsocksX-NG.debug.xcconfig"; path = "Target Support Files/Pods-ShadowsocksX-NG/Pods-ShadowsocksX-NG.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -374,6 +378,8 @@
 				C8E42A701D4F2CAF0074C7EA /* UserRulesController.xib */,
 				C6E28E911DA79380004F8330 /* HTTPPreferencesWindowController.swift */,
 				C6E28E971DA79705004F8330 /* HTTPPreferencesWindowController.xib */,
+				E8CD016B23726D14006CB1F6 /* ToastWindowController.swift */,
+				E8CD016D23726D6C006CB1F6 /* ToastWindowController.xib */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -544,6 +550,7 @@
 				9B3FFF4C1D09D8F70019A709 /* install_helper.sh in Resources */,
 				C6D429961DA75988002A5711 /* start_privoxy.sh in Resources */,
 				9B07EFAC1D048E880052D9DF /* menu_icon@2x.png in Resources */,
+				E8CD016E23726D6C006CB1F6 /* ToastWindowController.xib in Resources */,
 				9B07EFA71D048BBB0052D9DF /* ss-local in Resources */,
 				9B07EFAF1D048E880052D9DF /* menu_icon_disabled@2x.png in Resources */,
 				9B07EFAE1D048E880052D9DF /* menu_icon_disabled.png in Resources */,
@@ -665,6 +672,7 @@
 				9BEEF0701D04DDB100FC52B3 /* ServerProfileManager.swift in Sources */,
 				08635C771EF750FA00F1D25E /* SubscribeManager.swift in Sources */,
 				0877D6571EF1E82400126865 /* SubscribePreferenceWindowController.swift in Sources */,
+				E8CD016C23726D14006CB1F6 /* ToastWindowController.swift in Sources */,
 				0877D6541EF1E65600126865 /* Subscribe.swift in Sources */,
 				9BEEF07B1D05631500FC52B3 /* AdvPreferencesWindowController.swift in Sources */,
 				083BF8391D82759600831C68 /* StatusItemView.swift in Sources */,
