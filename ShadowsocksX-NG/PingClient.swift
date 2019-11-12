@@ -138,18 +138,7 @@ class PingServers:NSObject{
         
         var result:[(Int,Double)] = []
         
-        for k in 0..<SerMgr.profiles.count {
-            let host = self.SerMgr.profiles[k].serverHost
-            pingSingleHost(host: host, completionHandler: {
-                if let latency = $0{
-                    self.SerMgr.profiles[k].latency = String(latency)
-                    
-                }
-            })
-        }
-        //        after two seconds ,time out
-        // 这种方式需要改进吧 ？
-        delay(15){
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("PingTestFinish"), object: nil, queue: OperationQueue.main) { (noti) in
             DispatchQueue.main.async {
                 
                 for k in 0..<self.SerMgr.profiles.count {
@@ -179,7 +168,23 @@ class PingServers:NSObject{
             }
         }
         
+        var testResult = 0
         
+        for k in 0..<SerMgr.profiles.count {
+            let host = self.SerMgr.profiles[k].serverHost
+            pingSingleHost(host: host, completionHandler: { [weak self] in
+                guard let w = self else {return}
+                if let latency = $0{
+                    testResult += 1
+                    w.SerMgr.profiles[k].latency = String(latency)
+                    if testResult == w.SerMgr.profiles.count-1 {
+                        DispatchQueue.main.async {
+                            NotificationCenter.default.post(name: NSNotification.Name("PingTestFinish"), object: nil)
+                        }
+                    }
+                }
+            })
+        }
     }
 }
 
