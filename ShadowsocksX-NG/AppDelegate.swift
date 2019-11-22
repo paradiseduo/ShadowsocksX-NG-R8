@@ -326,10 +326,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         // Get the Http proxy config.
         let defaults = UserDefaults.standard
         let address = defaults.string(forKey: "LocalHTTP.ListenAddress")
-        let port = defaults.string(forKey: "LocalHTTP.ListenPort")
+        let port = defaults.integer(forKey: "LocalHTTP.ListenPort")
         
-        if let a = address, let p = port {
-            let command = "export http_proxy=http://\(a):\(p);export https_proxy=http://\(a):\(p);"
+        if let a = address {
+            let command = "export http_proxy=http://\(a):\(port);export https_proxy=http://\(a):\(port);"
             
             // Copy to paste board.
             NSPasteboard.general.clearContents()

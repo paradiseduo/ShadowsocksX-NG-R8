@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14868" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14868"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -300,10 +300,11 @@
                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                     </textFieldCell>
                                 </textField>
-                                <textField verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hr9-sa-tO9" userLabel="SSR URL Text Field">
+                                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Hr9-sa-tO9" userLabel="SSR URL Text Field">
                                     <rect key="frame" x="111" y="57" width="184" height="22"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="184" id="Dz2-qa-aK8"/>
+                                        <constraint firstAttribute="height" constant="22" id="sm7-VG-HIv"/>
                                     </constraints>
                                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="pGZ-96-GTv">
                                         <font key="font" metaFont="system"/>
@@ -361,6 +362,7 @@
                                 <constraint firstItem="KdT-hY-ALS" firstAttribute="top" secondItem="ioe-Gj-Ufy" secondAttribute="bottom" constant="17" id="oAk-I1-Aka"/>
                                 <constraint firstItem="ioe-Gj-Ufy" firstAttribute="centerY" secondItem="Hzl-09-lcK" secondAttribute="centerY" id="phR-CR-5cD"/>
                                 <constraint firstItem="KdT-hY-ALS" firstAttribute="leading" secondItem="EgC-0w-FPq" secondAttribute="trailing" constant="12" id="qDU-rx-0FF"/>
+                                <constraint firstItem="6mK-sY-xoH" firstAttribute="top" secondItem="Hr9-sa-tO9" secondAttribute="bottom" constant="16" id="qaK-in-BGW"/>
                                 <constraint firstItem="o4d-yF-Vi8" firstAttribute="centerX" secondItem="a3z-VL-3xV" secondAttribute="centerX" id="rhy-3Y-j7m"/>
                                 <constraint firstItem="Qfe-Ql-iCO" firstAttribute="leading" secondItem="Baj-Yh-kmj" secondAttribute="leading" constant="21" id="rpw-Lk-g7f"/>
                                 <constraint firstItem="6mK-sY-xoH" firstAttribute="leading" secondItem="a3z-VL-3xV" secondAttribute="leading" constant="20" symbolic="YES" id="s84-n6-iwB"/>
