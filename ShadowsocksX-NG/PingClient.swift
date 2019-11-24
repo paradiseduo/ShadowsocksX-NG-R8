@@ -124,7 +124,7 @@ class PingServers:NSObject{
     
     func pingSingleHost(host:String,completionHandler:@escaping (Double?) -> Void){
         DispatchQueue.global(qos: .userInteractive).async {
-            if let outputString = self.runCommand(cmd: "/sbin/ping", args: "-c","5","-t","5",host).output.last{
+            if let outputString = self.runCommand(cmd: "/sbin/ping", args: "-c","5","-t","2",host).output.last{
                 completionHandler(self.getlatencyFromString(result: outputString))
             }
         }
@@ -165,7 +165,7 @@ class PingServers:NSObject{
         }
         
         var testResult = 0
-        
+        var haspostNotification = false
         for k in 0..<SerMgr.profiles.count {
             let host = self.SerMgr.profiles[k].serverHost
             pingSingleHost(host: host, completionHandler: { [weak self] in
@@ -178,12 +178,19 @@ class PingServers:NSObject{
                         (NSApplication.shared.delegate as! AppDelegate).updateRunningModeMenu()
                     }
                     if testResult == w.SerMgr.profiles.count-1 {
+                        haspostNotification = true
                         DispatchQueue.main.async {
                             NotificationCenter.default.post(name: NSNotification.Name("PingTestFinish"), object: nil)
                         }
                     }
                 }
             })
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+3) {
+            if !haspostNotification {
+                NotificationCenter.default.post(name: NSNotification.Name("PingTestFinish"), object: nil)
+            }
         }
     }
 }
