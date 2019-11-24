@@ -14,7 +14,7 @@ import Cocoa
     var uuid: String
     
     var serverHost: String = ""
-    var serverPort: String = "8379"
+    var serverPort: UInt16 = 8379
     var method:String = "aes-128-cfb"
     var password:String = ""
     var remark:String = ""
@@ -39,7 +39,7 @@ import Cocoa
         let cp = {
             (profile: ServerProfile) in
             profile.serverHost = data["ServerHost"] as! String
-            profile.serverPort = "\(data["ServerPort"] as AnyObject)"
+            profile.serverPort = (data["ServerPort"] as! NSNumber).uint16Value
             profile.method = (data["Method"] as! String).lowercased()
             profile.password = data["Password"] as! String
             
@@ -78,7 +78,7 @@ import Cocoa
         var d = [String:AnyObject]()
         d["Id"] = uuid as AnyObject?
         d["ServerHost"] = serverHost as AnyObject?
-        d["ServerPort"] = NSNumber(value: NSString(string: serverPort).integerValue) as AnyObject?
+        d["ServerPort"] = NSNumber(value: serverPort as UInt16)
         d["Method"] = method as AnyObject?
         d["Password"] = password as AnyObject?
         d["Remark"] = remark as AnyObject?
@@ -93,7 +93,7 @@ import Cocoa
     func toJsonConfig() -> [String: AnyObject] {
         // supply json file for ss-local only export vital param
         var conf: [String: AnyObject] = ["server": serverHost as AnyObject,
-                                         "server_port": NSNumber(value: NSString(string: serverPort).integerValue) as AnyObject,
+                                         "server_port": NSNumber(value: serverPort) as AnyObject,
                                          "password": password as AnyObject,
                                          "method": method as AnyObject,]
         

@@ -144,7 +144,7 @@ class ServerProfileManager: NSObject {
                     for item in jsonArr1.object(forKey: "configs") as! [[String: AnyObject]]{
                         let profile = ServerProfile()
                         profile.serverHost = item["server"] as! String
-                        profile.serverPort = item["server_port"] as! String
+                        profile.serverPort = (item["server_port"] as! NSNumber).uint16Value
                         profile.method = item["method"] as! String
                         profile.password = item["password"] as! String
                         profile.remark = item["remarks"] as! String
