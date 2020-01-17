@@ -210,6 +210,10 @@ import Alamofire
             pushNotification(title: "成功更新订阅", subtitle: "总数:\(maxN) 成功:\(successCount) 清除:\(cleanCount) 重复:\(dupCount) 已存在:\(existCount)", info: "更新来自\(subscribeFeed)的订阅")
             (NSApplication.shared.delegate as! AppDelegate).updateServersMenu()
             (NSApplication.shared.delegate as! AppDelegate).updateRunningModeMenu()
+            //每次更新订阅后自动测试延时
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1) {
+                PingServers.instance.ping()
+            }
         }
         
         if (!isActive){ return }
@@ -234,7 +238,6 @@ import Alamofire
         userNote.subtitle = subtitle
         userNote.informativeText = info
         userNote.soundName = NSUserNotificationDefaultSoundName
-        
         NSUserNotificationCenter.default
             .deliver(userNote);
     }

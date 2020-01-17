@@ -153,12 +153,19 @@ class PingServers:NSObject{
                 if let min = result.min(by: {$0.1 < $1.1}){
                     self.fastest = String(describing: min.1)
                     self.fastest_id  = min.0
-
                     let notice = NSUserNotification()
                     notice.title = "Ping测试完成！最快\(self.SerMgr.profiles[self.fastest_id].latency!)ms"
                     notice.subtitle = "最快的是\(self.SerMgr.profiles[self.fastest_id].serverHost) \(self.SerMgr.profiles[self.fastest_id].remark)"
                     
                     NSUserNotificationCenter.default.deliver(notice)
+                    
+                    UserDefaults.standard.setValue("\(self.SerMgr.profiles[self.fastest_id].latency!)", forKey: "FastestNode")
+                    UserDefaults.standard.synchronize()
+                    
+                    DispatchQueue.main.async {
+                        (NSApplication.shared.delegate as! AppDelegate).updateServersMenu()
+                        (NSApplication.shared.delegate as! AppDelegate).updateRunningModeMenu()
+                    }
                 }
                 
             }
@@ -173,10 +180,6 @@ class PingServers:NSObject{
                 if let latency = $0{
                     testResult += 1
                     w.SerMgr.profiles[k].latency = String(latency)
-                    DispatchQueue.main.async {
-                        (NSApplication.shared.delegate as! AppDelegate).updateServersMenu()
-                        (NSApplication.shared.delegate as! AppDelegate).updateRunningModeMenu()
-                    }
                     if testResult == w.SerMgr.profiles.count-1 {
                         haspostNotification = true
                         DispatchQueue.main.async {

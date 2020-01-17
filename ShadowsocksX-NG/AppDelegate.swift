@@ -780,15 +780,28 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         
         var i = 0
         var serverMenuItems = [NSMenuItem]()
+        var fastTime = ""
+        if let t = UserDefaults.standard.object(forKey: "FastestNode") as? String {
+            fastTime = t
+        }
+        
         for p in mgr.profiles {
             let item = NSMenuItem()
             item.tag = i //+ kProfileMenuItemIndexBase
             item.title = p.title()
-            if let latency = p.latency{
+            if let latency = p.latency {
                 item.title += "  - \(latency) ms"
+                if latency == fastTime {
+                    let dic = [NSAttributedString.Key.foregroundColor : NSColor.green]
+                    let attStr = NSAttributedString(string: item.title, attributes: dic)
+                    item.attributedTitle = attStr
+                }
             }else{
                 if !neverSpeedTestBefore {
                     item.title += "  - failed"
+                    let dic = [NSAttributedString.Key.foregroundColor : NSColor.red]
+                    let attStr = NSAttributedString(string: item.title, attributes: dic)
+                    item.attributedTitle = attStr
                 }
             }
             if mgr.getActiveProfileId() == p.uuid {
