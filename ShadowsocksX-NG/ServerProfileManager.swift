@@ -46,6 +46,7 @@ class ServerProfileManager: NSObject {
         activeProfileId = id
         let defaults = UserDefaults.standard
         defaults.set(id, forKey: "ActiveServerProfileId")
+        defaults.synchronize()
     }
     
     func getActiveProfileId() -> String {
@@ -80,6 +81,7 @@ class ServerProfileManager: NSObject {
             defaults.removeObject(forKey: "ActiveServerProfileId")
             removeSSLocalConfFile()
         }
+        defaults.synchronize()
     }
     
     func getActiveProfile() -> ServerProfile? {

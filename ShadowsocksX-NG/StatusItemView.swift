@@ -109,38 +109,60 @@ open class StatusItemView: NSControl {
     
     @objc func changeDarkMode() {
         darkMode = SystemThemeChangeHelper.isCurrentDark()
-        DispatchQueue.main.async {
-            self.setNeedsDisplay()
+        let d = UserDefaults.standard
+        let mode = d.string(forKey: "ShadowsocksRunningMode")
+        let on = d.bool(forKey: "ShadowsocksOn")
+        if on {
+            self.setIconWith(mode: mode)
+        } else {
+            self.setIconWith(mode: "disabled")
         }
     }
     
-    func setIcon(_ image: NSImage) {
-        // 支持 darks 模式，应该不需要这么复杂，但我也不会代码，尝试这样解决
+    func setIconWith(mode: String?) {
+        image?.isTemplate = true
         if darkMode {
-            switch image.name() {
-            case "menu_icon_disabled":
-                self.image = NSImage(named: "menu_icon_disabled_dark_mode")
-            case "menu_icon_pac":
-                self.image = NSImage(named: "menu_icon_pac_dark_mode")
-            case "menu_icon_global":
-                self.image = NSImage(named: "menu_icon_global_dark_mode")
-            case "menu_icon_white":
-                self.image = NSImage(named: "menu_icon_white_dark_mode")
-            case "menu_icon_manual":
-                self.image = NSImage(named: "menu_icon_manual_dark_mode")
-            case "menu_icon_acl":
-                self.image = NSImage(named: "menu_icon_acl_dark_mode")
-            default:
-                self.image = NSImage(named: "menu_icon_dark_mode")
+            if mode == "auto" {
+                image = NSImage(named: "menu_icon_pac_dark_mode")!
+            } else if mode == "global" {
+                image = NSImage(named: "menu_icon_global_dark_mode")!
+            } else if mode == "manual" {
+                image = NSImage(named: "menu_icon_manual_dark_mode")!
+            } else if mode == "whiteList" {
+                if UserDefaults.standard.string(forKey: "ACLFileName")! == "chn.acl" {
+                    image = NSImage(named: "menu_icon_white_dark_mode")!
+                } else {
+                    image = NSImage(named: "menu_icon_acl_dark_mode")!
+                }
+            } else if mode == "disabled" {
+                image = NSImage(named: "menu_icon_disabled_dark_mode")!
+            } else {
+                image = NSImage(named: "menu_icon_dark_mode")!
             }
         } else {
-            self.image = image
+            if mode == "auto" {
+                image = NSImage(named: "menu_icon_pac")!
+            } else if mode == "global" {
+                image = NSImage(named: "menu_icon_global")!
+            } else if mode == "manual" {
+                image = NSImage(named: "menu_icon_manual")!
+            } else if mode == "whiteList" {
+                if UserDefaults.standard.string(forKey: "ACLFileName")! == "chn.acl" {
+                    image = NSImage(named: "menu_icon_white")!
+                } else {
+                    image = NSImage(named: "menu_icon_acl")!
+                }
+            } else if mode == "disabled" {
+                image = NSImage(named: "menu_icon_disabled")!
+            } else {
+                image = NSImage(named: "menu_icon")!
+            }
         }
+        
         DispatchQueue.main.async {
             self.setNeedsDisplay()
         }
     }
-
 }
 
 //action

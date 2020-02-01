@@ -43,6 +43,7 @@ class SubscribeManager:NSObject{
     }
     func save() {
         defaults.set(subscribesToDefaults(data: subscribes), forKey: "Subscribes")
+        defaults.synchronize()
     }
     fileprivate func subscribesToDefaults(data: [Subscribe]) -> [[String: AnyObject]]{
         var ret : [[String: AnyObject]] = []

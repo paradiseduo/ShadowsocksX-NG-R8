@@ -149,6 +149,7 @@ class PreferencesWindowController: NSWindowController
         updateProfileBoxVisible()
         if profileMgr.profiles.count == 0 {
             defaults.set(true, forKey: "ShadowsocksOn")
+            defaults.synchronize()
             (NSApplication.shared.delegate as! AppDelegate).toggleRunning((NSApplication.shared.delegate as! AppDelegate).toggleRunningMenuItem)
         }
     }

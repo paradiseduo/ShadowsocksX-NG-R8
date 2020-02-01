@@ -29,6 +29,7 @@ func SyncPac() {
     if nowSocks5Port != oldSocks5Port {
         needGenerate = true
         UserDefaults.standard.set(nowSocks5Port, forKey: "LocalSocks5.ListenPort.Old")
+        UserDefaults.standard.synchronize()
     }
     
     let fileMgr = FileManager.default

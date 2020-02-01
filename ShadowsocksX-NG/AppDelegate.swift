@@ -211,6 +211,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
 
         if defaults.bool(forKey: "ConnectAtLaunch") && ServerProfileManager.instance.getActiveProfileId() != "" {
             defaults.set(false, forKey: "ShadowsocksOn")
+            defaults.synchronize()
             toggleRunning(toggleRunningMenuItem)
         }
         
@@ -230,12 +231,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+        self.stopSSR()
+    }
+    
+    private func stopSSR() {
         StopSSLocal()
         StopPrivoxy()
+        ProxyConfHelper.stopPACServer()
         ProxyConfHelper.disableProxy("hi")
         let defaults = UserDefaults.standard
         defaults.set(false, forKey: "ShadowsocksOn")
-        ProxyConfHelper.stopPACServer()
+        defaults.synchronize()
     }
     
     func applyConfig() {
@@ -260,9 +266,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 ProxyConfHelper.enableWhiteListProxy()//新白名单基于GlobalMode
             }
         } else {
-            StopSSLocal()
-            StopPrivoxy()
-            ProxyConfHelper.disableProxy("hi")
+            self.stopSSR()
         }
 
     }
@@ -272,7 +276,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     @IBAction func toggleRunning(_ sender: NSMenuItem) {
         let defaults = UserDefaults.standard
         defaults.set(!defaults.bool(forKey: "ShadowsocksOn"), forKey: "ShadowsocksOn")
-        
+        defaults.synchronize()
         updateMainMenu()
         SyncSSLocal()
         applyConfig()
@@ -318,6 +322,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     @IBAction func toggleConnectAtLaunch(_ sender: NSMenuItem) {
         let defaults = UserDefaults.standard
         defaults.set(!defaults.bool(forKey: "ConnectAtLaunch"), forKey: "ConnectAtLaunch")
+        defaults.synchronize()
         updateMainMenu()
     }
     
@@ -446,6 +451,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     @IBAction func updateSubscribeAtLaunch(_ sender: NSMenuItem) {
         let defaults = UserDefaults.standard
         defaults.set(!defaults.bool(forKey: "AutoUpdateSubscribe"), forKey: "AutoUpdateSubscribe")
+        defaults.synchronize()
         updateSubscribeAtLaunchMenuItem.state = NSControl.StateValue(rawValue: defaults.bool(forKey: "AutoUpdateSubscribe") ? 1 : 0)
     }
     
@@ -456,6 +462,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         let defaults = UserDefaults.standard
         defaults.setValue("auto", forKey: "ShadowsocksRunningMode")
         defaults.setValue("", forKey: "ACLFileName")
+        defaults.synchronize()
         updateRunningModeMenu()
         SyncSSLocal()
         applyConfig()
@@ -465,6 +472,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         let defaults = UserDefaults.standard
         defaults.setValue("global", forKey: "ShadowsocksRunningMode")
         defaults.setValue("", forKey: "ACLFileName")
+        defaults.synchronize()
         updateRunningModeMenu()
         SyncSSLocal()
         applyConfig()
@@ -474,6 +482,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         let defaults = UserDefaults.standard
         defaults.setValue("manual", forKey: "ShadowsocksRunningMode")
         defaults.setValue("", forKey: "ACLFileName")
+        defaults.synchronize()
         updateRunningModeMenu()
         SyncSSLocal()
         applyConfig()
@@ -482,6 +491,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         let defaults = UserDefaults.standard
         defaults.setValue("whiteList", forKey: "ShadowsocksRunningMode")
         defaults.setValue("gfwlist.acl", forKey: "ACLFileName")
+        defaults.synchronize()
         updateRunningModeMenu()
         SyncSSLocal()
         applyConfig()
@@ -490,6 +500,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         let defaults = UserDefaults.standard
         defaults.setValue("whiteList", forKey: "ShadowsocksRunningMode")
         defaults.setValue("backchn.acl", forKey: "ACLFileName")
+        defaults.synchronize()
         updateRunningModeMenu()
         SyncSSLocal()
         applyConfig()
@@ -498,6 +509,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         let defaults = UserDefaults.standard
         defaults.setValue("whiteList", forKey: "ShadowsocksRunningMode")
         defaults.setValue("chn.acl", forKey: "ACLFileName")
+        defaults.synchronize()
         updateRunningModeMenu()
         SyncSSLocal()
         applyConfig()
@@ -571,6 +583,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         enable = !enable
         setUpMenu(enable)
         defaults.set(enable, forKey: "enable_showSpeed")
+        defaults.synchronize()
         updateMainMenu()
     }
 
@@ -604,6 +617,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     @IBAction func checkUpdatesAtLaunch(_ sender: NSMenuItem) {
         let defaults = UserDefaults.standard
         defaults.set(!defaults.bool(forKey: "AutoCheckUpdate"), forKey: "AutoCheckUpdate")
+        defaults.synchronize()
         checkUpdateAtLaunchMenuItem.state = NSControl.StateValue(rawValue: defaults.bool(forKey: "AutoCheckUpdate") ? 1 : 0)
     }
     
@@ -677,35 +691,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     }
     
     func updateStatusItemUI() {
-        var image = NSImage()
         let defaults = UserDefaults.standard
         let mode = defaults.string(forKey: "ShadowsocksRunningMode")
         if !defaults.bool(forKey: "ShadowsocksOn") {
             return
         }
-        if mode == "auto" {
-            image = NSImage(named: "menu_icon_pac")!
-            //statusItem?.title = "Auto".localized
-        } else if mode == "global" {
-            //statusItem?.title = "Global".localized
-            image = NSImage(named: "menu_icon_global")!
-        } else if mode == "manual" {
-            image = NSImage(named: "menu_icon_manual")!
-            //statusItem?.title = "Manual".localized
-        } else if mode == "whiteList" {
-            if defaults.string(forKey: "ACLFileName")! == "chn.acl" {
-                image = NSImage(named: "menu_icon_white")!
-            } else {
-                image = NSImage(named: "menu_icon_acl")!
-            }
-        }
         let titleWidth:CGFloat = 0//statusItem?.title!.size(withAttributes: [NSFontAttributeName: statusItem?.button!.font!]).width//这里不包含IP白名单模式等等，需要重新调整//PS还是给上游加上白名单模式？
         let imageWidth:CGFloat = 22
         //        statusItem?.length = titleWidth + imageWidth
-        image.isTemplate = true
-        statusItem!.image = image
         if statusItemView != nil {
-            statusItemView.setIcon(image)
+            statusItemView.setIconWith(mode: mode)
         } else {
             statusItem?.length = titleWidth + imageWidth
         }
@@ -714,7 +709,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     func updateMainMenu() {
         let defaults = UserDefaults.standard
         let isOn = defaults.bool(forKey: "ShadowsocksOn")
-        var image = NSImage()
         if isOn {
             runningStatusMenuItem.title = "Shadowsocks: On".localized
             toggleRunningMenuItem.title = "Turn Shadowsocks Off".localized
@@ -724,12 +718,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         } else {
             runningStatusMenuItem.title = "Shadowsocks: Off".localized
             toggleRunningMenuItem.title = "Turn Shadowsocks On".localized
-            image = NSImage(named: "menu_icon_disabled")!
-            image.isTemplate = true
             copyCommandLine.isHidden = true
-            statusItem!.image = image
             if statusItemView != nil {
-                statusItemView.setIcon(image)
+                statusItemView.setIconWith(mode: "disabled")
             }
         }
         
