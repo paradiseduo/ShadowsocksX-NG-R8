@@ -931,7 +931,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MARKETING_VERSION = 1.4.7;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.qiuyuzhou.ShadowsocksX-NG-R8";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.qiuyuzhou.ShadowsocksX-NG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ShadowsocksX-NG/ShadowsocksX-NG-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -968,7 +968,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MARKETING_VERSION = 1.4.7;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.qiuyuzhou.ShadowsocksX-NG-R8";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.qiuyuzhou.ShadowsocksX-NG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "ShadowsocksX-NG/ShadowsocksX-NG-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
