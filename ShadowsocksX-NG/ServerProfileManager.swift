@@ -155,6 +155,9 @@ class ServerProfileManager: NSObject {
                         }
                         if (item["obfs"] != nil) {
                             profile.ssrObfs = item["obfs"] as! String
+                            if profile.ssrObfs == "tls1.2_ticket_fastauth" {
+                                profile.ssrObfs = "tls1.2_ticket_auth"
+                            }
                             profile.ssrProtocol = item["protocol"] as! String
                             if (item["obfsparam"] != nil){
                                 profile.ssrObfsParam = item["obfsparam"] as! String
