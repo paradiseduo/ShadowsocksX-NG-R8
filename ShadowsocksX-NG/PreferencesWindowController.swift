@@ -96,6 +96,7 @@ class PreferencesWindowController: NSWindowController
             "tls_simple",
             "http_post",
             "tls1.2_ticket_auth",
+            "tls1.2_ticket_fastauth"
             ])
         profilesTableView.reloadData()
         updateProfileBoxVisible()
