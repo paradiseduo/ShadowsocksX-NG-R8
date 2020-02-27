@@ -85,6 +85,9 @@ import Cocoa
         d["ssrProtocol"] = ssrProtocol as AnyObject?
         d["ssrProtocolParam"] = ssrProtocolParam as AnyObject?
         d["ssrObfs"] = ssrObfs as AnyObject?
+        if ssrObfs == "tls1.2_ticket_fastauth" {
+            d["ssrObfs"] = "tls1.2_ticket_auth" as AnyObject?
+        }
         d["ssrObfsParam"] = ssrObfsParam as AnyObject?
         d["ssrGroup"] = ssrGroup as AnyObject?
         return d
@@ -106,6 +109,9 @@ import Cocoa
             conf["protocol"] = ssrProtocol as AnyObject?
             conf["protocol_param"] = ssrProtocolParam as AnyObject?// do not muta here
             conf["obfs"] = ssrObfs as AnyObject?
+            if ssrObfs == "tls1.2_ticket_fastauth" {
+                conf["obfs"] = "tls1.2_ticket_auth" as AnyObject?
+            }
             conf["obfs_param"] = ssrObfsParam as AnyObject?
         }
         
