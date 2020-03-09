@@ -48,7 +48,7 @@ func generateSSLocalLauchAgentPlist() -> Bool {
     let enableVerboseMode = defaults.bool(forKey: "LocalSocks5.EnableVerboseMode")
     let enabelWhiteListMode = defaults.string(forKey: "ShadowsocksRunningMode")
     
-    var arguments = [sslocalPath, "-c", "ss-local-config.json"]
+    var arguments = [sslocalPath, "-c", "ss-local-config.json", "--fast-open"]
     if enableUdpRelay {
         arguments.append("-u")
     }
