@@ -1,0 +1,15 @@
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "F0z-JX-Cv5"; */
+"F0z-JX-Cv5.title" = "高级代理设置";
+
+/* Class = "NSButtonCell"; title = "Auto Configure"; ObjectID = "PLM-bN-S2l"; */
+"PLM-bN-S2l.title" = "自动设置";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "RC9-LO-Vtj"; */
+"RC9-LO-Vtj.title" = "确认";
+
+/* Class = "NSButtonCell"; title = "Check"; ObjectID = "ags-0i-LG0"; */
+"ags-0i-LG0.title" = "Check";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "x3n-UE-3xv"; */
+"x3n-UE-3xv.title" = "取消";

@@ -16,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     var qrcodeWinCtrl: SWBQRCodeWindowController!
     var preferencesWinCtrl: PreferencesWindowController!
     var advPreferencesWinCtrl: AdvPreferencesWindowController!
-    var proxyPreferencesWinCtrl: ProxyPreferencesController!
+    var proxyPreferencesWinCtrl: ProxyPreferencesNewController!
     var editUserRulesWinCtrl: UserRulesController!
     var httpPreferencesWinCtrl : HTTPPreferencesWindowController!
     var subscribePreferenceWinCtrl: SubscribePreferenceWindowController!
@@ -551,14 +551,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         ctrl.window?.makeKeyAndOrderFront(self)
     }
     
-    @IBAction func editProxyPreferences(_ sender: NSObject) {
+    @IBAction func editProxyPreferences(_ sender: NSMenuItem) {
         if proxyPreferencesWinCtrl != nil {
             proxyPreferencesWinCtrl.close()
         }
-        proxyPreferencesWinCtrl = ProxyPreferencesController(windowNibName: "ProxyPreferencesController")
-        proxyPreferencesWinCtrl.showWindow(self)
+        let ctrl = ProxyPreferencesNewController(windowNibName: "ProxyPreferencesNewController")
+        proxyPreferencesWinCtrl = ctrl
+        
+        ctrl.showWindow(self)
         NSApp.activate(ignoringOtherApps: true)
-        proxyPreferencesWinCtrl.window?.makeKeyAndOrderFront(self)
+        ctrl.window?.makeKeyAndOrderFront(self)
     }
     
     @IBAction func selectServer(_ sender: NSMenuItem) {

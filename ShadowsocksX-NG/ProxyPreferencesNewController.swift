@@ -1,30 +1,29 @@
 //
-//  ProxyPreferencesController.swift
+//  ProxyPreferencesNewController.swift
 //  ShadowsocksX-NG
 //
-//  Created by 邱宇舟 on 16/6/29.
-//  Copyright © 2016年 qiuyuzhou. All rights reserved.
+//  Created by Youssef on 2020/3/9.
+//  Copyright © 2020 qiuyuzhou. All rights reserved.
 //
 
 import Cocoa
 
-class ProxyPreferencesController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate {
+class ProxyPreferencesNewController: NSWindowController, NSWindowDelegate, NSTableViewDataSource, NSTableViewDelegate {
+
+    @IBOutlet weak var autoConfigCheckBox: NSButton!
+    @IBOutlet weak var tableVIew: NSTableView!
     
     var networkServices: NSArray!
     var selectedNetworkServices: NSMutableSet!
     
     var autoConfigureNetworkServices: Bool = true
     
-    @IBOutlet var autoConfigCheckBox: NSButton!
-    
-    @IBOutlet var tableView: NSTableView!
-
     override func windowDidLoad() {
         super.windowDidLoad()
 
-        // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
         let defaults = UserDefaults.standard
-        self.setValue(defaults.bool(forKey: "AutoConfigureNetworkServices"), forKey: "autoConfigureNetworkServices")
+        self.autoConfigCheckBox.state = NSControl.StateValue(rawValue: NSNumber(value: defaults.bool(forKey: "AutoConfigureNetworkServices")).intValue)
+        self.autoConfigureNetworkServices = defaults.bool(forKey: "AutoConfigureNetworkServices")
         
         if let services = defaults.array(forKey: "Proxy4NetworkServices") {
             selectedNetworkServices = NSMutableSet(array: services)
@@ -33,15 +32,18 @@ class ProxyPreferencesController: NSWindowController, NSTableViewDataSource, NST
         }
         
         networkServices = ProxyConfTool.networkServicesList() as NSArray?
-        tableView.reloadData()
+        tableVIew.delegate = self
+        tableVIew.dataSource = self
+        tableVIew.reloadData()
     }
     
-    @IBAction func ok(_ sender: NSObject){
+    
+    @IBAction func ok(_ sender: NSButton) {
         ProxyConfHelper.disableProxy("hi")
         
         let defaults = UserDefaults.standard
         defaults.setValue(selectedNetworkServices.allObjects, forKeyPath: "Proxy4NetworkServices")
-        defaults.set(autoConfigureNetworkServices, forKey: "AutoConfigureNetworkServices")
+        defaults.setValue(autoConfigureNetworkServices, forKey: "AutoConfigureNetworkServices")
         
         defaults.synchronize()
         
@@ -51,28 +53,26 @@ class ProxyPreferencesController: NSWindowController, NSTableViewDataSource, NST
             .post(name: Notification.Name(rawValue: NOTIFY_ADV_PROXY_CONF_CHANGED), object: nil)
     }
     
-    @IBAction func cancel(_ sender: NSObject){
+    @IBAction func cancel(_ sender: NSButton) {
         window?.performClose(self)
     }
     
-    //--------------------------------------------------
-    // For NSTableViewDataSource
     func numberOfRows(in tableView: NSTableView) -> Int {
         if networkServices != nil {
             return networkServices.count
         }
         return 0;
     }
-    
+        
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?
         , row: Int) -> Any? {
         let cell = tableColumn!.dataCell as! NSButtonCell
         
         let key = (networkServices[row] as AnyObject)["key"] as! String
         if selectedNetworkServices.contains(key) {
-            cell.state = convertToNSControlStateValue(1)
+            cell.state = NSControl.StateValue(rawValue: 1)
         } else {
-            cell.state = convertToNSControlStateValue(0)
+            cell.state = NSControl.StateValue(rawValue: 0)
         }
         let userDefinedName = (networkServices[row] as AnyObject)["userDefinedName"] as! String
         cell.title = userDefinedName
@@ -83,16 +83,10 @@ class ProxyPreferencesController: NSWindowController, NSTableViewDataSource, NST
         , for tableColumn: NSTableColumn?, row: Int) {
         let key = (networkServices[row] as AnyObject)["key"] as! String
         
-//        NSLog("%d", object!.integerValue)
         if (object! as AnyObject).intValue == 1 {
             selectedNetworkServices.add(key)
         } else {
             selectedNetworkServices.remove(key)
         }
     }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToNSControlStateValue(_ input: Int) -> NSControl.StateValue {
-	return NSControl.StateValue(rawValue: input)
 }

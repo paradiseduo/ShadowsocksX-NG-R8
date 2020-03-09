@@ -1,0 +1,15 @@
+
+/* Class = "NSWindow"; title = "Window"; ObjectID = "F0z-JX-Cv5"; */
+"F0z-JX-Cv5.title" = "Window";
+
+/* Class = "NSButtonCell"; title = "Auto Configure"; ObjectID = "PLM-bN-S2l"; */
+"PLM-bN-S2l.title" = "Auto Configure";
+
+/* Class = "NSButtonCell"; title = "OK"; ObjectID = "RC9-LO-Vtj"; */
+"RC9-LO-Vtj.title" = "OK";
+
+/* Class = "NSButtonCell"; title = "Check"; ObjectID = "ags-0i-LG0"; */
+"ags-0i-LG0.title" = "Check";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "x3n-UE-3xv"; */
+"x3n-UE-3xv.title" = "Cancel";
