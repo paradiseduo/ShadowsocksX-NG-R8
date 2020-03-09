@@ -7,7 +7,7 @@
 #  Copyright © 2016年 qiuyuzhou. All rights reserved.
 
 
-cd `dirname "${BASH_SOURCE[0]}"`
+cd "$(dirname "${BASH_SOURCE[0]}")"
 ssLocalVersion=2.5.6.12.static
 mkdir -p "$HOME/Library/Application Support/ShadowsocksX-NG-R8/ss-local-$ssLocalVersion"
 cp -f ss-local "$HOME/Library/Application Support/ShadowsocksX-NG-R8/ss-local-$ssLocalVersion/"
