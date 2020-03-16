@@ -171,6 +171,7 @@ class PreferencesWindowController: NSWindowController
     }
     
     @IBAction func cancel(_ sender: NSButton) {
+        profileMgr.reload()
         window?.performClose(self)
     }
     
