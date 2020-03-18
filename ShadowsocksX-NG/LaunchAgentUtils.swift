@@ -17,8 +17,11 @@ let LAUNCH_AGENT_CONF_PRIVOXY_NAME = "com.qiuyuzhou.shadowsocksX-NG.http.plist"
 
 
 func getFileSHA1Sum(_ filepath: String) -> String {
-    if let data = try? Data(contentsOf: URL(fileURLWithPath: filepath)) {
-        return data.sha1()
+    let fileMgr = FileManager.default
+    if fileMgr.fileExists(atPath: filepath) {
+        if let data = try? Data(contentsOf: URL(fileURLWithPath: filepath)) {
+            return data.sha1()
+        }
     }
     return ""
 }
@@ -132,6 +135,18 @@ func InstallSSLocal() {
         } else {
             NSLog("Install ss-local failed.")
         }
+    }
+}
+
+func RemoveSSLocal() {
+    let bundle = Bundle.main
+    let installerPath = bundle.path(forResource: "remove_ss_local.sh", ofType: nil)
+    let task = Process.launchedProcess(launchPath: installerPath!, arguments: [""])
+    task.waitUntilExit()
+    if task.terminationStatus == 0 {
+        NSLog("Remove ss-local succeeded.")
+    } else {
+        NSLog("Remove ss-local failed.")
     }
 }
 
@@ -278,6 +293,18 @@ func InstallPrivoxy() {
         } else {
             NSLog("Install privoxy failed.")
         }
+    }
+}
+
+func RemovePrivoxy() {
+    let bundle = Bundle.main
+    let installerPath = bundle.path(forResource: "remove_privoxy.sh", ofType: nil)
+    let task = Process.launchedProcess(launchPath: installerPath!, arguments: [""])
+    task.waitUntilExit()
+    if task.terminationStatus == 0 {
+        NSLog("Remove privoxy succeeded.")
+    } else {
+        NSLog("Remove privoxy failed.")
     }
 }
 

@@ -232,6 +232,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
         self.stopSSR()
+        //如果设置了开机启动软件，就不删了
+        if launchAtLoginController.launchAtLogin == false {
+            RemoveSSLocal()
+            RemovePrivoxy()
+        }
     }
     
     private func stopSSR() {
@@ -315,6 +320,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     }
     
     @IBAction func toggleLaunghAtLogin(_ sender: NSMenuItem) {
+        //开机启动功能在Mac OS 10.11之后就失效了，因此这个选项其实是没有用的。。
+        //要添加这个功能需要使用辅助应用，详情见：
+        //https://hechen.xyz/post/autostartwhenlogin/
         launchAtLoginController.launchAtLogin = !launchAtLoginController.launchAtLogin;
         updateLaunchAtLoginMenu()
     }
