@@ -13,9 +13,9 @@
 
 # ShadowsocksX-NG-R
 
-Current version is 1.4.9
+Current version is 1.5.1
 
-Continuesly release under 1.4.9
+Continuesly release under 1.5.1
 
 [![Build Status](https://travis-ci.org/shadowsocksr/ShadowsocksX-NG.svg?branches=develop)](https://travis-ci.org/shadowsocksr/ShadowsocksX-NG)
 
