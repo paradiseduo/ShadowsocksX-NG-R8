@@ -50,7 +50,7 @@ class ProxyPreferencesNewController: NSWindowController, NSWindowDelegate, NSTab
         window?.performClose(self)
         
         NotificationCenter.default
-            .post(name: Notification.Name(rawValue: NOTIFY_ADV_PROXY_CONF_CHANGED), object: nil)
+            .post(name: NOTIFY_ADV_PROXY_CONF_CHANGED, object: nil)
     }
     
     @IBAction func cancel(_ sender: NSButton) {

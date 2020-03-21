@@ -21,7 +21,7 @@ class HTTPPreferencesWindowController: NSWindowController, NSWindowDelegate {
     // NSWindowDelegate
     func windowWillClose(_ notification: Notification) {
         NotificationCenter.default
-            .post(name: Notification.Name(rawValue: NOTIFY_HTTP_CONF_CHANGED), object: nil)
+            .post(name: NOTIFY_HTTP_CONF_CHANGED, object: nil)
     }
     
 }
