@@ -69,7 +69,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     var globalSubscribeFeed: Subscribe!
     
     var speedTimer:Timer?
-    let repeatTimeinterval: TimeInterval = 1.0
+    let repeatTimeinterval: TimeInterval = 2.0
 
     // MARK: Application function
 

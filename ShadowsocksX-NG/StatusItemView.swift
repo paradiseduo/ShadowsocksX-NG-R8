@@ -21,8 +21,8 @@ open class StatusItemView: NSControl {
     var mouseDown = false
     var statusItem:NSStatusItem
     
-    var upRate = "- - KB/s"
-    var downRate = "- - KB/s"
+    var upRate = "0 KB/s"
+    var downRate = "0 KB/s"
     var image = NSImage(named: "menu_icon")
 
     var showSpeed:Bool = false
@@ -79,6 +79,7 @@ open class StatusItemView: NSControl {
         else if data < StatusItemView.MB {
             result = data/StatusItemView.KB
             unit = " KB/s"
+            return String(format: "%0.0f", result) + unit
         }
             
         else if data < StatusItemView.GB {
