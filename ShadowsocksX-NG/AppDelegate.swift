@@ -65,8 +65,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     // MARK: Variables
     var statusItemView:StatusItemView!
     var statusItem: NSStatusItem?
-    var speedMonitor:NetWorkMonitor?
+    var speedMonitor:NetSpeedMonitor?
     var globalSubscribeFeed: Subscribe!
+    
+    var speedTimer:Timer?
+    let repeatTimeinterval: TimeInterval = 1.0
 
     // MARK: Application function
 
@@ -811,14 +814,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             statusItemView = StatusItemView(statusItem: statusItem!, menu: statusMenu)
             statusItem!.view = statusItemView
         }
+        statusItemView.showSpeed = showSpeed
         if showSpeed{
             if speedMonitor == nil{
-                speedMonitor = NetWorkMonitor(statusItemView: statusItemView)
+                speedMonitor = NetSpeedMonitor()
             }
             statusItem?.length = 85
-            speedMonitor?.start()
+            speedTimer = Timer.scheduledTimer(withTimeInterval: repeatTimeinterval, repeats: true, block: {[weak self] (timer) in
+                guard let w = self else {return}
+                w.speedMonitor?.downloadAndUploadSpeed({ (down, up) in
+                    w.statusItemView.setRateData(up: Float(up), down: Float(down))
+                })
+            })
         }else{
-            speedMonitor?.stop()
+            speedTimer?.invalidate()
+            speedTimer = nil
             speedMonitor = nil
             statusItem?.length = 20
         }
