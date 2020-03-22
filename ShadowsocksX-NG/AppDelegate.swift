@@ -822,7 +822,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             statusItem?.length = 85
             speedTimer = Timer.scheduledTimer(withTimeInterval: repeatTimeinterval, repeats: true, block: {[weak self] (timer) in
                 guard let w = self else {return}
-                w.speedMonitor?.downloadAndUploadSpeed({ (down, up) in
+                w.speedMonitor?.timeInterval(w.repeatTimeinterval, downloadAndUploadSpeed: { (down, up) in
                     w.statusItemView.setRateData(up: Float(up), down: Float(down))
                 })
             })

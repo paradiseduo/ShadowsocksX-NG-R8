@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NetSpeedMonitor : NSObject
 + (NSString *)primaryInterface;
-- (NSMutableDictionary *)netStats;
+- (void)timeInterval:(NSTimeInterval)interval downloadAndUploadSpeed:(void (^)(double, double))speeds;
 - (void)downloadAndUploadSpeed:(void (^)(double, double))speeds;
 @end
 

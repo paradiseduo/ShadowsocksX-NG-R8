@@ -26,13 +26,13 @@
         self.lastData = [[NSMutableDictionary alloc] init];
         self.sysctlBufferSize = 0;
         self.sysctlBuffer = malloc(self.sysctlBufferSize);
-        [self netStats];
+        [self netStatsForInterval:1.0];
         return self;
     }
     return nil;
 }
 
-- (NSMutableDictionary *)netStats {
+- (NSMutableDictionary *)netStatsForInterval:(NSTimeInterval)sampleInterval {
     int mib[] = {CTL_NET, PF_ROUTE, 0, 0, NET_RT_IFLIST,0};
     size_t currentSize = 0;
     if (sysctl(mib, 6, NULL, &currentSize, NULL, 0) !=  0) {
@@ -106,8 +106,8 @@
                 totalOut = lastTotalOut + (ifmsg->ifm_data.ifi_obytes - lastifOut);
             }
             // New deltas (64-bit overflow guard, full paranoia)
-            uint64_t deltaIn = (totalIn > lastTotalIn) ? (totalIn - lastTotalIn) : 0;
-            uint64_t deltaOut = (totalOut > lastTotalOut) ? (totalOut - lastTotalOut) : 0;
+            uint64_t deltaIn = (totalIn > lastTotalIn) ? (totalIn - lastTotalIn)>>1 : 0;
+            uint64_t deltaOut = (totalOut > lastTotalOut) ? (totalOut - lastTotalOut)>>1 : 0;
             [newStats setObject:[NSDictionary dictionaryWithObjectsAndKeys:
                         [NSNumber numberWithUnsignedInt:ifmsg->ifm_data.ifi_ibytes],
                         @"ifin",
@@ -157,9 +157,9 @@
     return @"en0";
 }
 
-- (void)downloadAndUploadSpeed:(void (^)(double, double))speeds {
+- (void)timeInterval:(NSTimeInterval)interval downloadAndUploadSpeed:(void (^)(double, double))speeds {
     double down = 0.0, up = 0.0;
-    NSMutableDictionary * result = [self netStats];
+    NSMutableDictionary * result = [self netStatsForInterval:interval];
     NSString * primaryInterface = [NetSpeedMonitor primaryInterface];
     NSDictionary * dic = result[primaryInterface];
     if (dic) {
