@@ -11,6 +11,19 @@
 
 - 本项目所提供编译好的App程序不保证一定可用（特别是macOS 10.15），请各位技术大牛自行下载编译运行，提高使用门槛（在Xcode11.3.1上可以直接编译运行）
 
+# 软件删除方法
+首先从应用程序中将.app文件放到废纸篓（随便什么方式）
+然后打开命令行，依次输入：
+```
+rm -rf /Library/Application\ Support/ShadowsocksX-NG-R8
+rm -rf ~/Library/Application\ Support/ShadowsocksX-NG-R8
+rm -rf ~/Library/LaunchAgents/com.qiuyuzhou.shadowsocksX-NG.http.plist
+rm -rf ~/Library/LaunchAgents/com.qiuyuzhou.shadowsocksX-NG.local.plist
+rm -rf ~/.ShadowsocksX-NG
+```
+如果提示权限不足，请sudo后执行
+
+
 # ShadowsocksX-NG-R
 
 Current version is 1.5.4
