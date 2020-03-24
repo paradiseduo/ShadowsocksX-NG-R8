@@ -54,7 +54,11 @@ class SubscribePreferenceWindowController: NSWindowController
             }
             
             if editingSubscribe.isActive{
-                editingSubscribe.updateServerFromFeed()
+                editingSubscribe.updateServerFromFeed {
+                    DispatchQueue.main.async {
+                        PingServers.instance.ping()
+                    }
+                }
             }
         }
         sbMgr.save()

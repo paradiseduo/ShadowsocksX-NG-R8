@@ -162,7 +162,7 @@ import Alamofire
             self.cache = resString
         })
     }
-    func updateServerFromFeed(){
+    func updateServerFromFeed(handle: @escaping ()->Void){
         func updateServerHandler(resString: String) {
             let decodeRes = decode64(resString)!
             let ssrregexp = "ssr://([A-Za-z0-9_-]+)"
@@ -212,10 +212,7 @@ import Alamofire
             pushNotification(title: "成功更新订阅", subtitle: "总数:\(maxN) 成功:\(successCount) 清除:\(cleanCount) 重复:\(dupCount) 已存在:\(existCount)", info: "更新来自\(subscribeFeed)的订阅")
             (NSApplication.shared.delegate as! AppDelegate).updateServersMenu()
             (NSApplication.shared.delegate as! AppDelegate).updateRunningModeMenu()
-            //每次更新订阅后自动测试延时
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1) {
-                PingServers.instance.ping()
-            }
+            handle()
         }
         
         if (!isActive){ return }
