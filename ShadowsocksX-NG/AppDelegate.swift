@@ -188,9 +188,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             if defaults.bool(forKey: "AutoUpdateSubscribe") {
                 SubscribeManager.instance.updateAllServerFromSubscribe(auto: true)
             }
-            DispatchQueue.main.async {
-
-            }
         }
     }
 
