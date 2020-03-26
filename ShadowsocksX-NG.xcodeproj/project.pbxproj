@@ -24,6 +24,7 @@
 		08F162C01EBEE6F800C52869 /* backchn.acl in Resources */ = {isa = PBXBuildFile; fileRef = 08F162BF1EBEE6F800C52869 /* backchn.acl */; };
 		08F162C21EBEEC0F00C52869 /* gfwlist.acl in Resources */ = {isa = PBXBuildFile; fileRef = 08F162C11EBEEC0F00C52869 /* gfwlist.acl */; };
 		31EC8002F6D683D17037DF16 /* Pods_ShadowsocksX_NGTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6618B10B340A3D7A925E0A9F /* Pods_ShadowsocksX_NGTests.framework */; };
+		98335024242C524800F947A4 /* LaunchAtLoginHelper.app in Copy LaunchAtLoginHelper */ = {isa = PBXBuildFile; fileRef = 98335021242C4E2600F947A4 /* LaunchAtLoginHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9B07EFA71D048BBB0052D9DF /* ss-local in Resources */ = {isa = PBXBuildFile; fileRef = 9B07EFA61D048BBB0052D9DF /* ss-local */; };
 		9B07EFAC1D048E880052D9DF /* menu_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B07EFA81D048E880052D9DF /* menu_icon@2x.png */; };
 		9B07EFAD1D048E880052D9DF /* menu_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B07EFA91D048E880052D9DF /* menu_icon.png */; };
@@ -84,6 +85,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		98335020242C4E2600F947A4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9833501C242C4E2600F947A4 /* LaunchAtLoginHelper.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 98E741541C2A42C1002605D2;
+			remoteInfo = LaunchAtLoginHelper;
+		};
 		9B0BFFF51D0460A70040E62B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9B0BFFDD1D0460A70040E62B /* Project object */;
@@ -101,6 +109,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		98335022242C516300F947A4 /* Copy LaunchAtLoginHelper */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				98335024242C524800F947A4 /* LaunchAtLoginHelper.app in Copy LaunchAtLoginHelper */,
+			);
+			name = "Copy LaunchAtLoginHelper";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9B3FFF421D09CD3B0019A709 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -137,6 +156,7 @@
 		6D181C28E4E8EAEA91CF7854 /* Pods-ShadowsocksX-NGTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShadowsocksX-NGTests.release.xcconfig"; path = "Target Support Files/Pods-ShadowsocksX-NGTests/Pods-ShadowsocksX-NGTests.release.xcconfig"; sourceTree = "<group>"; };
 		7E2417EA26470A73DF17FC78 /* Pods-ShadowsocksX-NG.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShadowsocksX-NG.release.xcconfig"; path = "Target Support Files/Pods-ShadowsocksX-NG/Pods-ShadowsocksX-NG.release.xcconfig"; sourceTree = "<group>"; };
 		8428A07C59DC83DCFDB0D9D4 /* Pods-ShadowsocksX-NGTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShadowsocksX-NGTests.debug.xcconfig"; path = "Target Support Files/Pods-ShadowsocksX-NGTests/Pods-ShadowsocksX-NGTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9833501C242C4E2600F947A4 /* LaunchAtLoginHelper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LaunchAtLoginHelper.xcodeproj; path = LaunchAtLoginHelper/LaunchAtLoginHelper.xcodeproj; sourceTree = "<group>"; };
 		9B07EFA61D048BBB0052D9DF /* ss-local */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = "ss-local"; sourceTree = "<group>"; };
 		9B07EFA81D048E880052D9DF /* menu_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu_icon@2x.png"; sourceTree = "<group>"; };
 		9B07EFA91D048E880052D9DF /* menu_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_icon.png; sourceTree = "<group>"; };
@@ -260,6 +280,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		9833501D242C4E2600F947A4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				98335021242C4E2600F947A4 /* LaunchAtLoginHelper.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		9B07EFB01D048E900052D9DF /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -300,6 +328,7 @@
 		9B0BFFDC1D0460A70040E62B = {
 			isa = PBXGroup;
 			children = (
+				9833501C242C4E2600F947A4 /* LaunchAtLoginHelper.xcodeproj */,
 				9B172A601D0ADA5B00B87B9A /* genstrings.py */,
 				9B0BFFE71D0460A70040E62B /* ShadowsocksX-NG */,
 				9B0BFFF71D0460A70040E62B /* ShadowsocksX-NGTests */,
@@ -424,6 +453,7 @@
 				9B0BFFE21D0460A70040E62B /* Frameworks */,
 				9B0BFFE31D0460A70040E62B /* Resources */,
 				F12C8C24C6DFF563D6E4DE90 /* [CP] Embed Pods Frameworks */,
+				98335022242C516300F947A4 /* Copy LaunchAtLoginHelper */,
 			);
 			buildRules = (
 			);
@@ -485,7 +515,6 @@
 					9B0BFFE41D0460A70040E62B = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 1010;
-						ProvisioningStyle = Automatic;
 					};
 					9B0BFFF31D0460A70040E62B = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -510,6 +539,12 @@
 			mainGroup = 9B0BFFDC1D0460A70040E62B;
 			productRefGroup = 9B0BFFE61D0460A70040E62B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 9833501D242C4E2600F947A4 /* Products */;
+					ProjectRef = 9833501C242C4E2600F947A4 /* LaunchAtLoginHelper.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				9B0BFFE41D0460A70040E62B /* ShadowsocksX-NG */,
@@ -518,6 +553,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		98335021242C4E2600F947A4 /* LaunchAtLoginHelper.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = LaunchAtLoginHelper.app;
+			remoteRef = 98335020242C4E2600F947A4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		9B0BFFE31D0460A70040E62B /* Resources */ = {
@@ -920,9 +965,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 4J772T4V7C;
+				DEVELOPMENT_TEAM = 9P895LY647;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/libcork/include/",
@@ -943,6 +989,7 @@
 				MARKETING_VERSION = 1.5.5;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.qiuyuzhou.ShadowsocksX-NG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ShadowsocksX-NG/ShadowsocksX-NG-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -957,9 +1004,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 4J772T4V7C;
+				DEVELOPMENT_TEAM = 9P895LY647;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(SRCROOT)/libcork/include/",
@@ -980,6 +1028,7 @@
 				MARKETING_VERSION = 1.5.5;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.qiuyuzhou.ShadowsocksX-NG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "ShadowsocksX-NG/ShadowsocksX-NG-Bridging-Header.h";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;

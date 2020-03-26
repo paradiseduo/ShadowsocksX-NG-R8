@@ -23,24 +23,11 @@
 //  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #import "LaunchAtLoginController.h"
+#import <ServiceManagement/ServiceManagement.h>
 
-static NSString *const StartAtLoginKey = @"launchAtLogin";
-
-@interface LaunchAtLoginController ()
-@property(assign) LSSharedFileListRef loginItems;
-@end
+#define helperAppBundleIdentifier @"com.qiuyuzhou.ShadowsocksX-NG.LaunchAtLoginHelper"
 
 @implementation LaunchAtLoginController
-@synthesize loginItems;
-
-#pragma mark Change Observing
-
-void sharedFileListDidChange(LSSharedFileListRef inList, void *context)
-{
-    LaunchAtLoginController *self = (__bridge id) context;
-    [self willChangeValueForKey:StartAtLoginKey];
-    [self didChangeValueForKey:StartAtLoginKey];
-}
 
 #pragma mark Initialization
 
@@ -48,76 +35,35 @@ void sharedFileListDidChange(LSSharedFileListRef inList, void *context)
 {
     self = [super init];
     if (self) {
-        loginItems = LSSharedFileListCreate(NULL, kLSSharedFileListSessionLoginItems, NULL);
-        LSSharedFileListAddObserver(loginItems, CFRunLoopGetMain(),
-            (CFStringRef)NSDefaultRunLoopMode, sharedFileListDidChange, (__bridge void *)(self));
     }
     return self;
 }
 
-- (void) dealloc
-{
-    LSSharedFileListRemoveObserver(loginItems, CFRunLoopGetMain(),
-        (CFStringRef)NSDefaultRunLoopMode, sharedFileListDidChange, (__bridge void *)(self));
-    CFRelease(loginItems);
-}
-
-#pragma mark Launch List Control
-
-- (LSSharedFileListItemRef) findItemWithURL: (NSURL*) wantedURL inFileList: (LSSharedFileListRef) fileList
-{
-    if (wantedURL == NULL || fileList == NULL)
-        return NULL;
-
-    NSArray *listSnapshot = ((__bridge NSArray *)(LSSharedFileListCopySnapshot(fileList, NULL)));
-    for (id itemObject in listSnapshot) {
-        LSSharedFileListItemRef item = (__bridge LSSharedFileListItemRef) itemObject;
-        UInt32 resolutionFlags = kLSSharedFileListNoUserInteraction | kLSSharedFileListDoNotMountVolumes;
-        CFURLRef currentItemURL = NULL;
-        currentItemURL = LSSharedFileListItemCopyResolvedURL(item, resolutionFlags, NULL);
-        if (currentItemURL && CFEqual(currentItemURL, (__bridge CFTypeRef)(wantedURL))) {
-            CFRelease(currentItemURL);
-            return item;
-        }
-        if (currentItemURL)
-            CFRelease(currentItemURL);
+-(BOOL)launchAtLogin {
+    NSArray *jobs = (__bridge NSArray *)SMCopyAllJobDictionaries(kSMDomainUserLaunchd);
+    if (jobs == nil) {
+        return NO;
     }
 
-    return NULL;
+    if ([jobs count] == 0) {
+        CFRelease((__bridge CFArrayRef)jobs);
+        return NO;
+    }
+
+    BOOL onDemand = NO;
+    for (NSDictionary *job in jobs) {
+        if ([helperAppBundleIdentifier isEqualToString:[job objectForKey:@"Label"]]) {
+            onDemand = [[job objectForKey:@"OnDemand"] boolValue];
+            break;
+        }
+    }
+
+    CFRelease((__bridge CFArrayRef)jobs);
+    return onDemand;
 }
 
-- (BOOL) willLaunchAtLogin: (NSURL*) itemURL
-{
-    return !![self findItemWithURL:itemURL inFileList:loginItems];
-}
-
-- (void) setLaunchAtLogin: (BOOL) enabled forURL: (NSURL*) itemURL
-{
-    LSSharedFileListItemRef appItem = [self findItemWithURL:itemURL inFileList:loginItems];
-    if (enabled && !appItem) {
-        LSSharedFileListInsertItemURL(loginItems, kLSSharedFileListItemBeforeFirst,
-            NULL, NULL, (__bridge CFURLRef)itemURL, NULL, NULL);
-    } else if (!enabled && appItem)
-        LSSharedFileListItemRemove(loginItems, appItem);
-}
-
-#pragma mark Basic Interface
-
-- (NSURL*) appURL
-{
-    return [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
-}
-
-- (void) setLaunchAtLogin: (BOOL) enabled
-{
-    [self willChangeValueForKey:StartAtLoginKey];
-    [self setLaunchAtLogin:enabled forURL:[self appURL]];
-    [self didChangeValueForKey:StartAtLoginKey];
-}
-
-- (BOOL) launchAtLogin
-{
-    return [self willLaunchAtLogin:[self appURL]];
+-(void)setLaunchAtLogin:(BOOL)launchAtLogin {
+    SMLoginItemSetEnabled ((__bridge CFStringRef)helperAppBundleIdentifier, launchAtLogin);
 }
 
 @end
