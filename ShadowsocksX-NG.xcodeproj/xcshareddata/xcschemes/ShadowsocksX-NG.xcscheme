@@ -14,6 +14,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "98E741531C2A42C1002605D2"
+               BuildableName = "LaunchAtLoginHelper.app"
+               BlueprintName = "LaunchAtLoginHelper"
+               ReferencedContainer = "container:LaunchAtLoginHelper/LaunchAtLoginHelper.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "EAAA1AD3A8A1B59AB91319EE40752C6D"
                BuildableName = "Alamofire.framework"
                BlueprintName = "Alamofire"

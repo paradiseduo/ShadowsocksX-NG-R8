@@ -24,6 +24,7 @@
 		08F162C01EBEE6F800C52869 /* backchn.acl in Resources */ = {isa = PBXBuildFile; fileRef = 08F162BF1EBEE6F800C52869 /* backchn.acl */; };
 		08F162C21EBEEC0F00C52869 /* gfwlist.acl in Resources */ = {isa = PBXBuildFile; fileRef = 08F162C11EBEEC0F00C52869 /* gfwlist.acl */; };
 		31EC8002F6D683D17037DF16 /* Pods_ShadowsocksX_NGTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6618B10B340A3D7A925E0A9F /* Pods_ShadowsocksX_NGTests.framework */; };
+		98335024242C524800F947A4 /* LaunchAtLoginHelper.app in Copy LaunchAtLoginHelper */ = {isa = PBXBuildFile; fileRef = 98335021242C4E2600F947A4 /* LaunchAtLoginHelper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9B07EFA71D048BBB0052D9DF /* ss-local in Resources */ = {isa = PBXBuildFile; fileRef = 9B07EFA61D048BBB0052D9DF /* ss-local */; };
 		9B07EFAC1D048E880052D9DF /* menu_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B07EFA81D048E880052D9DF /* menu_icon@2x.png */; };
 		9B07EFAD1D048E880052D9DF /* menu_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9B07EFA91D048E880052D9DF /* menu_icon.png */; };
@@ -108,6 +109,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		98335022242C516300F947A4 /* Copy LaunchAtLoginHelper */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				98335024242C524800F947A4 /* LaunchAtLoginHelper.app in Copy LaunchAtLoginHelper */,
+			);
+			name = "Copy LaunchAtLoginHelper";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9B3FFF421D09CD3B0019A709 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -441,6 +453,7 @@
 				9B0BFFE21D0460A70040E62B /* Frameworks */,
 				9B0BFFE31D0460A70040E62B /* Resources */,
 				F12C8C24C6DFF563D6E4DE90 /* [CP] Embed Pods Frameworks */,
+				98335022242C516300F947A4 /* Copy LaunchAtLoginHelper */,
 			);
 			buildRules = (
 			);
