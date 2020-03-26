@@ -23,17 +23,9 @@
     for (NSString *key in [sets allKeys]) {
         NSMutableDictionary *service = [sets objectForKey:key];
         NSString *userDefinedName = [service valueForKey:(__bridge NSString *)kSCPropUserDefinedName];
-//        NSString *hardware = [service valueForKeyPath:@"Interface.Hardware"];
-//        NSString *deviceName = [service valueForKeyPath:@"Interface.DeviceName"];
-//        NSString *deviceType = [service valueForKeyPath:@"Interface.Type"];
-        
+
         BOOL isActive = ![service objectForKey:(NSString *)kSCResvInactive];
-        //                NSLog(@"%@", hardware);
-//        NSLog(@"%@-------------------", key);
-//        for(NSString* key in service) {
-//            NSLog(@"key=%@ value=%@", key, [service objectForKey:key]);
-//        }
-//
+
         if (isActive) {
             if (isActive && userDefinedName) {
                 NSDictionary* v = @{

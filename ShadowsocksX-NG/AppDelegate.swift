@@ -109,12 +109,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         ])
 
         setUpMenu(defaults.bool(forKey: "enable_showSpeed"))
-        
-//        statusItem = NSStatusBar.system.statusItem(withLength: 20)
-//        let image = NSImage(named: "menu_icon")
-//        image?.isTemplate = true
-//        statusItem?.image = image
-//        statusItem?.menu = statusMenu
 
         let notifyCenter = NotificationCenter.default
         notifyCenter.addObserver(forName: NOTIFY_ADV_PROXY_CONF_CHANGED, object: nil, queue: nil
@@ -172,7 +166,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         
         ProxyConfHelper.install()
         applyConfig()
-//        SyncSSLocal()
 
         if defaults.bool(forKey: "ConnectAtLaunch") && ServerProfileManager.instance.getActiveProfileId() != "" {
             defaults.set(false, forKey: "ShadowsocksOn")
@@ -282,9 +275,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     }
     
     @IBAction func toggleLaunghAtLogin(_ sender: NSMenuItem) {
-        //开机启动功能在Mac OS 10.11之后就失效了，因此这个选项其实是没有用的。。
-        //要添加这个功能需要使用辅助应用，详情见：
-        //https://hechen.xyz/post/autostartwhenlogin/
         let bFlag = !launchAtLoginController.launchAtLogin;
         launchAtLoginController.launchAtLogin = bFlag;
         lanchAtLoginMenuItem.state = NSControl.StateValue(rawValue: bFlag ? 1 : 0)
@@ -394,7 +384,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     
     @IBAction func importBunchJsonFile(_ sender: NSMenuItem) {
         ServerProfileManager.instance.importConfigFile()
-        //updateServersMenu()//not working
     }
     
     @IBAction func exportAllServerProfile(_ sender: NSMenuItem) {
@@ -655,9 +644,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         if !defaults.bool(forKey: "ShadowsocksOn") {
             return
         }
-        let titleWidth:CGFloat = 0//statusItem?.title!.size(withAttributes: [NSFontAttributeName: statusItem?.button!.font!]).width//这里不包含IP白名单模式等等，需要重新调整//PS还是给上游加上白名单模式？
+        let titleWidth:CGFloat = 0
         let imageWidth:CGFloat = 22
-        //        statusItem?.length = titleWidth + imageWidth
         if statusItemView != nil {
             statusItemView.setIconWith(mode: mode)
         } else {
@@ -672,7 +660,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             runningStatusMenuItem.title = "Shadowsocks: On".localized
             runningStatusMenuItem.image = NSImage(named: NSImage.statusAvailableName)
             toggleRunningMenuItem.title = "Turn Shadowsocks Off".localized
-            //image = NSImage(named: "menu_icon")!
             copyCommandLine.isHidden = false
             updateStatusItemUI()
         } else {
@@ -710,7 +697,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         let autoUpdateSubscribeItem = updateSubscribeAtLaunchMenuItem
         let editSubscribeItem = editSubscribeMenuItem
         let copyHttpProxyExportCmdLineItem = copyHttpProxyExportCmdLineMenuItem
-        //        let pingItem = pingserverMenuItem
         
         serversMenuItem.submenu?.addItem(editSubscribeItem!)
         serversMenuItem.submenu?.addItem(autoUpdateSubscribeItem!)
@@ -724,7 +710,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         serversMenuItem.submenu?.addItem(exportAllServer!)
         serversMenuItem.submenu?.addItem(NSMenuItem.separator())
         serversMenuItem.submenu?.addItem(preferencesItem!)
-        //        serversMenuItem.submenu?.addItem(pingItem)
         
         if !mgr.profiles.isEmpty {
             serversMenuItem.submenu?.addItem(NSMenuItem.separator())
@@ -791,7 +776,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 }
             }
             
-//            serversMenuItem.submenu?.addItem(item)
             serverMenuItems.append(item)
             i += 1
         }

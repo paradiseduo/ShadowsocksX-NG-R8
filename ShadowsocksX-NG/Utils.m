@@ -54,7 +54,6 @@ void ScanQRCodeOnScreen() {
         CGImageRef image = CGDisplayCreateImage(displays[displaysIndex]);
         NSArray *features = [detector featuresInImage:[CIImage imageWithCGImage:image]];
         for (CIQRCodeFeature *feature in features) {
-//            NSLog(@"%@", feature.messageString);
             if ( [feature.messageString hasPrefix:@"ss://"] )
             {
                 [foundSSUrls addObject:[NSURL URLWithString:feature.messageString]];

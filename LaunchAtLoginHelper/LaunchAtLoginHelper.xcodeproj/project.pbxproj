@@ -102,7 +102,7 @@
 				TargetAttributes = {
 					98E741531C2A42C1002605D2 = {
 						CreatedOnToolsVersion = 7.0.1;
-						DevelopmentTeam = 9P895LY647;
+						DevelopmentTeam = 4J772T4V7C;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.HardenedRuntime = {
@@ -260,10 +260,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/Output";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4J772T4V7C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = LaunchAtLoginHelper/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.qiuyuzhou.ShadowsocksX-NG.LaunchAtLoginHelper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -283,10 +284,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/Output";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4J772T4V7C;
 				ENABLE_HARDENED_RUNTIME = YES;
 				INFOPLIST_FILE = LaunchAtLoginHelper/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CODE_SIGN_FLAGS = "--timestamp ";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.qiuyuzhou.ShadowsocksX-NG.LaunchAtLoginHelper";
