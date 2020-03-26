@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #define mainAppBundleIdentifier @"com.qiuyuzhou.ShadowsocksX-NG"
 #define mainAppName @"ShadowsocksX-NG"
-#define terminateNotification @"SSRTerminateHelper"
 
 @interface AppDelegate ()
 
@@ -29,20 +28,7 @@
         }
     }
     
-    if (alreadyRunning)
-    {
-        // Main app is already running,
-        // Meaning that the helper was launched via SMLoginItemSetEnabled, kill the helper
-        [self killApp];
-    } else
-    {
-        // Register Observer
-        // So that main app can later notify helper to terminate
-        [[NSDistributedNotificationCenter defaultCenter] addObserver:self
-                                                            selector:@selector(killApp)
-                                                                name:terminateNotification // Can be any string, but shouldn't be nil
-                                                              object:mainAppBundleIdentifier];
-        
+    if (!alreadyRunning) {
         // Launch main app
         NSString *path = [[NSBundle mainBundle] bundlePath];
         NSArray *p = [path pathComponents];
@@ -54,15 +40,11 @@
         [pathComponents addObject:mainAppName];
         NSString *mainAppPath = [NSString pathWithComponents:pathComponents];
         [[NSWorkspace sharedWorkspace] launchApplication:mainAppPath];
+        // exit
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(30 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [NSApp terminate:nil];
+        });
     }
-}
-
-// Terminates helper app
-// Called by main app after main app has checked if helper app is still running
-// This allows main app to determine whether it was launched at login or not
-// For complete documentation see http://blog.timschroeder.net/2014/01/25/detecting-launch-at-login-revisited/
--(void)killApp {
-    [NSApp terminate:nil];
 }
 
 @end
