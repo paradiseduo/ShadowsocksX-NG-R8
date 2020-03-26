@@ -285,8 +285,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         //开机启动功能在Mac OS 10.11之后就失效了，因此这个选项其实是没有用的。。
         //要添加这个功能需要使用辅助应用，详情见：
         //https://hechen.xyz/post/autostartwhenlogin/
-        launchAtLoginController.launchAtLogin = !launchAtLoginController.launchAtLogin;
-        updateLaunchAtLoginMenu()
+        let bFlag = !launchAtLoginController.launchAtLogin;
+        launchAtLoginController.launchAtLogin = bFlag;
+        lanchAtLoginMenuItem.state = NSControl.StateValue(rawValue: bFlag ? 1 : 0)
     }
     
     @IBAction func toggleConnectAtLaunch(_ sender: NSMenuItem) {
