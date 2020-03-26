@@ -60,16 +60,31 @@ class SubscribeManager:NSObject{
         return ret
     }
     func updateAllServerFromSubscribe(auto: Bool){
-        if !auto{
-            subscribes.forEach{ value in
-                value.updateServerFromFeed()
-            }
-        }else{
-            for value in subscribes{
-                if value.getAutoUpdateEnable(){
-                    value.updateServerFromFeed()
+        let group = DispatchGroup()
+        let queue = DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive)
+        for item in subscribes {
+            if item.isActive {
+                group.enter()
+                queue.async {
+                    if !auto {
+                        item.updateServerFromFeed {
+                            group.leave()
+                        }
+                    } else {
+                        if item.getAutoUpdateEnable() {
+                            item.updateServerFromFeed {
+                                group.leave()
+                            }
+                        } else {
+                            group.leave()
+                        }
+                    }
                 }
             }
+        }
+        //每次更新订阅后自动测试延时
+        group.notify(queue: DispatchQueue.main) {
+            PingServers.instance.ping()
         }
     }
 }

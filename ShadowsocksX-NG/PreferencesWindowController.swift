@@ -167,10 +167,11 @@ class PreferencesWindowController: NSWindowController
         
         
         NotificationCenter.default
-            .post(name: Notification.Name(rawValue: NOTIFY_SERVER_PROFILES_CHANGED), object: nil)
+            .post(name: NOTIFY_SERVER_PROFILES_CHANGED, object: nil)
     }
     
     @IBAction func cancel(_ sender: NSButton) {
+        profileMgr.reload()
         window?.performClose(self)
     }
     
@@ -195,7 +196,7 @@ class PreferencesWindowController: NSWindowController
             profilesTableView.endUpdates()
             updateProfileBoxVisible()
             NotificationCenter.default
-                .post(name: Notification.Name(rawValue: NOTIFY_SERVER_PROFILES_CHANGED), object: nil)
+                .post(name: NOTIFY_SERVER_PROFILES_CHANGED, object: nil)
         }
     }
     

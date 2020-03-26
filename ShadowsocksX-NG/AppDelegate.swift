@@ -65,8 +65,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     // MARK: Variables
     var statusItemView:StatusItemView!
     var statusItem: NSStatusItem?
-    var speedMonitor:NetWorkMonitor?
+    var speedMonitor:NetSpeedMonitor?
     var globalSubscribeFeed: Subscribe!
+    
+    var speedTimer:Timer?
+    let repeatTimeinterval: TimeInterval = 2.0
 
     // MARK: Application function
 
@@ -114,14 +117,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
 //        statusItem?.menu = statusMenu
 
         let notifyCenter = NotificationCenter.default
-        notifyCenter.addObserver(forName: NSNotification.Name(rawValue: NOTIFY_ADV_PROXY_CONF_CHANGED), object: nil, queue: nil
+        notifyCenter.addObserver(forName: NOTIFY_ADV_PROXY_CONF_CHANGED, object: nil, queue: nil
             , using: {
             (note) in
                 self.applyConfig()
                 self.updateCopyHttpProxyExportMenu()
             }
         )
-        notifyCenter.addObserver(forName: NSNotification.Name(rawValue: NOTIFY_SERVER_PROFILES_CHANGED), object: nil, queue: nil
+        notifyCenter.addObserver(forName: NOTIFY_SERVER_PROFILES_CHANGED, object: nil, queue: nil
             , using: {
             (note) in
                 let profileMgr = ServerProfileManager.instance
@@ -137,61 +140,23 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 SyncSSLocal()
             }
         )
-        notifyCenter.addObserver(forName: NSNotification.Name(rawValue: NOTIFY_ADV_CONF_CHANGED), object: nil, queue: nil
+        notifyCenter.addObserver(forName: NOTIFY_ADV_CONF_CHANGED, object: nil, queue: nil
             , using: {
             (note) in
                 SyncSSLocal()
                 self.applyConfig()
             }
         )
-        notifyCenter.addObserver(forName: NSNotification.Name(rawValue: NOTIFY_HTTP_CONF_CHANGED), object: nil, queue: nil
+        notifyCenter.addObserver(forName: NOTIFY_HTTP_CONF_CHANGED, object: nil, queue: nil
             , using: {
                 (note) in
                 SyncPrivoxy()
                 self.applyConfig()
             }
         )
-        notifyCenter.addObserver(forName: NSNotification.Name(rawValue: "NOTIFY_FOUND_SS_URL"), object: nil, queue: nil) {
+        notifyCenter.addObserver(forName: NOTIFY_FOUND_SS_URL, object: nil, queue: nil) {
             (note: Notification) in
-            if let userInfo = (note as NSNotification).userInfo {
-                let urls: [URL] = userInfo["urls"] as! [URL]
-                
-                let mgr = ServerProfileManager.instance
-                var isChanged = false
-                
-                for url in urls {
-                    let profielDict = ParseAppURLSchemes(url)//ParseSSURL(url)
-                    if let profielDict = profielDict {
-                        let profile = ServerProfile.fromDictionary(profielDict as [String : AnyObject])
-                        mgr.profiles.append(profile)
-                        isChanged = true
-                        
-                        let userNote = NSUserNotification()
-                        userNote.title = "Add Shadowsocks Server Profile".localized
-                        if userInfo["source"] as! String == "qrcode" {
-                            userNote.subtitle = "By scan QR Code".localized
-                        } else if userInfo["source"] as! String == "url" {
-                            userNote.subtitle = "By Handle SS URL".localized
-                        }
-                        userNote.informativeText = "Host: \(profile.serverHost)\n Port: \(profile.serverPort)\n Encription Method: \(profile.method)".localized
-                        userNote.soundName = NSUserNotificationDefaultSoundName
-                        
-                        NSUserNotificationCenter.default
-                            .deliver(userNote);
-                    }else{
-                        let userNote = NSUserNotification()
-                        userNote.title = "Failed to Add Server Profile".localized
-                        userNote.subtitle = "Address can not be recognized".localized
-                        NSUserNotificationCenter.default
-                            .deliver(userNote);
-                    }
-                }
-                
-                if isChanged {
-                    mgr.save()
-                    self.updateServersMenu()
-                }
-            }
+            self.foundSSRURL(note)
         }
         
         // Handle ss url scheme
@@ -223,15 +188,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             if defaults.bool(forKey: "AutoUpdateSubscribe") {
                 SubscribeManager.instance.updateAllServerFromSubscribe(auto: true)
             }
-            DispatchQueue.main.async {
-
-            }
         }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
         self.stopSSR()
+        //如果设置了开机启动软件，就不删了
+        if launchAtLoginController.launchAtLogin == false {
+            RemoveSSLocal()
+            RemovePrivoxy()
+        }
     }
     
     private func stopSSR() {
@@ -315,6 +282,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     }
     
     @IBAction func toggleLaunghAtLogin(_ sender: NSMenuItem) {
+        //开机启动功能在Mac OS 10.11之后就失效了，因此这个选项其实是没有用的。。
+        //要添加这个功能需要使用辅助应用，详情见：
+        //https://hechen.xyz/post/autostartwhenlogin/
         launchAtLoginController.launchAtLogin = !launchAtLoginController.launchAtLogin;
         updateLaunchAtLoginMenu()
     }
@@ -392,7 +362,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             if let text = pb.string(forType: NSPasteboard.PasteboardType.URL) {
                 if let url = URL(string: text) {
                     NotificationCenter.default.post(
-                        name: Notification.Name(rawValue: "NOTIFY_FOUND_SS_URL"), object: nil
+                        name: NOTIFY_FOUND_SS_URL, object: nil
                         , userInfo: [
                             "urls": [url],
                             "source": "pasteboard",
@@ -401,7 +371,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             }
         }
         if let text = pb.string(forType: NSPasteboard.PasteboardType.string) {
-            var urls = text.split(separator: "\n")
+            var urls = text.components(separatedBy: CharacterSet(charactersIn: "\n,"))
                 .map { String($0).trimmingCharacters(in: CharacterSet.whitespacesAndNewlines) }
                 .map { URL(string: $0) }
                 .filter { $0 != nil }
@@ -409,26 +379,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             urls = urls.filter { $0.scheme == "ssr" || $0.scheme == "ss" }
             
             NotificationCenter.default.post(
-                name: Notification.Name(rawValue: "NOTIFY_FOUND_SS_URL"), object: nil
+                name: NOTIFY_FOUND_SS_URL, object: nil
                 , userInfo: [
                     "urls": urls,
                     "source": "pasteboard",
                     ])
         }
-        
-        //
-//        if let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue {
-//            if URL(string: urlString) != nil {
-//                NotificationCenter.default.post(
-//                    name: Notification.Name(rawValue: "NOTIFY_FOUND_SS_URL"), object: nil
-//                    , userInfo: [
-//                        "urls": splitProfile(url: urlString, max: 5).map({ (item: String) -> URL in
-//                            return URL(string: item)!
-//                        }),
-//                        "source": "url",
-//                        ])
-//            }
-//        }
     }
     
     @IBAction func showBunchJsonExampleFile(_ sender: NSMenuItem) {
@@ -609,7 +565,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
 
     
     @IBAction func feedback(_ sender: NSMenuItem) {
-        NSWorkspace.shared.open(URL(string: "https://github.com/wzdnzd/ShadowsocksX-NG-R/issues")!)
+        NSWorkspace.shared.open(URL(string: "https://github.com/paradiseduo/ShadowsocksX-NG-R8/issues")!)
     }
     
     @IBAction func checkForUpdate(_ sender: NSMenuItem) {
@@ -855,14 +811,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
             statusItemView = StatusItemView(statusItem: statusItem!, menu: statusMenu)
             statusItem!.view = statusItemView
         }
+        statusItemView.showSpeed = showSpeed
         if showSpeed{
             if speedMonitor == nil{
-                speedMonitor = NetWorkMonitor(statusItemView: statusItemView)
+                speedMonitor = NetSpeedMonitor()
             }
             statusItem?.length = 85
-            speedMonitor?.start()
+            speedTimer = Timer.scheduledTimer(withTimeInterval: repeatTimeinterval, repeats: true, block: {[weak self] (timer) in
+                guard let w = self else {return}
+                w.speedMonitor?.timeInterval(w.repeatTimeinterval, downloadAndUploadSpeed: { (down, up) in
+                    w.statusItemView.setRateData(up: Float(up), down: Float(down))
+                })
+            })
         }else{
-            speedMonitor?.stop()
+            speedTimer?.invalidate()
+            speedTimer = nil
             speedMonitor = nil
             statusItem?.length = 20
         }
@@ -877,7 +840,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                     let alertResult = versionChecker.showAlertView(Title: newVersion["Title"] as! String, SubTitle: newVersion["SubTitle"] as! String, ConfirmBtn: newVersion["ConfirmBtn"] as! String, CancelBtn: newVersion["CancelBtn"] as! String)
                     print(alertResult)
                     if (newVersion["newVersion"] as! Bool && alertResult == 1000){
-                        NSWorkspace.shared.open(URL(string: "https://github.com/wzdnzd/ShadowsocksX-NG-R/releases")!)
+                        NSWorkspace.shared.open(URL(string: "https://github.com/paradiseduo/ShadowsocksX-NG-R8/releases")!)
                     }
                 }
             }
@@ -890,13 +853,52 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         if let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue {
             if URL(string: urlString) != nil {
                 NotificationCenter.default.post(
-                    name: Notification.Name(rawValue: "NOTIFY_FOUND_SS_URL"), object: nil
+                    name: NOTIFY_FOUND_SS_URL, object: nil
                     , userInfo: [
                         "urls": splitProfile(url: urlString, max: 5).map({ (item: String) -> URL in
                             return URL(string: item)!
                         }),
                         "source": "url",
                     ])
+            }
+        }
+    }
+    
+    private func foundSSRURL(_ note: Notification) {
+        if let userInfo = (note as NSNotification).userInfo {
+            let urls: [URL] = userInfo["urls"] as! [URL]
+            
+            let mgr = ServerProfileManager.instance
+            var isChanged = false
+            
+            for url in urls {
+                let profielDict = ParseAppURLSchemes(url)//ParseSSURL(url)
+                if let profielDict = profielDict {
+                    let profile = ServerProfile.fromDictionary(profielDict as [String : AnyObject])
+                    mgr.profiles.append(profile)
+                    isChanged = true
+                    
+                    let userNote = NSUserNotification()
+                    userNote.title = "Add Shadowsocks Server Profile".localized
+                    if userInfo["source"] as! String == "qrcode" {
+                        userNote.subtitle = "By scan QR Code".localized
+                    } else if userInfo["source"] as! String == "url" {
+                        userNote.subtitle = "By Handle SS URL".localized
+                    }
+                    userNote.informativeText = "Host: \(profile.serverHost)\n Port: \(profile.serverPort)\n Encription Method: \(profile.method)".localized
+                    userNote.soundName = NSUserNotificationDefaultSoundName
+                    
+                    NSUserNotificationCenter.default.deliver(userNote);
+                }else{
+                    let userNote = NSUserNotification()
+                    userNote.title = "Failed to Add Server Profile".localized
+                    userNote.subtitle = "Address can not be recognized".localized
+                    NSUserNotificationCenter.default.deliver(userNote);
+                }
+            }
+            if isChanged {
+                mgr.save()
+                self.updateServersMenu()
             }
         }
     }

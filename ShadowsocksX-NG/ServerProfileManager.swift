@@ -12,7 +12,7 @@ class ServerProfileManager: NSObject {
     
     static let instance:ServerProfileManager = ServerProfileManager()
     
-    var profiles:[ServerProfile]
+    var profiles:[ServerProfile] = [ServerProfile]()
     var activeProfileId: String?
     
     fileprivate override init() {
@@ -83,6 +83,20 @@ class ServerProfileManager: NSObject {
         }
         defaults.synchronize()
     }
+    
+    func reload() {
+        profiles.removeAll()
+        
+        let defaults = UserDefaults.standard
+        if let _profiles = defaults.array(forKey: "ServerProfiles") {
+            for _profile in _profiles {
+                let profile = ServerProfile.fromDictionary(_profile as! [String : AnyObject])
+                profiles.append(profile)
+            }
+        }
+        activeProfileId = defaults.string(forKey: "ActiveServerProfileId")
+    }
+
     
     func getActiveProfile() -> ServerProfile? {
         if getActiveProfileId() == "" { return nil }
@@ -169,7 +183,7 @@ class ServerProfileManager: NSObject {
                         self.profiles.append(profile)
                         self.save()
                     }
-                    NotificationCenter.default.post(name: Notification.Name(rawValue: NOTIFY_SERVER_PROFILES_CHANGED), object: nil)
+                    NotificationCenter.default.post(name: NOTIFY_SERVER_PROFILES_CHANGED, object: nil)
                     let configsCount = (jsonArr1.object(forKey: "configs") as! [[String: AnyObject]]).count
                     let notification = NSUserNotification()
                     notification.title = "Import Server Profile succeed!".localized

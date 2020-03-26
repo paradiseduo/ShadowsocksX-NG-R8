@@ -10,7 +10,7 @@ import AppKit
 import Foundation
 
 open class StatusItemView: NSControl {
-    static let KB:Float = 1024
+    static let KB:Float = 1
     static let MB:Float = KB*1024
     static let GB:Float = MB*1024
     static let TB:Float = GB*1024
@@ -21,8 +21,8 @@ open class StatusItemView: NSControl {
     var mouseDown = false
     var statusItem:NSStatusItem
     
-    var upRate = "- - KB/s"
-    var downRate = "- - KB/s"
+    var upRate = "0 KB/s"
+    var downRate = "0 KB/s"
     var image = NSImage(named: "menu_icon")
 
     var showSpeed:Bool = false
@@ -71,14 +71,15 @@ open class StatusItemView: NSControl {
         var result:Float
         var unit: String
         
-        if data < StatusItemView.KB/100 {
+        if data < StatusItemView.KB {
             result = 0
             return "0 KB/s"
         }
             
-        else if data < StatusItemView.MB{
+        else if data < StatusItemView.MB {
             result = data/StatusItemView.KB
             unit = " KB/s"
+            return String(format: "%0.0f", result) + unit
         }
             
         else if data < StatusItemView.GB {
