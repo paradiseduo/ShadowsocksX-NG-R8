@@ -9,7 +9,7 @@
 
 - 请勿在本项目的Issues里进行任何购买梯子或者搭建梯子的讨论
 
-- 本项目所提供编译好的App程序不保证一定可用（特别是macOS 10.15），请各位技术大牛自行下载编译运行，提高使用门槛（在Xcode11.3.1上可以直接编译运行）
+- 本项目所提供编译好的App程序不保证一定可用（特别是macOS 10.15），请各位技术大牛自行下载编译运行，提高使用门槛（在Xcode11.4上可以直接编译运行）
 
 ## 软件删除方法
 首先从应用程序中将.app文件放到废纸篓（随便什么方式）
@@ -26,9 +26,9 @@ rm -rf ~/.ShadowsocksX-NG
 
 # ShadowsocksX-NG-R
 
-Current version is 1.5.4
+Current version is 1.5.5
 
-Continuesly release under 1.5.4
+Continuesly release under 1.5.5
 
 [![Build Status](https://travis-ci.org/shadowsocksr/ShadowsocksX-NG.svg?branches=develop)](https://travis-ci.org/shadowsocksr/ShadowsocksX-NG)
 
@@ -64,7 +64,7 @@ Then I rewrite the GUI code by swift.
 
 ### Building
 
-- Xcode 11.1+
+- Xcode 11.4+
 - cocoapod 1.8.4+
 
 ## Fetures

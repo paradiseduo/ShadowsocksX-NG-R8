@@ -65,14 +65,6 @@ class VersionChecker: NSObject {
         return ret
     }
     func checkNewVersion() -> [String:Any] {
-        // return 
-        // newVersion: Bool, 
-        // error: String,
-        // alertTitle: String,
-        // alertSubtitle: String,
-        // alertConfirmBtn: String,
-        // alertCancelBtn: String
-        let showAlert: Bool = true
         func getOnlineData() throws -> NSDictionary{
             guard NSDictionary(contentsOf: URL(string:_VERSION_XML_URL)!) != nil else {
                 throw versionError.CanNotGetOnlineData
