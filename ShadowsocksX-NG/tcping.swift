@@ -68,7 +68,7 @@ class tcping: NSObject, GCDAsyncSocketDelegate {
         if !self.socket!.isConnected {
             do {
                 startTime = Date()
-                try self.socket?.connect(toHost: domain, onPort: port, withTimeout: 1)
+                try self.socket?.connect(toHost: domain, onPort: port, withTimeout: Tcping.timeout)
             } catch let error {
                 print(error)
             }
@@ -83,6 +83,8 @@ class tcping: NSObject, GCDAsyncSocketDelegate {
 }
 
 class Tcping {
+    static let timeout:TimeInterval = 0.9
+    
     var count = 5
     var timer:Timer?
     var speedStringDomain = [String: TcpCollection]()
@@ -98,7 +100,7 @@ class Tcping {
         
         neverSpeedTestBefore = false
         count = 5
-        self.timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] (t) in
+        self.timer = Timer.scheduledTimer(withTimeInterval: Tcping.timeout+0.1, repeats: true) { [weak self] (t) in
             guard let w = self else {return}
             if w.count > 0 {
                 print("Tcping Residual times \(w.count)")
