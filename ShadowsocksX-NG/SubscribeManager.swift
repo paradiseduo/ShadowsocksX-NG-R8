@@ -84,7 +84,7 @@ class SubscribeManager:NSObject{
         }
         //每次更新订阅后自动测试延时
         group.notify(queue: DispatchQueue.main) {
-            PingServers.instance.ping()
+            ConnectTestigManager.start()
         }
     }
 }

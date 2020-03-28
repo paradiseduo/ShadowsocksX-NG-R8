@@ -56,7 +56,7 @@ class SubscribePreferenceWindowController: NSWindowController
             if editingSubscribe.isActive{
                 editingSubscribe.updateServerFromFeed {
                     DispatchQueue.main.async {
-                        PingServers.instance.ping()
+                        ConnectTestigManager.start()
                     }
                 }
             }

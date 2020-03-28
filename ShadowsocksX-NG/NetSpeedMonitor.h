@@ -2,8 +2,8 @@
 //  NetSpeedMonitor.h
 //  Test
 //
-//  Created by YouShaoduo on 2020/3/22.
-//  Copyright © 2020 YouShaoduo. All rights reserved.
+//  Created by ParadiseDuo on 2020/3/22.
+//  Copyright © 2020 ParadiseDuo. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

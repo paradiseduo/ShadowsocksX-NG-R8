@@ -65,6 +65,8 @@
 		9BEEF0781D04FE8A00FC52B3 /* LaunchAgentUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEEF0771D04FE8A00FC52B3 /* LaunchAgentUtils.swift */; };
 		9BEEF07B1D05631500FC52B3 /* AdvPreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BEEF0791D05631500FC52B3 /* AdvPreferencesWindowController.swift */; };
 		A40EFDAD315FA9A6DEAFB357 /* Pods_ShadowsocksX_NG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DEA085109C9B200E36DA0A /* Pods_ShadowsocksX_NG.framework */; };
+		BE492025242F412900A6C78E /* tcping.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE492022242F412900A6C78E /* tcping.swift */; };
+		BE492026242F412900A6C78E /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = BE492024242F412900A6C78E /* GCDAsyncSocket.m */; };
 		BE76C2CC24277EAC00FB3516 /* NetSpeedMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = BE76C2CB24277EAC00FB3516 /* NetSpeedMonitor.m */; };
 		C6D429931DA75988002A5711 /* install_privoxy.sh in Resources */ = {isa = PBXBuildFile; fileRef = C6D4298E1DA75988002A5711 /* install_privoxy.sh */; };
 		C6D429941DA75988002A5711 /* privoxy in Resources */ = {isa = PBXBuildFile; fileRef = C6D4298F1DA75988002A5711 /* privoxy */; };
@@ -213,6 +215,9 @@
 		9BEEF0791D05631500FC52B3 /* AdvPreferencesWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvPreferencesWindowController.swift; sourceTree = "<group>"; };
 		B2DEA085109C9B200E36DA0A /* Pods_ShadowsocksX_NG.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShadowsocksX_NG.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD2EDEB581B59F4898133A58 /* Pods-proxy_conf_helper.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-proxy_conf_helper.debug.xcconfig"; path = "Target Support Files/Pods-proxy_conf_helper/Pods-proxy_conf_helper.debug.xcconfig"; sourceTree = "<group>"; };
+		BE492022242F412900A6C78E /* tcping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tcping.swift; sourceTree = "<group>"; };
+		BE492023242F412900A6C78E /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
+		BE492024242F412900A6C78E /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
 		BE76C2CA24277EAB00FB3516 /* NetSpeedMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetSpeedMonitor.h; sourceTree = "<group>"; };
 		BE76C2CB24277EAC00FB3516 /* NetSpeedMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetSpeedMonitor.m; sourceTree = "<group>"; };
 		C6D4298E1DA75988002A5711 /* install_privoxy.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = install_privoxy.sh; sourceTree = "<group>"; };
@@ -357,6 +362,7 @@
 				9B3FFF511D09DBA20019A709 /* ShadowsocksX-NG-Bridging-Header.h */,
 				9B3FFF151D072FDE0019A709 /* LaunchAtLoginController.h */,
 				9B3FFF161D072FDE0019A709 /* LaunchAtLoginController.m */,
+				BE492020242F411400A6C78E /* tcping */,
 				9B3FFF0B1D05D8B80019A709 /* UI */,
 				9B07EFB01D048E900052D9DF /* Support Files */,
 				9B0BFFE81D0460A70040E62B /* AppDelegate.swift */,
@@ -427,6 +433,16 @@
 				9B3FFF461D09CD3B0019A709 /* main.m */,
 			);
 			path = proxy_conf_helper;
+			sourceTree = "<group>";
+		};
+		BE492020242F411400A6C78E /* tcping */ = {
+			isa = PBXGroup;
+			children = (
+				BE492022242F412900A6C78E /* tcping.swift */,
+				BE492023242F412900A6C78E /* GCDAsyncSocket.h */,
+				BE492024242F412900A6C78E /* GCDAsyncSocket.m */,
+			);
+			name = tcping;
 			sourceTree = "<group>";
 		};
 		D3CE66CC039F651F28057DDB /* Frameworks */ = {
@@ -721,6 +737,7 @@
 				9B3FFF321D08CEE40019A709 /* SWBQRCodeWindowController.m in Sources */,
 				08BDBB481E2361BD00C4BBC2 /* VersionChecker.swift in Sources */,
 				083BF8371D82742200831C68 /* PingClient.swift in Sources */,
+				BE492025242F412900A6C78E /* tcping.swift in Sources */,
 				9B3FFF211D08826E0019A709 /* PACUtils.swift in Sources */,
 				9B3FFF141D0705810019A709 /* Notifications.swift in Sources */,
 				9BEEF0701D04DDB100FC52B3 /* ServerProfileManager.swift in Sources */,
@@ -729,6 +746,7 @@
 				E8CD016C23726D14006CB1F6 /* ToastWindowController.swift in Sources */,
 				0877D6541EF1E65600126865 /* Subscribe.swift in Sources */,
 				9BEEF07B1D05631500FC52B3 /* AdvPreferencesWindowController.swift in Sources */,
+				BE492026242F412900A6C78E /* GCDAsyncSocket.m in Sources */,
 				083BF8391D82759600831C68 /* StatusItemView.swift in Sources */,
 				9BEEF06E1D04DCE400FC52B3 /* ServerProfile.swift in Sources */,
 				083BF83B1D8275A800831C68 /* SystemThemeChangeHelper.swift in Sources */,

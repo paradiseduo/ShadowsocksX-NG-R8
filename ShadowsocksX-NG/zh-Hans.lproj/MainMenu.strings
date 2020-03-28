@@ -93,7 +93,7 @@
 "vJS-JW-byz.title" = "退出";
 
 /* Class = "NSMenuItem"; title = "Ping server"; ObjectID = "zfR-Jt-GmS"; */
-"zfR-Jt-GmS.title" = "服务器测速";
+"zfR-Jt-GmS.title" = "延迟测试方式";
 
 /* Class = "NSMenuItem"; title = "Show network speed"; ObjectID = "a3h-uQ-DuO"; */
 "a3h-uQ-DuO.title" = "显示网速";
@@ -123,3 +123,9 @@
 "QJ6-eg-mzv.title" = "编辑订阅";
 
 "Lod-lA-Gfa.title" = "复制终端代理命令";
+
+"q2r-Fr-g0n.title" = "连接延迟测试";
+
+"rVU-v3-WaV.title" = "使用ICMP";
+
+"eL4-tv-vDa.title" = "使用TCP";

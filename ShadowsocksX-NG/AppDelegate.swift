@@ -25,7 +25,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     var launchAtLoginController: LaunchAtLoginController = LaunchAtLoginController()
     
     // MARK: Outlets
-    @IBOutlet weak var window: NSWindow!
     @IBOutlet weak var statusMenu: NSMenu!
     
     @IBOutlet weak var runningStatusMenuItem: NSMenuItem!
@@ -40,7 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     @IBOutlet weak var ACLBackChinaMenuItem: NSMenuItem!
     
     @IBOutlet weak var serversMenuItem: NSMenuItem!
-    @IBOutlet var pingserverMenuItem: NSMenuItem!
+    @IBOutlet var connectionDelayTestMenuItem: NSMenuItem!
     @IBOutlet var showQRCodeMenuItem: NSMenuItem!
     @IBOutlet var scanQRCodeMenuItem: NSMenuItem!
     @IBOutlet var showBunchJsonExampleFileItem: NSMenuItem!
@@ -60,6 +59,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     @IBOutlet var editSubscribeMenuItem: NSMenuItem!
     
     @IBOutlet weak var copyCommandLine: NSMenuItem!
+    
+    @IBOutlet weak var icmpMenuItem: NSMenuItem!
+    @IBOutlet weak var tcpMenuItem: NSMenuItem!
     
     
     // MARK: Variables
@@ -521,8 +523,22 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         updateRunningModeMenu()
     }
 
-    @IBAction func doPingTest(_ sender: AnyObject) {
-        PingServers.instance.ping()
+    @IBAction func connectionDelayTest(_ sender: NSMenuItem) {
+        ConnectTestigManager.start()
+    }
+    
+    @IBAction func doPingTest(_ sender: NSMenuItem) {
+        icmpMenuItem.state = NSControl.StateValue(rawValue: 1)
+        tcpMenuItem.state = NSControl.StateValue(rawValue: 0)
+        UserDefaults.standard.set(false, forKey: "TCP")
+        UserDefaults.standard.synchronize()
+    }
+    
+    @IBAction func doTcpingTest(_ sender: NSMenuItem) {
+        icmpMenuItem.state = NSControl.StateValue(rawValue: 0)
+        tcpMenuItem.state = NSControl.StateValue(rawValue: 1)
+        UserDefaults.standard.set(true, forKey: "TCP")
+        UserDefaults.standard.synchronize()
     }
     
     @IBAction func showSpeedTap(_ sender: NSMenuItem) {
@@ -535,15 +551,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         updateMainMenu()
     }
 
-    //https://git.codingcafe.org/Mirrors/shadowsocks/ShadowsocksX-NG/blob/d56b108eb8a8087337b2c9c9ccc6743f5f9944a9/ShadowsocksX-NG/AppDelegate.swift
-    @IBAction func showLogs2(_ sender: NSMenuItem) {
-        let ws = NSWorkspace.shared
-        if let appUrl = ws.urlForApplication(withBundleIdentifier: "com.apple.Console") {
-            try! ws.launchApplication(at: appUrl
-                ,options: .default
-                ,configuration: convertToNSWorkspaceLaunchConfigurationKeyDictionary([convertFromNSWorkspaceLaunchConfigurationKey(NSWorkspace.LaunchConfigurationKey.arguments): "~/Library/Logs/ss-local.log"]))
-        }
-    }
     @IBAction func showLogs(_ sender: NSMenuItem) {
         let ws = NSWorkspace.shared
         if let appUrl = ws.urlForApplication(withBundleIdentifier: "com.apple.Console") {
@@ -671,7 +678,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 statusItemView.setIconWith(mode: "disabled")
             }
         }
-        
+        if defaults.bool(forKey: "TCP") {
+            icmpMenuItem.state = NSControl.StateValue(rawValue: 0)
+            tcpMenuItem.state = NSControl.StateValue(rawValue: 1)
+        } else {
+            icmpMenuItem.state = NSControl.StateValue(rawValue: 1)
+            tcpMenuItem.state = NSControl.StateValue(rawValue: 0)
+        }
         ShowNetworkSpeedItem.state          = NSControl.StateValue(rawValue: defaults.bool(forKey: "enable_showSpeed") ? 1 : 0)
         connectAtLaunchMenuItem.state       = NSControl.StateValue(rawValue: defaults.bool(forKey: "ConnectAtLaunch")  ? 1 : 0)
         checkUpdateAtLaunchMenuItem.state   = NSControl.StateValue(rawValue: defaults.bool(forKey: "AutoCheckUpdate")  ? 1 : 0)

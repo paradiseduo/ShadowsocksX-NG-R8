@@ -10,3 +10,4 @@
 #import "ProxyConfHelper.h"
 #import "ProxyConfTool.h"
 #import "NetSpeedMonitor.h"
+#import "GCDAsyncSocket.h"

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15505" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="16096" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="16096"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -23,16 +23,17 @@
                 <outlet property="checkUpdateAtLaunchMenuItem" destination="3nJ-zQ-Agj" id="bbR-eO-uCo"/>
                 <outlet property="checkUpdateMenuItem" destination="wyZ-4G-qg9" id="Sva-xA-VQY"/>
                 <outlet property="connectAtLaunchMenuItem" destination="aB3-cf-5j0" id="kW6-UF-38P"/>
+                <outlet property="connectionDelayTestMenuItem" destination="q2r-Fr-g0n" id="gOE-gQ-cYS"/>
                 <outlet property="copyCommandLine" destination="Lod-lA-Gfa" id="ivF-xD-08g"/>
                 <outlet property="copyHttpProxyExportCmdLineMenuItem" destination="gM9-ym-4L0" id="62x-pY-NaN"/>
                 <outlet property="editSubscribeMenuItem" destination="QJ6-eg-mzv" id="KC0-uH-8q0"/>
                 <outlet property="exportAllServerProfileItem" destination="6k0-gn-DQv" id="1xA-cd-5Ia"/>
                 <outlet property="globalModeMenuItem" destination="Mw3-Jm-eXA" id="ar5-Yx-3ze"/>
+                <outlet property="icmpMenuItem" destination="rVU-v3-WaV" id="H1p-tt-dpW"/>
                 <outlet property="importBunchJsonFileItem" destination="T9g-gy-gvv" id="GW7-ii-U1j"/>
                 <outlet property="lanchAtLoginMenuItem" destination="eUq-p7-ICK" id="w4p-0c-DZn"/>
                 <outlet property="manualModeMenuItem" destination="8PR-gs-c5N" id="9qz-mU-5kt"/>
                 <outlet property="manualUpdateSubscribeMenuItem" destination="NnE-Ad-1An" id="2Vf-Br-EnF"/>
-                <outlet property="pingserverMenuItem" destination="zfR-Jt-GmS" id="Gjs-bY-0tm"/>
                 <outlet property="proxyMenuItem" destination="diI-fB-Rss" id="Qjk-9U-3Qy"/>
                 <outlet property="runningStatusMenuItem" destination="fzk-mE-CEV" id="Vwm-Rg-Ykn"/>
                 <outlet property="scanQRCodeMenuItem" destination="Qe6-bF-paT" id="XHa-pa-nCa"/>
@@ -41,6 +42,7 @@
                 <outlet property="showBunchJsonExampleFileItem" destination="pdy-JE-50Q" id="aWi-DB-deq"/>
                 <outlet property="showQRCodeMenuItem" destination="R6A-96-Zcb" id="XHz-pz-nCz"/>
                 <outlet property="statusMenu" destination="Hob-KD-bx9" id="clA-ZW-0pT"/>
+                <outlet property="tcpMenuItem" destination="eL4-tv-vDa" id="AMk-hV-HJ3"/>
                 <outlet property="toggleRunningMenuItem" destination="GSu-Tf-StS" id="XHw-pU-nCa"/>
                 <outlet property="updateSubscribeAtLaunchMenuItem" destination="nQ4-Nv-tox" id="dOD-xa-Rw4"/>
                 <outlet property="whiteListModeMenuItem" destination="RvZ-Zn-29U" id="2v5-Bd-EDj"/>
@@ -135,6 +137,32 @@
                     </menu>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="WcX-Th-4eP"/>
+                <menuItem title="Connection delay test" id="q2r-Fr-g0n">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="connectionDelayTest:" target="Voe-Tx-rLC" id="1Sn-Bi-8Np"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Delay Test Method" id="zfR-Jt-GmS">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Delay Test Method" id="gxL-k3-8lX">
+                        <items>
+                            <menuItem title="Test with ICMP" id="rVU-v3-WaV">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="doPingTest:" target="Voe-Tx-rLC" id="6aY-Q0-7zV"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Test with TCP" id="eL4-tv-vDa">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="doTcpingTest:" target="Voe-Tx-rLC" id="BiE-D1-xjy"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="X5a-zf-B8u"/>
                 <menuItem title="Servers" id="u5M-hQ-VSc">
                     <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
                     <menu key="submenu" title="Servers" id="9Y1-db-3HK">
@@ -207,12 +235,6 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="showSpeedTap:" target="Voe-Tx-rLC" id="8Zp-lV-yLN"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Ping server" id="zfR-Jt-GmS">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="doPingTest:" target="Voe-Tx-rLC" id="rRs-7S-tvD"/>
                     </connections>
                 </menuItem>
                 <menuItem title="Advance Preference ..." id="bZ3-fy-34d">
