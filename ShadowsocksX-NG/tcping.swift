@@ -158,6 +158,7 @@ class Tcping {
                     UserDefaults.standard.synchronize()
                     
                     DispatchQueue.main.async {
+                        isTesting = false
                         (NSApplication.shared.delegate as! AppDelegate).updateServersMenu()
                         (NSApplication.shared.delegate as! AppDelegate).updateRunningModeMenu()
                     }

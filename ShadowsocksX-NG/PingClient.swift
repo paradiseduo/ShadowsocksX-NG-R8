@@ -22,6 +22,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 public typealias SimplePingClientCallback = (String?)->()
 
+var isTesting:Bool = false
 var neverSpeedTestBefore:Bool = true
 
 class PingServers:NSObject{
@@ -118,6 +119,7 @@ class PingServers:NSObject{
                 UserDefaults.standard.synchronize()
                 
                 DispatchQueue.main.async {
+                    isTesting = false
                     (NSApplication.shared.delegate as! AppDelegate).updateServersMenu()
                     (NSApplication.shared.delegate as! AppDelegate).updateRunningModeMenu()
                 }
@@ -128,10 +130,13 @@ class PingServers:NSObject{
 
 class ConnectTestigManager {
     static func start() {
-        if UserDefaults.standard.bool(forKey: "TCP") {
-            Tcping.instance.ping()
-        } else {
-            PingServers.instance.ping()
+        if !isTesting {
+            isTesting = true
+            if UserDefaults.standard.bool(forKey: "TCP") {
+                Tcping.instance.ping()
+            } else {
+                PingServers.instance.ping()
+            }
         }
     }
 }
