@@ -26,9 +26,9 @@ rm -rf ~/.ShadowsocksX-NG
 
 # ShadowsocksX-NG-R
 
-Current version is 1.5.6
+Current version is 1.5.7
 
-Continuesly release under 1.5.6
+Continuesly release under 1.5.7
 
 [![Build Status](https://travis-ci.org/shadowsocksr/ShadowsocksX-NG.svg?branches=develop)](https://travis-ci.org/shadowsocksr/ShadowsocksX-NG)
 
