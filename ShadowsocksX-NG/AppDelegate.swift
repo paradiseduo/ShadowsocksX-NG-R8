@@ -322,7 +322,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                         self.qrcodeWinCtrl.close()
                     }
                     self.qrcodeWinCtrl = SWBQRCodeWindowController(windowNibName: "SWBQRCodeWindowController")
-                    self.qrcodeWinCtrl.qrCode = profile.URL()!.absoluteString
+                    self.qrcodeWinCtrl.qrCode = profile.getSSRURL()!.absoluteString
                     self.qrcodeWinCtrl.title = profile.title()
                     DispatchQueue.main.async {
                         self.qrcodeWinCtrl.showWindow(self)

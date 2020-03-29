@@ -204,7 +204,7 @@ class PreferencesWindowController: NSWindowController
         let index = profilesTableView.selectedRow
         if  index >= 0 {
             let profile = profileMgr.profiles[index]
-            let ssURL = profile.URL()
+            let ssURL = profile.getSSRURL()
             if let url = ssURL {
                 
                 let pboard = NSPasteboard.general
