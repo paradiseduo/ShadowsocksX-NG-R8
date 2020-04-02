@@ -21,8 +21,16 @@
 @end
 
 @implementation NetSpeedMonitor
+
+void SystemProxyChangeCallBack(SCDynamicStoreRef store, CFArrayRef changedKeys,void *info){
+    [NetSpeedMonitor primaryInterface];
+}
+
 - (instancetype)init {
     if (self = [super init]) {
+        [NetSpeedMonitor primaryInterface];
+        [self addPrimaryInterfaceObserver];
+        
         self.lastData = [[NSMutableDictionary alloc] init];
         self.sysctlBufferSize = 0;
         self.sysctlBuffer = malloc(self.sysctlBufferSize);
@@ -146,22 +154,60 @@
 }
 
 + (NSString *)primaryInterface {
-    SCDynamicStoreRef storeRef = SCDynamicStoreCreate(NULL, (CFStringRef)@"FindCurrentInterfaceIpMac", NULL, NULL);
-    CFPropertyListRef global = SCDynamicStoreCopyValue (storeRef,CFSTR("State:/Network/Global/IPv4"));
-    NSString *primaryInterface = [(__bridge NSDictionary *)global valueForKey:@"PrimaryInterface"];
-    CFRelease(storeRef);
-    CFRelease(global);
-    if (primaryInterface) {
-        return primaryInterface;
+#if TARGET_OS_IPHONE
+#if !TARGET_IPHONE_SIMULATOR && !TARGET_OS_TV
+    const char* primaryInterface = "en0";  // WiFi interface on iOS
+#endif
+#else
+    const char* primaryInterface = NULL;
+    SCDynamicStoreRef store = SCDynamicStoreCreate(kCFAllocatorDefault, CFSTR("ShadowsocksX-NG-R"), NULL, NULL);
+    if (store) {
+        CFPropertyListRef info = SCDynamicStoreCopyValue(store, CFSTR("State:/Network/Global/IPv4"));
+        if (info) {
+            NSString* interface = [(__bridge NSDictionary*)info objectForKey:@"PrimaryInterface"];
+            if (interface) {
+                primaryInterface = [[NSString stringWithString:interface] UTF8String];
+            }
+            CFRelease(info);
+        }
+        CFRelease(store);
     }
-    return @"en0";
+    if (primaryInterface == NULL) {
+        primaryInterface = "lo0";
+    }
+#endif
+    NSString * result = [NSString stringWithCString:primaryInterface encoding:NSUTF8StringEncoding];
+    [[NSUserDefaults standardUserDefaults] setObject:result forKey:@"primaryInterface"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    return result;
+}
+
+- (void)addPrimaryInterfaceObserver {
+    //https://developer.apple.com/library/archive/documentation/Networking/Conceptual/SystemConfigFrameworks/SC_UnderstandSchema/SC_UnderstandSchema.html
+    SCDynamicStoreContext context = {0, (__bridge void * _Nullable)(self), NULL, NULL, NULL};
+    SCDynamicStoreRef dynStore = SCDynamicStoreCreate(kCFAllocatorDefault, CFBundleGetIdentifier(CFBundleGetMainBundle()), SystemProxyChangeCallBack, &context);
+    const CFStringRef keys[3] = {CFSTR("State:/Network/Global/IPv4")};
+    CFArrayRef watchedKeys = CFArrayCreate(kCFAllocatorDefault, (const void **)keys, 1, &kCFTypeArrayCallBacks);
+    if (SCDynamicStoreSetNotificationKeys(dynStore, NULL, watchedKeys)) {
+        CFRelease(watchedKeys);
+        CFRunLoopSourceRef rlSrc = SCDynamicStoreCreateRunLoopSource(kCFAllocatorDefault, dynStore, 0);
+        CFRunLoopAddSource(CFRunLoopGetCurrent(), rlSrc, kCFRunLoopDefaultMode);
+        CFRelease(rlSrc);
+    }else {
+        CFRelease(watchedKeys);
+        CFRelease(dynStore);
+        dynStore = NULL;
+    }
 }
 
 - (void)timeInterval:(NSTimeInterval)interval downloadAndUploadSpeed:(void (^)(double, double))speeds {
     double down = 0.0, up = 0.0;
     NSMutableDictionary * result = [self netStatsForInterval:interval];
-    NSString * primaryInterface = [NetSpeedMonitor primaryInterface];
-    NSDictionary * dic = result[primaryInterface];
+    NSString * primaryInterface = [[NSUserDefaults standardUserDefaults] objectForKey:@"primaryInterface"];
+    NSDictionary * dic = nil;
+    if (primaryInterface) {
+        dic = [NSDictionary dictionaryWithDictionary:result[primaryInterface]];
+    }
     if (dic) {
         NSNumber * deltain = dic[@"deltain"];
         NSNumber * deltaout = dic[@"deltaout"];
