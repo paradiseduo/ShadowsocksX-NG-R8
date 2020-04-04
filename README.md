@@ -22,8 +22,8 @@ rm -rf ~/Library/Application\ Support/ShadowsocksX-NG-R8
 rm -rf ~/Library/LaunchAgents/com.qiuyuzhou.shadowsocksX-NG.http.plist
 rm -rf ~/Library/LaunchAgents/com.qiuyuzhou.shadowsocksX-NG.local.plist
 rm -rf ~/.ShadowsocksX-NG
-~/Library/Preferences/com.qiuyuzhou.ShadowsocksX-NG.plist
-~/Library/Caches/com.qiuyuzhou.ShadowsocksX-NG
+rm -rf ~/Library/Preferences/com.qiuyuzhou.ShadowsocksX-NG.plist
+rm -rf ~/Library/Caches/com.qiuyuzhou.ShadowsocksX-NG
 ```
 如果提示权限不足，请sudo后执行
 
