@@ -13,6 +13,8 @@
 
 - 如果你需要使用kcptun，那么你可以看一下[这个项目](https://github.com/paradiseduo/Kcptun)
 
+- 如果你需要使用trojan，那么你可以看一下[这个项目](https://github.com/paradiseduo/Trojan)
+
 ## 软件删除方法
 首先从应用程序中将.app文件放到废纸篓（随便什么方式）
 然后打开命令行，依次输入：
