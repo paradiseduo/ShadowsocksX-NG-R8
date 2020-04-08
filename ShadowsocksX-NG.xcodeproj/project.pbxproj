@@ -80,6 +80,7 @@
 		C8E42A6E1D4F2CAF0074C7EA /* UserRulesController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8E42A701D4F2CAF0074C7EA /* UserRulesController.xib */; };
 		E83546612416034200D7776E /* ProxyPreferencesNewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E835465F2416034200D7776E /* ProxyPreferencesNewController.swift */; };
 		E835466924160D4000D7776E /* ProxyPreferencesNewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E835466B24160D4000D7776E /* ProxyPreferencesNewController.xib */; };
+		E8650520243D96D30089706A /* libpcre.1.dylib in Resources */ = {isa = PBXBuildFile; fileRef = E8650519243D95E00089706A /* libpcre.1.dylib */; };
 		E8CD016C23726D14006CB1F6 /* ToastWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CD016B23726D14006CB1F6 /* ToastWindowController.swift */; };
 		E8CD016E23726D6C006CB1F6 /* ToastWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8CD016D23726D6C006CB1F6 /* ToastWindowController.xib */; };
 		E8F9108C2421BADF005E69E6 /* remove_ss_local.sh in Resources */ = {isa = PBXBuildFile; fileRef = E8F9108B2421BADF005E69E6 /* remove_ss_local.sh */; };
@@ -236,6 +237,7 @@
 		E835465F2416034200D7776E /* ProxyPreferencesNewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyPreferencesNewController.swift; sourceTree = "<group>"; };
 		E835466A24160D4000D7776E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ProxyPreferencesNewController.xib; sourceTree = "<group>"; };
 		E835466F24160D4400D7776E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ProxyPreferencesNewController.strings"; sourceTree = "<group>"; };
+		E8650519243D95E00089706A /* libpcre.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libpcre.1.dylib; sourceTree = "<group>"; };
 		E8CD016B23726D14006CB1F6 /* ToastWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWindowController.swift; sourceTree = "<group>"; };
 		E8CD016D23726D6C006CB1F6 /* ToastWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToastWindowController.xib; sourceTree = "<group>"; };
 		E8F9108B2421BADF005E69E6 /* remove_ss_local.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = remove_ss_local.sh; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 		9B07EFB01D048E900052D9DF /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
+				E8650519243D95E00089706A /* libpcre.1.dylib */,
 				08CF21451E2A730E008F235D /* LICENSE */,
 				C6D4298E1DA75988002A5711 /* install_privoxy.sh */,
 				C6D4298F1DA75988002A5711 /* privoxy */,
@@ -585,6 +588,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E8650520243D96D30089706A /* libpcre.1.dylib in Resources */,
 				9BE8FBBF1D0B211600CAFD01 /* libcrypto.1.0.0.dylib in Resources */,
 				9B3FFF541D09E2D10019A709 /* proxy_conf_helper in Resources */,
 				C6E28E951DA79705004F8330 /* HTTPPreferencesWindowController.xib in Resources */,
@@ -1004,7 +1008,7 @@
 					"$(PROJECT_DIR)",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 1.5.9;
+				MARKETING_VERSION = 1.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.qiuyuzhou.ShadowsocksX-NG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1043,7 +1047,7 @@
 					"$(PROJECT_DIR)",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MARKETING_VERSION = 1.5.9;
+				MARKETING_VERSION = 1.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.qiuyuzhou.ShadowsocksX-NG";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
