@@ -160,7 +160,11 @@ import Cocoa
         return true
     }
     
-    func getSSRURL(ssr: Bool = false) -> URL? {
+    func ssrURL() -> Foundation.URL? {
+        return self.getSSRURL()
+    }
+
+    func getSSRURL() -> URL? {
         if(ssrObfs=="plain"){
             let parts = "\(method):\(password)@\(serverHost):\(serverPort)"
             let base64String = parts.data(using: String.Encoding.utf8)?
