@@ -1,4 +1,4 @@
-Obey the "People's Republic of China Cyber ​​Security Law" to delete this project.
+# Obey the "People's Republic of China Cyber ​​Security Law" to delete this project.
 
 ## Software removal method
 First put the .app from the application file to the trash (any way)
