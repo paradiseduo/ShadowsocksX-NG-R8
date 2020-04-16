@@ -1,8 +1,4 @@
-## Obey the "Regulations of the People's Republic of China on the Safety Protection of Computer Information Systems" to delete this project.
-
-## Obey the "Measures for the administration of China's public computer Internet" to delete this project.
-
-## Obey the "Network security law of the people's Republic of China" to delete this project.
+# Remove due to regulation
 
 ## Software removal method
 First put the .app from the application file to the trash (any way)
