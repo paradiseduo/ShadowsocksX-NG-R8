@@ -16,14 +16,11 @@ class ProxyPreferencesNewController: NSWindowController, NSWindowDelegate, NSTab
     var networkServices: NSArray!
     var selectedNetworkServices: NSMutableSet!
     
-    var autoConfigureNetworkServices: Bool = true
-    
     override func windowDidLoad() {
         super.windowDidLoad()
 
         let defaults = UserDefaults.standard
         self.autoConfigCheckBox.state = NSControl.StateValue(rawValue: NSNumber(value: defaults.bool(forKey: "AutoConfigureNetworkServices")).intValue)
-        self.autoConfigureNetworkServices = defaults.bool(forKey: "AutoConfigureNetworkServices")
         
         if let services = defaults.array(forKey: "Proxy4NetworkServices") {
             selectedNetworkServices = NSMutableSet(array: services)
@@ -43,7 +40,7 @@ class ProxyPreferencesNewController: NSWindowController, NSWindowDelegate, NSTab
         
         let defaults = UserDefaults.standard
         defaults.setValue(selectedNetworkServices.allObjects, forKeyPath: "Proxy4NetworkServices")
-        defaults.setValue(autoConfigureNetworkServices, forKey: "AutoConfigureNetworkServices")
+        defaults.setValue(NSNumber(value: self.autoConfigCheckBox.state.rawValue).boolValue, forKey: "AutoConfigureNetworkServices")
         
         defaults.synchronize()
         
