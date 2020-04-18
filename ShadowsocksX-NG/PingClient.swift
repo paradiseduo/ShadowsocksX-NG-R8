@@ -89,7 +89,7 @@ class PingServers:NSObject{
             queue.async {
                 if let outputString = self.runCommand(cmd: "/sbin/ping", args: "-c","5","-t","2",SerMgr.profiles[i].serverHost).output.last {
                     if let latency = self.getlatencyFromString(result: outputString) {
-                        SerMgr.profiles[i].latency = String(latency)
+                        SerMgr.profiles[i].latency = NSNumber(value: latency)
                     }
                 }
                 group.leave()
@@ -100,22 +100,22 @@ class PingServers:NSObject{
             var fastTime = Double.infinity
             
             for k in 0..<SerMgr.profiles.count {
-                if let late = SerMgr.profiles[k].latency{
-                    if let latency = Double(late), latency < fastTime {
-                        fastTime = latency
-                        fastID = k
-                    }
+                let latency = SerMgr.profiles[k].latency.doubleValue
+                if latency < fastTime {
+                    fastTime = latency
+                    fastID = k
                 }
             }
             
             if fastTime != Double.infinity {
+                let ft = NumberFormatter.three(SerMgr.profiles[fastID].latency)
                 let notice = NSUserNotification()
-                notice.title = "ICMP测试完成！最快\(SerMgr.profiles[fastID].latency!)ms"
+                notice.title = "ICMP测试完成！最快\(ft)ms"
                 notice.subtitle = "最快的是\(SerMgr.profiles[fastID].serverHost) \(SerMgr.profiles[fastID].remark)"
                 
                 NSUserNotificationCenter.default.deliver(notice)
                 
-                UserDefaults.standard.setValue("\(SerMgr.profiles[fastID].latency!)", forKey: "FastestNode")
+                UserDefaults.standard.setValue("\(ft)", forKey: "FastestNode")
                 UserDefaults.standard.synchronize()
                 
                 DispatchQueue.main.async {

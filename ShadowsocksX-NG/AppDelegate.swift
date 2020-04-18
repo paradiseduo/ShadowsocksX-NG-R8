@@ -63,6 +63,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
     @IBOutlet weak var icmpMenuItem: NSMenuItem!
     @IBOutlet weak var tcpMenuItem: NSMenuItem!
     
+    @IBOutlet weak var ascendingMenuItem: NSMenuItem!
     
     // MARK: Variables
     var statusItemView:StatusItemView!
@@ -524,6 +525,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         ConnectTestigManager.start()
     }
     
+    @IBAction func ascendingDelay(_ sender: NSMenuItem) {
+        if sender.state.rawValue == 0 {
+            sender.state = NSControl.StateValue(rawValue: 1)
+            UserDefaults.standard.set(true, forKey: "AscendingDelay")
+        } else {
+            sender.state = NSControl.StateValue(rawValue: 0)
+            UserDefaults.standard.set(false, forKey: "AscendingDelay")
+        }
+        UserDefaults.standard.synchronize()
+    }
+    
     @IBAction func doPingTest(_ sender: NSMenuItem) {
         icmpMenuItem.state = NSControl.StateValue(rawValue: 1)
         tcpMenuItem.state = NSControl.StateValue(rawValue: 0)
@@ -597,8 +609,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
                 } else {
                     serverMenuText = p.serverHost
                 }
-                if let latency = p.latency{
-                    serverMenuText += "  - \(latency) ms"
+                if p.latency.doubleValue != Double.infinity {
+                    serverMenuText += "  - \(NumberFormatter.three(p.latency)) ms"
                 }
                 else{
                     if !neverSpeedTestBefore {
@@ -685,6 +697,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         ShowNetworkSpeedItem.state          = NSControl.StateValue(rawValue: defaults.bool(forKey: "enable_showSpeed") ? 1 : 0)
         connectAtLaunchMenuItem.state       = NSControl.StateValue(rawValue: defaults.bool(forKey: "ConnectAtLaunch")  ? 1 : 0)
         checkUpdateAtLaunchMenuItem.state   = NSControl.StateValue(rawValue: defaults.bool(forKey: "AutoCheckUpdate")  ? 1 : 0)
+        ascendingMenuItem.state             = NSControl.StateValue(rawValue: defaults.bool(forKey: "AscendingDelay")  ? 1 : 0)
     }
     
     func updateCopyHttpProxyExportMenu() {
@@ -731,14 +744,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSUserNotificationCenterDele
         if let t = UserDefaults.standard.object(forKey: "FastestNode") as? String {
             fastTime = t
         }
-        
+        if !neverSpeedTestBefore && UserDefaults.standard.bool(forKey: "AscendingDelay") {
+            mgr.profiles = mgr.profiles.sorted { (p1, p2) -> Bool in
+                return p1.latency.doubleValue <= p2.latency.doubleValue
+            }
+        }
         for p in mgr.profiles {
             let item = NSMenuItem()
             item.tag = i //+ kProfileMenuItemIndexBase
             item.title = p.title()
-            if let latency = p.latency {
-                item.title += "  - \(latency) ms"
-                if latency == fastTime {
+            let latency = p.latency
+            let nf = NumberFormatter.three(latency)
+            if latency.doubleValue != Double.infinity {
+                item.title += "  - \(nf) ms"
+                if nf == fastTime {
                     let dic = [NSAttributedString.Key.foregroundColor : NSColor.green]
                     let attStr = NSAttributedString(string: item.title, attributes: dic)
                     item.attributedTitle = attStr

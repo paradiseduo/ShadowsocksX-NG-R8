@@ -25,7 +25,7 @@ import Cocoa
     var ssrObfsParam:String = ""
     var ssrGroup: String = ""
     
-    var latency:String?
+    var latency = NSNumber(value: Double.infinity)
     
     override init() {
         uuid = UUID().uuidString
@@ -196,5 +196,15 @@ import Cocoa
         } else {
             return "\(remark) (\(serverHost):\(serverPort))"
         }
+    }
+}
+
+extension NumberFormatter {
+    static func three(_ number: NSNumber) -> String {
+        let nf = NumberFormatter()
+        nf.numberStyle = .decimal
+        nf.maximumFractionDigits = 3
+        
+        return nf.string(from: number) ?? "failed"
     }
 }

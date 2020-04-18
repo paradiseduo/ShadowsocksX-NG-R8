@@ -19,6 +19,7 @@
                 <outlet property="ACLModeMenuItem" destination="Yub-b0-bni" id="e0w-Td-aE9"/>
                 <outlet property="RunningStatusMenuItem" destination="fzk-mE-CEV" id="R4x-gK-Qcw"/>
                 <outlet property="ShowNetworkSpeedItem" destination="a3h-uQ-DuO" id="OLq-K8-rEO"/>
+                <outlet property="ascendingMenuItem" destination="por-hD-Ks6" id="QkN-Ue-Jyx"/>
                 <outlet property="autoModeMenuItem" destination="r07-Gu-aEz" id="9aH-pQ-Rgi"/>
                 <outlet property="checkUpdateAtLaunchMenuItem" destination="3nJ-zQ-Agj" id="bbR-eO-uCo"/>
                 <outlet property="checkUpdateMenuItem" destination="wyZ-4G-qg9" id="Sva-xA-VQY"/>
@@ -141,6 +142,12 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="connectionDelayTest:" target="Voe-Tx-rLC" id="1Sn-Bi-8Np"/>
+                    </connections>
+                </menuItem>
+                <menuItem title="Ascending by delay" id="por-hD-Ks6">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="ascendingDelay:" target="Voe-Tx-rLC" id="hCI-Vo-tXZ"/>
                     </connections>
                 </menuItem>
                 <menuItem title="Delay Test Method" id="zfR-Jt-GmS">

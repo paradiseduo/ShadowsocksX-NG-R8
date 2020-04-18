@@ -136,7 +136,7 @@ class Tcping {
                 for i in 0..<SerMgr.profiles.count {
                     let speed = w.speedStringDomain[SerMgr.profiles[i].serverHost]!.averageSpeed()
                     if speed.doubleValue != Double.infinity {
-                        SerMgr.profiles[i].latency = nf.string(from: speed)
+                        SerMgr.profiles[i].latency = speed
                     }
                     if speed.doubleValue < fastSpeed {
                         fastSpeed = speed.doubleValue
@@ -148,13 +148,14 @@ class Tcping {
                 w.pings.removeAll()
                 w.speedStringDomain = [String: TcpCollection]()
                 if fastSpeed != Double.infinity {
+                    let ft = NumberFormatter.three(SerMgr.profiles[fastID].latency)
                     let notice = NSUserNotification()
-                    notice.title = "TCP测试完成！最快\(SerMgr.profiles[fastID].latency!)ms"
+                    notice.title = "TCP测试完成！最快\(ft)ms"
                     notice.subtitle = "最快的是\(SerMgr.profiles[fastID].serverHost) \(SerMgr.profiles[fastID].remark)"
                     
                     NSUserNotificationCenter.default.deliver(notice)
                     
-                    UserDefaults.standard.setValue("\(SerMgr.profiles[fastID].latency!)", forKey: "FastestNode")
+                    UserDefaults.standard.setValue("\(ft)", forKey: "FastestNode")
                     UserDefaults.standard.synchronize()
                     
                     DispatchQueue.main.async {
