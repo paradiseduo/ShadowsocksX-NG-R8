@@ -160,8 +160,7 @@ class Tcping {
                     
                     DispatchQueue.main.async {
                         isTesting = false
-                        (NSApplication.shared.delegate as! AppDelegate).updateServersMenu()
-                        (NSApplication.shared.delegate as! AppDelegate).updateRunningModeMenu()
+                        NotificationCenter.default.post(name: NOTIFY_UPDATE_MAINMENU, object: nil)
                     }
                 }
             }

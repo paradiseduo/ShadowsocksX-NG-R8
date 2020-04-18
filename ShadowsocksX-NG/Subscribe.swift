@@ -209,10 +209,11 @@ import Alamofire
                 successCount += 1
             }
             self.profileMgr.save()
-            pushNotification(title: "成功更新订阅", subtitle: "总数:\(maxN) 成功:\(successCount) 清除:\(cleanCount) 重复:\(dupCount) 已存在:\(existCount)", info: "更新来自\(subscribeFeed)的订阅")
-            (NSApplication.shared.delegate as! AppDelegate).updateServersMenu()
-            (NSApplication.shared.delegate as! AppDelegate).updateRunningModeMenu()
-            handle()
+            DispatchQueue.main.async {
+                self.pushNotification(title: "成功更新订阅", subtitle: "总数:\(maxN) 成功:\(successCount) 清除:\(cleanCount) 重复:\(dupCount) 已存在:\(existCount)", info: "更新来自\(self.subscribeFeed)的订阅")
+                NotificationCenter.default.post(name: NOTIFY_UPDATE_MAINMENU, object: nil)
+                handle()
+            }
         }
         
         if (!isActive){ return }

@@ -148,9 +148,10 @@ class PreferencesWindowController: NSWindowController
         self.profilesTableView.selectRowIndexes(IndexSet(integer: index-1), byExtendingSelection: false)
         updateProfileBoxVisible()
         if profileMgr.profiles.count == 0 {
+            //调用开关按钮自动翻转状态，因此这里传true
             defaults.set(true, forKey: "ShadowsocksOn")
             defaults.synchronize()
-            (NSApplication.shared.delegate as! AppDelegate).toggleRunning((NSApplication.shared.delegate as! AppDelegate).toggleRunningMenuItem)
+            NotificationCenter.default.post(name: NOTIFY_TOGGLE_RUNNING, object: nil)
         }
     }
     
