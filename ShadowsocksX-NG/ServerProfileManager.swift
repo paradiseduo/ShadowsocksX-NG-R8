@@ -19,9 +19,9 @@ class ServerProfileManager: NSObject {
         profiles = [ServerProfile]()
         
         let defaults = UserDefaults.standard
-        activeProfileId = defaults.string(forKey: "ActiveServerProfileId")
+        activeProfileId = defaults.string(forKey: USERDEFAULTS_ACTIVE_SERVER_PROFILE_ID)
         var didFindActiveProfileId = false
-        if let _profiles = defaults.array(forKey: "ServerProfiles") {
+        if let _profiles = defaults.array(forKey: USERDEFAULTS_SERVER_PROFILES) {
             for _profile in _profiles {
                 let profile = ServerProfile.fromDictionary(_profile as! [String : AnyObject])
                 profiles.append(profile)
@@ -45,7 +45,7 @@ class ServerProfileManager: NSObject {
     func setActiveProfiledId(_ id: String) {
         activeProfileId = id
         let defaults = UserDefaults.standard
-        defaults.set(id, forKey: "ActiveServerProfileId")
+        defaults.set(id, forKey: USERDEFAULTS_ACTIVE_SERVER_PROFILE_ID)
         defaults.synchronize()
     }
     
@@ -68,17 +68,17 @@ class ServerProfileManager: NSObject {
                 _profiles.append(_profile as AnyObject)
             }
         }
-        defaults.set(_profiles, forKey: "ServerProfiles")
+        defaults.set(_profiles, forKey: USERDEFAULTS_SERVER_PROFILES)
         
         if getActiveProfile() == nil {
             activeProfileId = ""
         }
         
         if getActiveProfileId() != "" {
-            defaults.set(getActiveProfileId(), forKey: "ActiveServerProfileId")
+            defaults.set(getActiveProfileId(), forKey: USERDEFAULTS_ACTIVE_SERVER_PROFILE_ID)
             let _ = writeSSLocalConfFile((getActiveProfile()?.toJsonConfig())!)
         } else {
-            defaults.removeObject(forKey: "ActiveServerProfileId")
+            defaults.removeObject(forKey: USERDEFAULTS_ACTIVE_SERVER_PROFILE_ID)
             removeSSLocalConfFile()
         }
         defaults.synchronize()
@@ -88,13 +88,13 @@ class ServerProfileManager: NSObject {
         profiles.removeAll()
         
         let defaults = UserDefaults.standard
-        if let _profiles = defaults.array(forKey: "ServerProfiles") {
+        if let _profiles = defaults.array(forKey: USERDEFAULTS_SERVER_PROFILES) {
             for _profile in _profiles {
                 let profile = ServerProfile.fromDictionary(_profile as! [String : AnyObject])
                 profiles.append(profile)
             }
         }
-        activeProfileId = defaults.string(forKey: "ActiveServerProfileId")
+        activeProfileId = defaults.string(forKey: USERDEFAULTS_ACTIVE_SERVER_PROFILE_ID)
     }
 
     

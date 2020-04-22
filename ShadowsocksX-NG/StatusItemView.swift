@@ -111,8 +111,8 @@ open class StatusItemView: NSControl {
     @objc func changeDarkMode() {
         darkMode = SystemThemeChangeHelper.isCurrentDark()
         let d = UserDefaults.standard
-        let mode = d.string(forKey: "ShadowsocksRunningMode")
-        let on = d.bool(forKey: "ShadowsocksOn")
+        let mode = d.string(forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
+        let on = d.bool(forKey: USERDEFAULTS_SHADOWSOCKS_ON)
         if on {
             self.setIconWith(mode: mode)
         } else {
@@ -130,7 +130,7 @@ open class StatusItemView: NSControl {
             } else if mode == "manual" {
                 image = NSImage(named: "menu_icon_manual_dark_mode")!
             } else if mode == "whiteList" {
-                if UserDefaults.standard.string(forKey: "ACLFileName")! == "chn.acl" {
+                if UserDefaults.standard.string(forKey: USERDEFAULTS_ACL_FILE_NAME)! == "chn.acl" {
                     image = NSImage(named: "menu_icon_white_dark_mode")!
                 } else {
                     image = NSImage(named: "menu_icon_acl_dark_mode")!
@@ -148,7 +148,7 @@ open class StatusItemView: NSControl {
             } else if mode == "manual" {
                 image = NSImage(named: "menu_icon_manual")!
             } else if mode == "whiteList" {
-                if UserDefaults.standard.string(forKey: "ACLFileName")! == "chn.acl" {
+                if UserDefaults.standard.string(forKey: USERDEFAULTS_ACL_FILE_NAME)! == "chn.acl" {
                     image = NSImage(named: "menu_icon_white")!
                 } else {
                     image = NSImage(named: "menu_icon_acl")!

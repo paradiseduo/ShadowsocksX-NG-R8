@@ -115,7 +115,7 @@ class PingServers:NSObject{
                 
                 NSUserNotificationCenter.default.deliver(notice)
                 
-                UserDefaults.standard.setValue("\(ft)", forKey: "FastestNode")
+                UserDefaults.standard.setValue("\(ft)", forKey: USERDEFAULTS_FASTEST_NODE)
                 UserDefaults.standard.synchronize()
                 
                 DispatchQueue.main.async {
@@ -131,7 +131,7 @@ class ConnectTestigManager {
     static func start() {
         if !isTesting {
             isTesting = true
-            if UserDefaults.standard.bool(forKey: "TCP") {
+            if UserDefaults.standard.bool(forKey: USERDEFAULTS_TCP) {
                 Tcping.instance.ping()
             } else {
                 PingServers.instance.ping()

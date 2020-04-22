@@ -80,28 +80,28 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         
         let defaults = UserDefaults.standard
         defaults.register(defaults: [
-            "ShadowsocksOn": true,
-            "ShadowsocksRunningMode": "auto",
-            "LocalSocks5.ListenPort": NSNumber(value: 1086 as UInt16),
-            "LocalSocks5.ListenAddress": "127.0.0.1",
-            "PacServer.ListenAddress": "127.0.0.1",
-            "PacServer.ListenPort":NSNumber(value: 8090 as UInt16),
-            "LocalSocks5.Timeout": NSNumber(value: 60 as UInt),
-            "LocalSocks5.EnableUDPRelay": NSNumber(value: false as Bool),
-            "LocalSocks5.EnableVerboseMode": NSNumber(value: false as Bool),
-            "GFWListURL": "https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt",
-            "ACLWhiteListURL": "https://raw.githubusercontent.com/shadowsocks/shadowsocks-libev/master/acl/chn.acl",
-            "ACLAutoListURL": "https://raw.githubusercontent.com/shadowsocks/shadowsocks-libev/master/acl/gfwlist.acl",
-            "ACLProxyBackCHNURL":"https://raw.githubusercontent.com/shadowsocks/shadowsocks-libev/master/acl/server_block_chn.acl",
-            "AutoConfigureNetworkServices": NSNumber(value: true as Bool),
-            "LocalHTTP.ListenAddress": "127.0.0.1",
-            "LocalHTTP.ListenPort": NSNumber(value: 1087 as UInt16),
-            "LocalHTTPOn": true,
-            "LocalHTTP.FollowGlobal": true,
-            "AutoCheckUpdate": false,
-            "ACLFileName": "chn.acl",
-            "Subscribes": [],
-            "AutoUpdateSubscribe":false,
+            USERDEFAULTS_SHADOWSOCKS_ON: true,
+            USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE: "auto",
+            USERDEFAULTS_LOCAL_SOCKS5_LISTEN_PORT: NSNumber(value: 1086 as UInt16),
+            USERDEFAULTS_LOCAL_SOCKS5_LISTEN_ADDRESS: "127.0.0.1",
+            USERDEFAULTS_PAC_SERVER_LISTEN_ADDRESS: "127.0.0.1",
+            USERDEFAULTS_PAC_SERVER_LISTEN_PORT:NSNumber(value: 8090 as UInt16),
+            USERDEFAULTS_LOCAL_SOCKS5_TIMEOUT: NSNumber(value: 60 as UInt),
+            USERDEFAULTS_LOCAL_SOCKS5_ENABLE_UDP_RELAY: NSNumber(value: false as Bool),
+            USERDEFAULTS_LOCAL_SOCKS5_ENABLE_VERBOSE_MODE: NSNumber(value: false as Bool),
+            USERDEFAULTS_GFW_LIST_URL: "https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt",
+            USERDEFAULTS_ACL_WHITE_LIST_URL: "https://raw.githubusercontent.com/shadowsocks/shadowsocks-libev/master/acl/chn.acl",
+            USERDEFAULTS_ACL_AUTO_LIST_URL: "https://raw.githubusercontent.com/shadowsocks/shadowsocks-libev/master/acl/gfwlist.acl",
+            USERDEFAULTS_ACL_PROXY_BACK_CHN_URL:"https://raw.githubusercontent.com/shadowsocks/shadowsocks-libev/master/acl/server_block_chn.acl",
+            USERDEFAULTS_AUTO_CONFIGURE_NETWORK_SERVICES: NSNumber(value: true as Bool),
+            USERDEFAULTS_LOCAL_HTTP_LISTEN_ADDRESS: "127.0.0.1",
+            USERDEFAULTS_LOCAL_HTTP_LISTEN_PORT: NSNumber(value: 1087 as UInt16),
+            USERDEFAULTS_LOCAL_HTTP_ON: true,
+            USERDEFAULTS_LOCAL_HTTP_FOLLOW_GLOBAL: true,
+            USERDEFAULTS_AUTO_CHECK_UPDATE: false,
+            USERDEFAULTS_ACL_FILE_NAME: "chn.acl",
+            USERDEFAULTS_SUBSCRIBES: [],
+            USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE:false,
         ])
         
         let notifyCenter = NotificationCenter.default
@@ -142,7 +142,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         }
         
         DispatchQueue.main.async {
-            self.setUpMenu(defaults.bool(forKey: "enable_showSpeed"))
+            self.setUpMenu(defaults.bool(forKey: USERDEFAULTS_ENABLE_SHOW_SPEED))
             self.updateMainMenu()
             self.updateCopyHttpProxyExportMenu()
             self.updateServersMenu()
@@ -150,8 +150,8 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             self.updateLaunchAtLoginMenu()
             self.applyConfig()
             
-            if defaults.bool(forKey: "ConnectAtLaunch") && ServerProfileManager.instance.getActiveProfileId() != "" {
-                defaults.set(false, forKey: "ShadowsocksOn")
+            if defaults.bool(forKey: USERDEFAULTS_CONNECT_AT_LAUNCH) && ServerProfileManager.instance.getActiveProfileId() != "" {
+                defaults.set(false, forKey: USERDEFAULTS_SHADOWSOCKS_ON)
                 defaults.synchronize()
                 self.toggle()
             }
@@ -159,10 +159,10 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         
         DispatchQueue.global().async {
             // Version Check!
-            if defaults.bool(forKey: "AutoCheckUpdate") {
+            if defaults.bool(forKey: USERDEFAULTS_AUTO_CHECK_UPDATE) {
                 self.checkForUpdate(mustShowAlert: false)
             }
-            if defaults.bool(forKey: "AutoUpdateSubscribe") {
+            if defaults.bool(forKey: USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE) {
                 SubscribeManager.instance.updateAllServerFromSubscribe(auto: true)
             }
         }
@@ -176,7 +176,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     
     private func toggle() {
         let defaults = UserDefaults.standard
-        defaults.set(!defaults.bool(forKey: "ShadowsocksOn"), forKey: "ShadowsocksOn")
+        defaults.set(!defaults.bool(forKey: USERDEFAULTS_SHADOWSOCKS_ON), forKey: USERDEFAULTS_SHADOWSOCKS_ON)
         defaults.synchronize()
         updateMainMenu()
         SyncSSLocal()
@@ -223,7 +223,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     
     @IBAction func toggleConnectAtLaunch(_ sender: NSMenuItem) {
         let defaults = UserDefaults.standard
-        defaults.set(!defaults.bool(forKey: "ConnectAtLaunch"), forKey: "ConnectAtLaunch")
+        defaults.set(!defaults.bool(forKey: USERDEFAULTS_CONNECT_AT_LAUNCH), forKey: USERDEFAULTS_CONNECT_AT_LAUNCH)
         defaults.synchronize()
         updateMainMenu()
     }
@@ -232,8 +232,8 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     @IBAction func toggleCopyCommandLine(_ sender: NSMenuItem) {
         // Get the Http proxy config.
         let defaults = UserDefaults.standard
-        let address = defaults.string(forKey: "LocalHTTP.ListenAddress")
-        let port = defaults.integer(forKey: "LocalHTTP.ListenPort")
+        let address = defaults.string(forKey: USERDEFAULTS_LOCAL_HTTP_LISTEN_ADDRESS)
+        let port = defaults.integer(forKey: USERDEFAULTS_LOCAL_HTTP_LISTEN_PORT)
         
         if let a = address {
             let command = "export http_proxy=http://\(a):\(port);export https_proxy=http://\(a):\(port);"
@@ -334,9 +334,9 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     
     @IBAction func updateSubscribeAtLaunch(_ sender: NSMenuItem) {
         let defaults = UserDefaults.standard
-        defaults.set(!defaults.bool(forKey: "AutoUpdateSubscribe"), forKey: "AutoUpdateSubscribe")
+        defaults.set(!defaults.bool(forKey: USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE), forKey: USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE)
         defaults.synchronize()
-        updateSubscribeAtLaunchMenuItem.state = NSControl.StateValue(rawValue: defaults.bool(forKey: "AutoUpdateSubscribe") ? 1 : 0)
+        updateSubscribeAtLaunchMenuItem.state = NSControl.StateValue(rawValue: defaults.bool(forKey: USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE) ? 1 : 0)
     }
     
     
@@ -344,8 +344,8 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
 
     @IBAction func selectPACMode(_ sender: NSMenuItem) {
         let defaults = UserDefaults.standard
-        defaults.setValue("auto", forKey: "ShadowsocksRunningMode")
-        defaults.setValue("", forKey: "ACLFileName")
+        defaults.setValue("auto", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
+        defaults.setValue("", forKey: USERDEFAULTS_ACL_FILE_NAME)
         defaults.synchronize()
         updateRunningModeMenu()
         SyncSSLocal()
@@ -354,8 +354,8 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     
     @IBAction func selectGlobalMode(_ sender: NSMenuItem) {
         let defaults = UserDefaults.standard
-        defaults.setValue("global", forKey: "ShadowsocksRunningMode")
-        defaults.setValue("", forKey: "ACLFileName")
+        defaults.setValue("global", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
+        defaults.setValue("", forKey: USERDEFAULTS_ACL_FILE_NAME)
         defaults.synchronize()
         updateRunningModeMenu()
         SyncSSLocal()
@@ -364,8 +364,8 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     
     @IBAction func selectManualMode(_ sender: NSMenuItem) {
         let defaults = UserDefaults.standard
-        defaults.setValue("manual", forKey: "ShadowsocksRunningMode")
-        defaults.setValue("", forKey: "ACLFileName")
+        defaults.setValue("manual", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
+        defaults.setValue("", forKey: USERDEFAULTS_ACL_FILE_NAME)
         defaults.synchronize()
         updateRunningModeMenu()
         SyncSSLocal()
@@ -373,8 +373,8 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     }
     @IBAction func selectACLAutoMode(_ sender: NSMenuItem) {
         let defaults = UserDefaults.standard
-        defaults.setValue("whiteList", forKey: "ShadowsocksRunningMode")
-        defaults.setValue("gfwlist.acl", forKey: "ACLFileName")
+        defaults.setValue("whiteList", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
+        defaults.setValue("gfwlist.acl", forKey: USERDEFAULTS_ACL_FILE_NAME)
         defaults.synchronize()
         updateRunningModeMenu()
         SyncSSLocal()
@@ -382,8 +382,8 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     }
     @IBAction func selectACLBackCHNMode(_ sender: NSMenuItem) {
         let defaults = UserDefaults.standard
-        defaults.setValue("whiteList", forKey: "ShadowsocksRunningMode")
-        defaults.setValue("backchn.acl", forKey: "ACLFileName")
+        defaults.setValue("whiteList", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
+        defaults.setValue("backchn.acl", forKey: USERDEFAULTS_ACL_FILE_NAME)
         defaults.synchronize()
         updateRunningModeMenu()
         SyncSSLocal()
@@ -391,8 +391,8 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     }
     @IBAction func selectWhiteListMode(_ sender: NSMenuItem) {
         let defaults = UserDefaults.standard
-        defaults.setValue("whiteList", forKey: "ShadowsocksRunningMode")
-        defaults.setValue("chn.acl", forKey: "ACLFileName")
+        defaults.setValue("whiteList", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
+        defaults.setValue("chn.acl", forKey: USERDEFAULTS_ACL_FILE_NAME)
         defaults.synchronize()
         updateRunningModeMenu()
         SyncSSLocal()
@@ -466,11 +466,11 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     @IBAction func ascendingDelay(_ sender: NSMenuItem) {
         if sender.state.rawValue == 0 {
             sender.state = NSControl.StateValue(rawValue: 1)
-            UserDefaults.standard.set(true, forKey: "AscendingDelay")
+            UserDefaults.standard.set(true, forKey: USERDEFAULTS_ASCENDING_DELAY)
             self.updateServersMenu()
         } else {
             sender.state = NSControl.StateValue(rawValue: 0)
-            UserDefaults.standard.set(false, forKey: "AscendingDelay")
+            UserDefaults.standard.set(false, forKey: USERDEFAULTS_ASCENDING_DELAY)
         }
         UserDefaults.standard.synchronize()
     }
@@ -478,23 +478,23 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     @IBAction func doPingTest(_ sender: NSMenuItem) {
         icmpMenuItem.state = NSControl.StateValue(rawValue: 1)
         tcpMenuItem.state = NSControl.StateValue(rawValue: 0)
-        UserDefaults.standard.set(false, forKey: "TCP")
+        UserDefaults.standard.set(false, forKey: USERDEFAULTS_TCP)
         UserDefaults.standard.synchronize()
     }
     
     @IBAction func doTcpingTest(_ sender: NSMenuItem) {
         icmpMenuItem.state = NSControl.StateValue(rawValue: 0)
         tcpMenuItem.state = NSControl.StateValue(rawValue: 1)
-        UserDefaults.standard.set(true, forKey: "TCP")
+        UserDefaults.standard.set(true, forKey: USERDEFAULTS_TCP)
         UserDefaults.standard.synchronize()
     }
     
     @IBAction func showSpeedTap(_ sender: NSMenuItem) {
         let defaults = UserDefaults.standard
-        var enable = defaults.bool(forKey: "enable_showSpeed")
+        var enable = defaults.bool(forKey: USERDEFAULTS_ENABLE_SHOW_SPEED)
         enable = !enable
         setUpMenu(enable)
-        defaults.set(enable, forKey: "enable_showSpeed")
+        defaults.set(enable, forKey: USERDEFAULTS_ENABLE_SHOW_SPEED)
         defaults.synchronize()
         updateMainMenu()
     }
@@ -519,9 +519,9 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     
     @IBAction func checkUpdatesAtLaunch(_ sender: NSMenuItem) {
         let defaults = UserDefaults.standard
-        defaults.set(!defaults.bool(forKey: "AutoCheckUpdate"), forKey: "AutoCheckUpdate")
+        defaults.set(!defaults.bool(forKey: USERDEFAULTS_AUTO_CHECK_UPDATE), forKey: USERDEFAULTS_AUTO_CHECK_UPDATE)
         defaults.synchronize()
-        checkUpdateAtLaunchMenuItem.state = NSControl.StateValue(rawValue: defaults.bool(forKey: "AutoCheckUpdate") ? 1 : 0)
+        checkUpdateAtLaunchMenuItem.state = NSControl.StateValue(rawValue: defaults.bool(forKey: USERDEFAULTS_AUTO_CHECK_UPDATE) ? 1 : 0)
     }
     
     @IBAction func showAbout(_ sender: NSMenuItem) {
@@ -535,7 +535,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     
     func updateRunningModeMenu() {
         let defaults = UserDefaults.standard
-        let mode = defaults.string(forKey: "ShadowsocksRunningMode")
+        let mode = defaults.string(forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
         var serverMenuText = "Servers".localized
         
         let mgr = ServerProfileManager.instance
@@ -572,7 +572,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         } else if mode == "manual" {
             manualModeMenuItem.state = NSControl.StateValue(rawValue: 1)
         } else if mode == "whiteList" {
-            let aclMode = defaults.string(forKey: "ACLFileName")!
+            let aclMode = defaults.string(forKey: USERDEFAULTS_ACL_FILE_NAME)!
             switch aclMode {
             case "backchn.acl":
                 ACLModeMenuItem.state = NSControl.StateValue(rawValue: 1)
@@ -593,8 +593,8 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     
     func updateStatusItemUI() {
         let defaults = UserDefaults.standard
-        let mode = defaults.string(forKey: "ShadowsocksRunningMode")
-        if !defaults.bool(forKey: "ShadowsocksOn") {
+        let mode = defaults.string(forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
+        if !defaults.bool(forKey: USERDEFAULTS_SHADOWSOCKS_ON) {
             return
         }
         let titleWidth:CGFloat = 0
@@ -608,7 +608,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     
     func updateMainMenu() {
         let defaults = UserDefaults.standard
-        let isOn = defaults.bool(forKey: "ShadowsocksOn")
+        let isOn = defaults.bool(forKey: USERDEFAULTS_SHADOWSOCKS_ON)
         if isOn {
             runningStatusMenuItem.title = "Shadowsocks: On".localized
             runningStatusMenuItem.image = NSImage(named: NSImage.statusAvailableName)
@@ -624,22 +624,22 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
                 statusItemView.setIconWith(mode: "disabled")
             }
         }
-        if defaults.bool(forKey: "TCP") {
+        if defaults.bool(forKey: USERDEFAULTS_TCP) {
             icmpMenuItem.state = NSControl.StateValue(rawValue: 0)
             tcpMenuItem.state = NSControl.StateValue(rawValue: 1)
         } else {
             icmpMenuItem.state = NSControl.StateValue(rawValue: 1)
             tcpMenuItem.state = NSControl.StateValue(rawValue: 0)
         }
-        ShowNetworkSpeedItem.state          = NSControl.StateValue(rawValue: defaults.bool(forKey: "enable_showSpeed") ? 1 : 0)
-        connectAtLaunchMenuItem.state       = NSControl.StateValue(rawValue: defaults.bool(forKey: "ConnectAtLaunch")  ? 1 : 0)
-        checkUpdateAtLaunchMenuItem.state   = NSControl.StateValue(rawValue: defaults.bool(forKey: "AutoCheckUpdate")  ? 1 : 0)
-        ascendingMenuItem.state             = NSControl.StateValue(rawValue: defaults.bool(forKey: "AscendingDelay")  ? 1 : 0)
+        ShowNetworkSpeedItem.state          = NSControl.StateValue(rawValue: defaults.bool(forKey: USERDEFAULTS_ENABLE_SHOW_SPEED) ? 1 : 0)
+        connectAtLaunchMenuItem.state       = NSControl.StateValue(rawValue: defaults.bool(forKey: USERDEFAULTS_CONNECT_AT_LAUNCH)  ? 1 : 0)
+        checkUpdateAtLaunchMenuItem.state   = NSControl.StateValue(rawValue: defaults.bool(forKey: USERDEFAULTS_AUTO_CHECK_UPDATE)  ? 1 : 0)
+        ascendingMenuItem.state             = NSControl.StateValue(rawValue: defaults.bool(forKey: USERDEFAULTS_ASCENDING_DELAY)  ? 1 : 0)
     }
     
     func updateCopyHttpProxyExportMenu() {
         let defaults = UserDefaults.standard
-        let isOn = defaults.bool(forKey: "LocalHTTPOn")
+        let isOn = defaults.bool(forKey: USERDEFAULTS_LOCAL_HTTP_ON)
         copyHttpProxyExportCmdLineMenuItem.isHidden = !isOn
     }
     
@@ -660,7 +660,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         
         serversMenuItem.submenu?.addItem(editSubscribeItem!)
         serversMenuItem.submenu?.addItem(autoUpdateSubscribeItem!)
-        autoUpdateSubscribeItem?.state = NSControl.StateValue(rawValue: UserDefaults.standard.bool(forKey: "AutoUpdateSubscribe") ? 1 : 0)
+        autoUpdateSubscribeItem?.state = NSControl.StateValue(rawValue: UserDefaults.standard.bool(forKey: USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE) ? 1 : 0)
         serversMenuItem.submenu?.addItem(updateSubscribeItem!)
         serversMenuItem.submenu?.addItem(showQRItem!)
         serversMenuItem.submenu?.addItem(scanQRItem!)
@@ -678,10 +678,10 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         var i = 0
         var serverMenuItems = [NSMenuItem]()
         var fastTime = ""
-        if let t = UserDefaults.standard.object(forKey: "FastestNode") as? String {
+        if let t = UserDefaults.standard.object(forKey: USERDEFAULTS_FASTEST_NODE) as? String {
             fastTime = t
         }
-        if !neverSpeedTestBefore && UserDefaults.standard.bool(forKey: "AscendingDelay") {
+        if !neverSpeedTestBefore && UserDefaults.standard.bool(forKey: USERDEFAULTS_ASCENDING_DELAY) {
             mgr.profiles = mgr.profiles.sorted { (p1, p2) -> Bool in
                 return p1.latency.doubleValue <= p2.latency.doubleValue
             }
@@ -839,8 +839,8 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     
     func applyConfig() {
         let defaults = UserDefaults.standard
-        let isOn = defaults.bool(forKey: "ShadowsocksOn")
-        let mode = defaults.string(forKey: "ShadowsocksRunningMode")
+        let isOn = defaults.bool(forKey: USERDEFAULTS_SHADOWSOCKS_ON)
+        let mode = defaults.string(forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
         
         if isOn {
             StartSSLocal()

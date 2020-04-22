@@ -155,7 +155,7 @@ class Tcping {
                     
                     NSUserNotificationCenter.default.deliver(notice)
                     
-                    UserDefaults.standard.setValue("\(ft)", forKey: "FastestNode")
+                    UserDefaults.standard.setValue("\(ft)", forKey: USERDEFAULTS_FASTEST_NODE)
                     UserDefaults.standard.synchronize()
                     
                     DispatchQueue.main.async {

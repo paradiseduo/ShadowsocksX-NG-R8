@@ -37,7 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         ProxyConfHelper.stopPACServer()
         ProxyConfHelper.disableProxy("hi")
         let defaults = UserDefaults.standard
-        defaults.set(false, forKey: "ShadowsocksOn")
+        defaults.set(false, forKey: USERDEFAULTS_SHADOWSOCKS_ON)
         defaults.synchronize()
     }
 }

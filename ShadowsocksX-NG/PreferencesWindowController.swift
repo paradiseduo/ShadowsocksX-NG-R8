@@ -149,7 +149,7 @@ class PreferencesWindowController: NSWindowController
         updateProfileBoxVisible()
         if profileMgr.profiles.count == 0 {
             //调用开关按钮自动翻转状态，因此这里传true
-            defaults.set(true, forKey: "ShadowsocksOn")
+            defaults.set(true, forKey: USERDEFAULTS_SHADOWSOCKS_ON)
             defaults.synchronize()
             NotificationCenter.default.post(name: NOTIFY_TOGGLE_RUNNING, object: nil)
         }

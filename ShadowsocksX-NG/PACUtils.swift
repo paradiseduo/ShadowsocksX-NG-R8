@@ -24,11 +24,11 @@ let ACLGFWListFilePath = PACRulesDirPath + "gfwlist.acl"
 func SyncPac() {
     var needGenerate = false
     
-    let nowSocks5Port = UserDefaults.standard.integer(forKey: "LocalSocks5.ListenPort")
-    let oldSocks5Port = UserDefaults.standard.integer(forKey: "LocalSocks5.ListenPort.Old")
+    let nowSocks5Port = UserDefaults.standard.integer(forKey: USERDEFAULTS_LOCAL_SOCKS5_LISTEN_PORT)
+    let oldSocks5Port = UserDefaults.standard.integer(forKey: USERDEFAULTS_LOCAL_SOCKS5_LISTEN_PORT_OLD)
     if nowSocks5Port != oldSocks5Port {
         needGenerate = true
-        UserDefaults.standard.set(nowSocks5Port, forKey: "LocalSocks5.ListenPort.Old")
+        UserDefaults.standard.set(nowSocks5Port, forKey: USERDEFAULTS_LOCAL_SOCKS5_LISTEN_PORT_OLD)
         UserDefaults.standard.synchronize()
     }
     
@@ -92,7 +92,7 @@ func GeneratePACFile() -> Bool {
         
     }
     
-    let socks5Port = UserDefaults.standard.integer(forKey: "LocalSocks5.ListenPort")
+    let socks5Port = UserDefaults.standard.integer(forKey: USERDEFAULTS_LOCAL_SOCKS5_LISTEN_PORT)
     
     do {
         let gfwlist = try String(contentsOfFile: GFWListFilePath, encoding: String.Encoding.utf8)
@@ -180,7 +180,7 @@ func UpdatePACFromGFWList() {
         }
     }
     
-    let url = UserDefaults.standard.string(forKey: "GFWListURL")
+    let url = UserDefaults.standard.string(forKey: USERDEFAULTS_GFW_LIST_URL)
     AF.request(url!)
         .responseString {
             response in
@@ -249,7 +249,7 @@ func UpdateACL(){
         }
     }
     
-    let url = UserDefaults.standard.string(forKey: "ACLWhiteListURL")
+    let url = UserDefaults.standard.string(forKey: USERDEFAULTS_ACL_WHITE_LIST_URL)
     AF.request(url!)// request(.GET, url!)
         .responseString {
             response in
@@ -270,7 +270,7 @@ func UpdateACL(){
             }
     }
     
-    let IPURL = UserDefaults.standard.string(forKey: "ACLAutoListURL")
+    let IPURL = UserDefaults.standard.string(forKey: USERDEFAULTS_ACL_AUTO_LIST_URL)
     AF.request(IPURL!)
         .responseString {
             response in

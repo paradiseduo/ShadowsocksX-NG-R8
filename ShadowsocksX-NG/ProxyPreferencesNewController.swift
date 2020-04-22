@@ -20,9 +20,9 @@ class ProxyPreferencesNewController: NSWindowController, NSWindowDelegate, NSTab
         super.windowDidLoad()
 
         let defaults = UserDefaults.standard
-        self.autoConfigCheckBox.state = NSControl.StateValue(rawValue: NSNumber(value: defaults.bool(forKey: "AutoConfigureNetworkServices")).intValue)
+        self.autoConfigCheckBox.state = NSControl.StateValue(rawValue: NSNumber(value: defaults.bool(forKey: USERDEFAULTS_AUTO_CONFIGURE_NETWORK_SERVICES)).intValue)
         
-        if let services = defaults.array(forKey: "Proxy4NetworkServices") {
+        if let services = defaults.array(forKey: USERDEFAULTS_PROXY4_NETWORK_SERVICES) {
             selectedNetworkServices = NSMutableSet(array: services)
         } else {
             selectedNetworkServices = NSMutableSet()
@@ -39,8 +39,8 @@ class ProxyPreferencesNewController: NSWindowController, NSWindowDelegate, NSTab
         ProxyConfHelper.disableProxy("hi")
         
         let defaults = UserDefaults.standard
-        defaults.setValue(selectedNetworkServices.allObjects, forKeyPath: "Proxy4NetworkServices")
-        defaults.setValue(NSNumber(value: self.autoConfigCheckBox.state.rawValue).boolValue, forKey: "AutoConfigureNetworkServices")
+        defaults.setValue(selectedNetworkServices.allObjects, forKeyPath: USERDEFAULTS_PROXY4_NETWORK_SERVICES)
+        defaults.setValue(NSNumber(value: self.autoConfigCheckBox.state.rawValue).boolValue, forKey: USERDEFAULTS_AUTO_CONFIGURE_NETWORK_SERVICES)
         
         defaults.synchronize()
         

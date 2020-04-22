@@ -18,7 +18,7 @@ class SubscribeManager:NSObject{
     fileprivate override init() {
         subscribes = []
         subscribesDefault = [[:]]
-        if let subscribesDefault = defaults.array(forKey: "Subscribes") {
+        if let subscribesDefault = defaults.array(forKey: USERDEFAULTS_SUBSCRIBES) {
             for value in subscribesDefault{
                 subscribes.append(Subscribe.fromDictionary(value as! [String : AnyObject]))
             }
@@ -42,7 +42,7 @@ class SubscribeManager:NSObject{
         return true
     }
     func save() {
-        defaults.set(subscribesToDefaults(data: subscribes), forKey: "Subscribes")
+        defaults.set(subscribesToDefaults(data: subscribes), forKey: USERDEFAULTS_SUBSCRIBES)
         defaults.synchronize()
     }
     fileprivate func subscribesToDefaults(data: [Subscribe]) -> [[String: AnyObject]]{
