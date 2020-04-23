@@ -157,7 +157,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             }
         }
         
-        DispatchQueue.global().async {
+        DispatchQueue.global().asyncAfter(deadline: DispatchTime.now()+2) {
             // Version Check!
             if defaults.bool(forKey: USERDEFAULTS_AUTO_CHECK_UPDATE) {
                 self.checkForUpdate(mustShowAlert: false)
