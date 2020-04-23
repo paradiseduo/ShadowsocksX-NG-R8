@@ -18,7 +18,15 @@
 
 "White List update succeed." = "White List update succeed.";
 
-"Failed to download latest White List update succeed." = "Failed to download latest White List update succeed.";
+"Black List update succeed." = "Black List update succeed.";
+
+"BackCHN List update succeed." = "BackCHN List update succeed.";
+
+"Failed to download latest White List update succeed." = "Failed to download latest White List.";
+
+"Failed to download latest Black List update succeed." = "Failed to download latest Black List.";
+
+"Failed to download latest BackCHN List update succeed." = "Failed to download latest BackCHN List.";
 
 /*
  * ./ShadowsocksX-NG/BunchImportUtils.swift

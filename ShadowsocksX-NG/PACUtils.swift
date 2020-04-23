@@ -249,10 +249,8 @@ func UpdateACL(){
         }
     }
     
-    let url = UserDefaults.standard.string(forKey: USERDEFAULTS_ACL_WHITE_LIST_URL)
-    AF.request(url!)// request(.GET, url!)
-        .responseString {
-            response in
+    if let url = UserDefaults.standard.string(forKey: USERDEFAULTS_ACL_WHITE_LIST_URL) {
+        AF.request(url).responseString { response in
             do {
                 let value = try response.result.get()
                 try value.write(toFile: ACLWhiteListFilePath, atomically: true, encoding: String.Encoding.utf8)
@@ -268,26 +266,47 @@ func UpdateACL(){
                 notification.title = "Failed to download latest White List update succeed.".localized
                 NSUserNotificationCenter.default.deliver(notification)
             }
+        }
     }
     
-    let IPURL = UserDefaults.standard.string(forKey: USERDEFAULTS_ACL_AUTO_LIST_URL)
-    AF.request(IPURL!)
-        .responseString {
-            response in
+    if let IPURL = UserDefaults.standard.string(forKey: USERDEFAULTS_ACL_AUTO_LIST_URL) {
+        AF.request(IPURL).responseString { response in
             do {
                 let value = try response.result.get()
                 try value.write(toFile: ACLGFWListFilePath, atomically: true, encoding: String.Encoding.utf8)
                 if GeneratePACFile() {
                     // Popup a user notification
                     let notification = NSUserNotification()
-                    notification.title = "White List update succeed.".localized
+                    notification.title = "Black List update succeed.".localized
                     NSUserNotificationCenter.default.deliver(notification)
                 }
             } catch {
                 // Popup a user notification
                 let notification = NSUserNotification()
-                notification.title = "Failed to download latest White List update succeed.".localized
+                notification.title = "Failed to download latest Black List update succeed.".localized
                 NSUserNotificationCenter.default.deliver(notification)
             }
+        }
     }
+    
+    if let backURL = UserDefaults.standard.string(forKey: USERDEFAULTS_ACL_PROXY_BACK_CHN_URL) {
+        AF.request(backURL).responseString { response in
+            do {
+                let value = try response.result.get()
+                try value.write(toFile: ACLBackCHNFilePath, atomically: true, encoding: String.Encoding.utf8)
+                if GeneratePACFile() {
+                    // Popup a user notification
+                    let notification = NSUserNotification()
+                    notification.title = "BackCHN List update succeed.".localized
+                    NSUserNotificationCenter.default.deliver(notification)
+                }
+            }catch {
+                // Popup a user notification
+                let notification = NSUserNotification()
+                notification.title = "Failed to download latest BackCHN List update succeed.".localized
+                NSUserNotificationCenter.default.deliver(notification)
+            }
+        }
+    }
+    
 }

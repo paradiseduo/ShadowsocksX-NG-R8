@@ -18,7 +18,15 @@
 
 "White List update succeed." = "白名单更新成功";
 
+"Black List update succeed." = "黑名单更新成功";
+
+"BackCHN List update succeed." = "国内代理名单更新成功";
+
 "Failed to download latest White List update succeed." = "下载白名单失败";
+
+"Failed to download latest Black List update succeed." = "下载黑名单失败";
+
+"Failed to download latest BackCHN List update succeed." = "下载国内代理名单失败";
 
 /*
  * ./ShadowsocksX-NG/BunchImportUtils.swift
