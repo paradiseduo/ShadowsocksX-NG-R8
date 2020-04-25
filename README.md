@@ -15,3 +15,7 @@ rm -rf ~/Library/Caches/com.qiuyuzhou.ShadowsocksX-NG
 ```
 
 If the prompt is insufficient, please execute after using sudo
+
+- If you need to use kcptun GUI client, you can follow [this project](https://github.com/paradiseduo/Kcptun)
+
+- If you need to use trojan GUI client, you can follow [this project](https://github.com/paradiseduo/Trojan)
