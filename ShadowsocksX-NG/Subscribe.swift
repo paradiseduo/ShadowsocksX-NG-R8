@@ -108,7 +108,7 @@ import Alamofire
                 print("")
             }
         }
-        return Subscribe.init(initUrlString: feed, initGroupName: group, initToken: token, initMaxCount: maxCount,initActive: isActive,initAutoUpdate: autoUpdateEnable)
+        return Subscribe(initUrlString: feed, initGroupName: group, initToken: token, initMaxCount: maxCount,initActive: isActive,initAutoUpdate: autoUpdateEnable)
     }
     static func toDictionary(_ data: Subscribe) -> [String: AnyObject] {
         var ret : [String: AnyObject] = [:]

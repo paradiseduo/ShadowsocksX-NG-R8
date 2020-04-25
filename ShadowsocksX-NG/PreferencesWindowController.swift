@@ -137,7 +137,6 @@ class PreferencesWindowController: NSWindowController
         if index >= 0 {
             profilesTableView.beginUpdates()
             for (_, toDeleteIndex) in profilesTableView.selectedRowIndexes.enumerated() {
-                print(profileMgr.profiles.count)
                 profileMgr.profiles.remove(at: toDeleteIndex - deleteCount)
                 profilesTableView.removeRows(at: IndexSet(integer: toDeleteIndex - deleteCount), withAnimation: .effectFade)
                 deleteCount += 1

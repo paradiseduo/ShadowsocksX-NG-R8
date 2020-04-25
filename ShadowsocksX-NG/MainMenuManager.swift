@@ -74,9 +74,11 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     override func awakeFromNib() {
         NSUserNotificationCenter.default.delegate = self
         // Prepare ss-local
-        InstallSSLocal()
-        InstallPrivoxy()
-        ProxyConfHelper.install()
+        InstallSSLocal { (s) in
+            InstallPrivoxy { (ss) in
+                ProxyConfHelper.install()
+            }
+        }
         
         let defaults = UserDefaults.standard
         defaults.register(defaults: [
@@ -106,8 +108,9 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         
         let notifyCenter = NotificationCenter.default
         notifyCenter.addObserver(forName: NOTIFY_ADV_PROXY_CONF_CHANGED, object: nil, queue: nil) { (noti) in
-            self.applyConfig()
-            self.updateCopyHttpProxyExportMenu()
+            self.applyConfig { (s) in
+                self.updateCopyHttpProxyExportMenu()
+            }
         }
         notifyCenter.addObserver(forName: NOTIFY_SERVER_PROFILES_CHANGED, object: nil, queue: nil) { (noti) in
             let profileMgr = ServerProfileManager.instance
@@ -117,18 +120,26 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
                     profileMgr.setActiveProfiledId(profileMgr.profiles[0].uuid)
                 }
             }
-            self.updateServersMenu()
-            self.updateMainMenu()
-            self.updateRunningModeMenu()
-            SyncSSLocal()
+            SyncSSLocal { (suce) in
+                self.updateServersMenu()
+                self.updateMainMenu()
+                self.updateRunningModeMenu()
+            }
         }
         notifyCenter.addObserver(forName: NOTIFY_ADV_CONF_CHANGED, object: nil, queue: nil) { (noti) in
-            SyncSSLocal()
-            self.applyConfig()
+            SyncSSLocal { (suce) in
+                self.applyConfig { (s) in
+                    
+                }
+            }
         }
         notifyCenter.addObserver(forName: NOTIFY_HTTP_CONF_CHANGED, object: nil, queue: nil) { (noti) in
-            SyncPrivoxy()
-            self.applyConfig()
+            SyncPrivoxy {
+                self.applyConfig { (s) in
+                    
+                }
+            }
+            
         }
         notifyCenter.addObserver(forName: NOTIFY_FOUND_SS_URL, object: nil, queue: nil) { (noti: Notification) in
             self.foundSSRURL(noti)
@@ -138,7 +149,9 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             self.updateRunningModeMenu()
         }
         notifyCenter.addObserver(forName: NOTIFY_TOGGLE_RUNNING, object: nil, queue: OperationQueue.main) { (noti) in
-            self.toggle()
+            self.toggle { (suc) in
+                
+            }
         }
         
         DispatchQueue.main.async {
@@ -148,21 +161,26 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             self.updateServersMenu()
             self.updateRunningModeMenu()
             self.updateLaunchAtLoginMenu()
-            self.applyConfig()
             
             if defaults.bool(forKey: USERDEFAULTS_CONNECT_AT_LAUNCH) && ServerProfileManager.instance.getActiveProfileId() != "" {
                 defaults.set(false, forKey: USERDEFAULTS_SHADOWSOCKS_ON)
                 defaults.synchronize()
-                self.toggle()
+                self.toggle { (suc) in
+                    self.updateSubAndVersion()
+                }
+            } else {
+                self.updateSubAndVersion()
             }
         }
-        
-        DispatchQueue.global().asyncAfter(deadline: DispatchTime.now()+2) {
+    }
+    
+    @objc private func updateSubAndVersion() {
+        DispatchQueue.global(qos: .userInteractive).async {
             // Version Check!
-            if defaults.bool(forKey: USERDEFAULTS_AUTO_CHECK_UPDATE) {
+            if UserDefaults.standard.bool(forKey: USERDEFAULTS_AUTO_CHECK_UPDATE) {
                 self.checkForUpdate(mustShowAlert: false)
             }
-            if defaults.bool(forKey: USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE) {
+            if UserDefaults.standard.bool(forKey: USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE) {
                 SubscribeManager.instance.updateAllServerFromSubscribe(auto: true)
             }
         }
@@ -171,16 +189,23 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     // MARK: Mainmenu functions
     
     @IBAction func toggleRunning(_ sender: NSMenuItem) {
-        self.toggle()
+        self.toggle { (s) in
+            
+        }
     }
     
-    private func toggle() {
+    private func toggle(finish: @escaping(_ success: Bool)->()) {
         let defaults = UserDefaults.standard
         defaults.set(!defaults.bool(forKey: USERDEFAULTS_SHADOWSOCKS_ON), forKey: USERDEFAULTS_SHADOWSOCKS_ON)
         defaults.synchronize()
-        updateMainMenu()
-        SyncSSLocal()
-        applyConfig()
+        self.applyConfig { (suc) in
+            SyncSSLocal { (s) in
+                DispatchQueue.main.async {
+                    self.updateMainMenu()
+                    finish(true)
+                }
+            }
+        }
     }
 
     @IBAction func updateGFWList(_ sender: NSMenuItem) {
@@ -347,9 +372,11 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         defaults.setValue("auto", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
         defaults.setValue("", forKey: USERDEFAULTS_ACL_FILE_NAME)
         defaults.synchronize()
-        updateRunningModeMenu()
-        SyncSSLocal()
-        applyConfig()
+        SyncSSLocal { (suce) in
+            self.applyConfig { (suc) in
+                self.updateRunningModeMenu()
+            }
+        }
     }
     
     @IBAction func selectGlobalMode(_ sender: NSMenuItem) {
@@ -357,9 +384,11 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         defaults.setValue("global", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
         defaults.setValue("", forKey: USERDEFAULTS_ACL_FILE_NAME)
         defaults.synchronize()
-        updateRunningModeMenu()
-        SyncSSLocal()
-        applyConfig()
+        SyncSSLocal { (suce) in
+            self.applyConfig { (suc) in
+                self.updateRunningModeMenu()
+            }
+        }
     }
     
     @IBAction func selectManualMode(_ sender: NSMenuItem) {
@@ -367,36 +396,47 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         defaults.setValue("manual", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
         defaults.setValue("", forKey: USERDEFAULTS_ACL_FILE_NAME)
         defaults.synchronize()
-        updateRunningModeMenu()
-        SyncSSLocal()
-        applyConfig()
+        SyncSSLocal { (suce) in
+            self.applyConfig { (suc) in
+                self.updateRunningModeMenu()
+            }
+        }
     }
+    
     @IBAction func selectACLAutoMode(_ sender: NSMenuItem) {
         let defaults = UserDefaults.standard
         defaults.setValue("whiteList", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
         defaults.setValue("gfwlist.acl", forKey: USERDEFAULTS_ACL_FILE_NAME)
         defaults.synchronize()
-        updateRunningModeMenu()
-        SyncSSLocal()
-        applyConfig()
+        SyncSSLocal { (suce) in
+            self.applyConfig { (suc) in
+                self.updateRunningModeMenu()
+            }
+        }
     }
+    
     @IBAction func selectACLBackCHNMode(_ sender: NSMenuItem) {
         let defaults = UserDefaults.standard
         defaults.setValue("whiteList", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
         defaults.setValue("backchn.acl", forKey: USERDEFAULTS_ACL_FILE_NAME)
         defaults.synchronize()
-        updateRunningModeMenu()
-        SyncSSLocal()
-        applyConfig()
+        SyncSSLocal { (suce) in
+            self.applyConfig { (suc) in
+                self.updateRunningModeMenu()
+            }
+        }
     }
+    
     @IBAction func selectWhiteListMode(_ sender: NSMenuItem) {
         let defaults = UserDefaults.standard
         defaults.setValue("whiteList", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
         defaults.setValue("chn.acl", forKey: USERDEFAULTS_ACL_FILE_NAME)
         defaults.synchronize()
-        updateRunningModeMenu()
-        SyncSSLocal()
-        applyConfig()
+        SyncSSLocal { (suce) in
+            self.applyConfig { (suc) in
+                self.updateRunningModeMenu()
+            }
+        }
     }
 
     @IBAction func editServerPreferences(_ sender: NSMenuItem) {
@@ -453,10 +493,13 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         let newProfile = spMgr.profiles[index]
         if newProfile.uuid != spMgr.getActiveProfileId() {
             spMgr.setActiveProfiledId(newProfile.uuid)
-            updateServersMenu()
-            SyncSSLocal()
+            SyncSSLocal { (suce) in
+                self.updateServersMenu()
+                self.updateRunningModeMenu()
+            }
+        } else {
+            updateRunningModeMenu()
         }
-        updateRunningModeMenu()
     }
 
     @IBAction func connectionDelayTest(_ sender: NSMenuItem) {
@@ -789,7 +832,6 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             DispatchQueue.main.async {
                 if (mustShowAlert || newVersion["newVersion"] as! Bool){
                     let alertResult = versionChecker.showAlertView(Title: newVersion["Title"] as! String, SubTitle: newVersion["SubTitle"] as! String, ConfirmBtn: newVersion["ConfirmBtn"] as! String, CancelBtn: newVersion["CancelBtn"] as! String)
-                    print(alertResult)
                     if (newVersion["newVersion"] as! Bool && alertResult == 1000){
                         NSWorkspace.shared.open(URL(string: "https://github.com/paradiseduo/ShadowsocksX-NG-R8/releases")!)
                     }
@@ -837,43 +879,56 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         }
     }
     
-    func applyConfig() {
+    func applyConfig(finish: @escaping(_ success: Bool)->()) {
         let defaults = UserDefaults.standard
         let isOn = defaults.bool(forKey: USERDEFAULTS_SHADOWSOCKS_ON)
         let mode = defaults.string(forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
         
         if isOn {
-            StartSSLocal()
-            StartPrivoxy()
-            if mode == "auto" {
-                ProxyConfHelper.disableProxy("hi")
-                ProxyConfHelper.enablePACProxy("hi")
-            } else if mode == "global" {
-                ProxyConfHelper.disableProxy("hi")
-                ProxyConfHelper.enableGlobalProxy()
-            } else if mode == "manual" {
-                ProxyConfHelper.disableProxy("hi")
-                ProxyConfHelper.disableProxy("hi")
-            } else if mode == "whiteList" {
-                ProxyConfHelper.disableProxy("hi")
-                ProxyConfHelper.enableWhiteListProxy()//新白名单基于GlobalMode
+            StartSSLocal { (s) in
+                if s {
+                    StartPrivoxy { (ss) in
+                        if ss {
+                            if mode == "auto" {
+                                ProxyConfHelper.disableProxy("hi")
+                                ProxyConfHelper.enablePACProxy("hi")
+                            } else if mode == "global" {
+                                ProxyConfHelper.disableProxy("hi")
+                                ProxyConfHelper.enableGlobalProxy()
+                            } else if mode == "manual" {
+                                ProxyConfHelper.disableProxy("hi")
+                            } else if mode == "whiteList" {
+                                ProxyConfHelper.disableProxy("hi")
+                                ProxyConfHelper.enableWhiteListProxy()//新白名单基于GlobalMode
+                            }
+                            finish(true)
+                        } else {
+                            finish(false)
+                        }
+                    }
+                } else {
+                    finish(false)
+                }
             }
         } else {
-            AppDelegate.stopSSR()
+            AppDelegate.stopSSR {
+                finish(true)
+            }
         }
-
     }
     
     @IBAction func quitApp(_ sender: NSMenuItem) {
-        AppDelegate.stopSSR()
-        AppDelegate.stopSSR()
-        //如果设置了开机启动软件，就不删了
-        if self.launchAtLoginController.launchAtLogin == false {
-            RemoveSSLocal()
-            RemovePrivoxy()
-        }
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.5) {
-            NSApplication.shared.terminate(self)
+        AppDelegate.stopSSR {
+            //如果设置了开机启动软件，就不删了
+            if self.launchAtLoginController.launchAtLogin == false {
+                RemoveSSLocal { (s) in
+                    RemovePrivoxy { (ss) in
+                        NSApplication.shared.terminate(self)
+                    }
+                }
+            } else {
+                NSApplication.shared.terminate(self)
+            }
         }
     }
     //------------------------------------------------------------

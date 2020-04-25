@@ -31,13 +31,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    static func stopSSR() {
-        StopSSLocal()
-        StopPrivoxy()
-        ProxyConfHelper.stopPACServer()
-        ProxyConfHelper.disableProxy("hi")
-        let defaults = UserDefaults.standard
-        defaults.set(false, forKey: USERDEFAULTS_SHADOWSOCKS_ON)
-        defaults.synchronize()
+    static func stopSSR(finish: @escaping()->()) {
+        StopSSLocal { (s) in
+            StopPrivoxy { (ss) in
+                ProxyConfHelper.stopPACServer()
+                ProxyConfHelper.disableProxy("hi")
+                let defaults = UserDefaults.standard
+                defaults.set(false, forKey: USERDEFAULTS_SHADOWSOCKS_ON)
+                defaults.synchronize()
+                DispatchQueue.main.async {
+                    finish()
+                }
+            }
+        }
     }
 }
