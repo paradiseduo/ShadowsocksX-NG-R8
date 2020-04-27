@@ -181,25 +181,23 @@ func UpdatePACFromGFWList() {
     }
     
     let url = UserDefaults.standard.string(forKey: USERDEFAULTS_GFW_LIST_URL)
-    AF.request(url!)
-        .responseString {
-            response in
-            do {
-                let value = try response.result.get()
-                try value.write(toFile: GFWListFilePath, atomically: true, encoding: String.Encoding.utf8)
-                if GeneratePACFile() {
-                    // Popup a user notification
-                    let notification = NSUserNotification()
-                    notification.title = "PAC has been updated by latest GFW List.".localized
-                    NSUserNotificationCenter.default.deliver(notification)
-                }
-            } catch {
+    Network.sharedSession.request(url!).responseString { response in
+        do {
+            let value = try response.result.get()
+            try value.write(toFile: GFWListFilePath, atomically: true, encoding: String.Encoding.utf8)
+            if GeneratePACFile() {
                 // Popup a user notification
                 let notification = NSUserNotification()
-                notification.title = "Failed to download latest GFW List.".localized
+                notification.title = "PAC has been updated by latest GFW List.".localized
                 NSUserNotificationCenter.default.deliver(notification)
             }
+        } catch {
+            // Popup a user notification
+            let notification = NSUserNotification()
+            notification.title = "Failed to download latest GFW List.".localized
+            NSUserNotificationCenter.default.deliver(notification)
         }
+    }
 }
 func ACLFromUserRule(userRuleLines:[String]){
     do {
@@ -254,7 +252,7 @@ func UpdateACL(){
     queue.async(group: group, qos: .default) {
         if let url = UserDefaults.standard.string(forKey: USERDEFAULTS_ACL_WHITE_LIST_URL) {
             group.enter()
-            AF.request(url).responseString { response in
+            Network.sharedSession.request(url).responseString { response in
                 do {
                     let value = try response.result.get()
                     try value.write(toFile: ACLWhiteListFilePath, atomically: true, encoding: String.Encoding.utf8)
@@ -279,7 +277,7 @@ func UpdateACL(){
     queue.async(group: group, qos: .default) {
         if let IPURL = UserDefaults.standard.string(forKey: USERDEFAULTS_ACL_AUTO_LIST_URL) {
             group.enter()
-            AF.request(IPURL).responseString { response in
+            Network.sharedSession.request(IPURL).responseString { response in
                 do {
                     let value = try response.result.get()
                     try value.write(toFile: ACLGFWListFilePath, atomically: true, encoding: String.Encoding.utf8)
@@ -304,7 +302,7 @@ func UpdateACL(){
     queue.async(group: group, qos: .default) {
         if let backURL = UserDefaults.standard.string(forKey: USERDEFAULTS_ACL_PROXY_BACK_CHN_URL) {
             group.enter()
-            AF.request(backURL).responseString { response in
+            Network.sharedSession.request(backURL).responseString { response in
                 do {
                     let value = try response.result.get()
                     try value.write(toFile: ACLBackCHNFilePath, atomically: true, encoding: String.Encoding.utf8)

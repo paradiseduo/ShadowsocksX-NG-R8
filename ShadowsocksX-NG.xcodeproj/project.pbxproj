@@ -82,6 +82,7 @@
 		E83546612416034200D7776E /* ProxyPreferencesNewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E835465F2416034200D7776E /* ProxyPreferencesNewController.swift */; };
 		E835466924160D4000D7776E /* ProxyPreferencesNewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E835466B24160D4000D7776E /* ProxyPreferencesNewController.xib */; };
 		E8650520243D96D30089706A /* libpcre.1.dylib in Resources */ = {isa = PBXBuildFile; fileRef = E8650519243D95E00089706A /* libpcre.1.dylib */; };
+		E8B5698A2456C900001DA9A7 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8B569892456C900001DA9A7 /* Network.swift */; };
 		E8CD016C23726D14006CB1F6 /* ToastWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8CD016B23726D14006CB1F6 /* ToastWindowController.swift */; };
 		E8CD016E23726D6C006CB1F6 /* ToastWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E8CD016D23726D6C006CB1F6 /* ToastWindowController.xib */; };
 		E8F9108C2421BADF005E69E6 /* remove_ss_local.sh in Resources */ = {isa = PBXBuildFile; fileRef = E8F9108B2421BADF005E69E6 /* remove_ss_local.sh */; };
@@ -240,6 +241,7 @@
 		E835466A24160D4000D7776E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ProxyPreferencesNewController.xib; sourceTree = "<group>"; };
 		E835466F24160D4400D7776E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ProxyPreferencesNewController.strings"; sourceTree = "<group>"; };
 		E8650519243D95E00089706A /* libpcre.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libpcre.1.dylib; sourceTree = "<group>"; };
+		E8B569892456C900001DA9A7 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		E8CD016B23726D14006CB1F6 /* ToastWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWindowController.swift; sourceTree = "<group>"; };
 		E8CD016D23726D6C006CB1F6 /* ToastWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ToastWindowController.xib; sourceTree = "<group>"; };
 		E8F9108B2421BADF005E69E6 /* remove_ss_local.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = remove_ss_local.sh; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 				9B3FFF201D08826E0019A709 /* PACUtils.swift */,
 				083BF8351D82742200831C68 /* PingClient.swift */,
 				9B3FFF131D0705810019A709 /* Configure.swift */,
+				E8B569892456C900001DA9A7 /* Network.swift */,
 				BE76C2CA24277EAB00FB3516 /* NetSpeedMonitor.h */,
 				BE76C2CB24277EAC00FB3516 /* NetSpeedMonitor.m */,
 				9B3FFF1F1D0734060019A709 /* Utils.h */,
@@ -744,6 +747,7 @@
 				9B3FFF321D08CEE40019A709 /* SWBQRCodeWindowController.m in Sources */,
 				08BDBB481E2361BD00C4BBC2 /* VersionChecker.swift in Sources */,
 				083BF8371D82742200831C68 /* PingClient.swift in Sources */,
+				E8B5698A2456C900001DA9A7 /* Network.swift in Sources */,
 				BE492025242F412900A6C78E /* tcping.swift in Sources */,
 				BEAA0EDD244B273A00809ADD /* MainMenuManager.swift in Sources */,
 				9B3FFF211D08826E0019A709 /* PACUtils.swift in Sources */,

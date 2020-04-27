@@ -65,7 +65,7 @@ class SubscribeManager:NSObject{
         for item in subscribes {
             if item.isActive {
                 group.enter()
-                queue.async {
+                queue.async(group: group) {
                     if !auto {
                         item.updateServerFromFeed {
                             group.leave()

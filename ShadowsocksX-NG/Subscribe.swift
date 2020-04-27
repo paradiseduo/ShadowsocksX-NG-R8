@@ -21,7 +21,7 @@ import Alamofire
     
     var profileMgr: ServerProfileManager!
     
-    init(initUrlString:String, initGroupName: String, initToken: String, initMaxCount: Int,initActive: Bool,initAutoUpdate:Bool){
+    init(initUrlString:String, initGroupName: String, initToken: String, initMaxCount: Int, initActive: Bool, initAutoUpdate:Bool){
         super.init()
         subscribeFeed = initUrlString
 
@@ -130,16 +130,14 @@ import Alamofire
             "User-Agent": "ShadowsocksX-NG-R " + (getLocalInfo()["CFBundleShortVersionString"] as! String) + " Version " + (getLocalInfo()["CFBundleVersion"] as! String)
         ]
         
-        AF.request(url, headers: headers)
-            .responseString{
-                response in
-                do {
-                    let value = try response.result.get()
-                    callback(value)
-                } catch {
-                    callback("")
-                    self.pushNotification(title: "请求失败", subtitle: "", info: "发送到\(url)的请求失败，请检查您的网络")
-                }
+        Network.sharedSession.request(url, headers: headers).responseString{ response in
+            do {
+                let value = try response.result.get()
+                callback(value)
+            } catch {
+                callback("")
+                self.pushNotification(title: "请求失败", subtitle: "", info: "发送到\(url)的请求失败，请检查您的网络")
+            }
         }
     }
     func setMaxCount(initMaxCount:Int) {
@@ -216,10 +214,16 @@ import Alamofire
             }
         }
         
-        if (!isActive){ return }
+        if (!isActive){
+            handle()
+            return
+        }
 
         sendRequest(url: self.subscribeFeed, options: "", callback: { resString in
-            if resString == "" { return }
+            if resString == "" {
+                handle()
+                return
+            }
             updateServerHandler(resString: resString)
             self.cache = resString
         })
