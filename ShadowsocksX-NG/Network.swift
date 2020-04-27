@@ -12,7 +12,7 @@ import Alamofire
 class Network {
     static let sharedSession: Session = {
          let configuration = URLSessionConfiguration.default
-         configuration.timeoutIntervalForRequest = 6
+         configuration.timeoutIntervalForRequest = 5
         return Session(configuration: configuration)
     }()
 }
