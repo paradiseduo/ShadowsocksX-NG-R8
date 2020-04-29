@@ -7,7 +7,10 @@
 //
 
 import Cocoa
+import ServiceManagement
 
+let KILL_LAUNCHER = Notification.Name("ShadowsocksX_NG_R8_KILL_LAUNCHER")
+let LAUNCHER_APPID = "com.qiuyuzhou.ShadowsocksX-NG.LaunchAtLoginHelper"
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -16,6 +19,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Handle ss url scheme
         NSAppleEventManager.shared().setEventHandler(self, andSelector: #selector(self.handleURLEvent), forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
+        
+        let runningApps = NSWorkspace.shared.runningApplications
+        let isRunning = !runningApps.filter { $0.bundleIdentifier == LAUNCHER_APPID }.isEmpty
+        if isRunning {
+            DistributedNotificationCenter.default().post(name: KILL_LAUNCHER, object: Bundle.main.bundleIdentifier!)
+        }
     }
     
     @objc func handleURLEvent(_ event: NSAppleEventDescriptor, withReplyEvent replyEvent: NSAppleEventDescriptor) {
@@ -44,5 +53,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 }
             }
         }
+    }
+    
+    static func getLauncherStatus() -> Bool {
+        let jobs = SMCopyAllJobDictionaries(kSMDomainUserLaunchd).takeRetainedValue() as? [[String: AnyObject]]
+        let autoLaunchRegistered = jobs?.contains(where: { $0["Label"] as! String == LAUNCHER_APPID }) ?? false
+        return autoLaunchRegistered
+    }
+    
+    static func setLauncherStatus(open: Bool) {
+        SMLoginItemSetEnabled(LAUNCHER_APPID as CFString, open)
     }
 }

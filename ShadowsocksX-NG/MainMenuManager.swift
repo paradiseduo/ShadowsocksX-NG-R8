@@ -19,8 +19,6 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     var subscribePreferenceWinCtrl: SubscribePreferenceWindowController!
     var toastWindowCtrl: ToastWindowController!
     
-    var launchAtLoginController: LaunchAtLoginController = LaunchAtLoginController()
-    
     // MARK: Outlets
     @IBOutlet weak var statusMenu: NSMenu!
     
@@ -241,9 +239,10 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     }
     
     @IBAction func toggleLaunghAtLogin(_ sender: NSMenuItem) {
-        let bFlag = !launchAtLoginController.launchAtLogin;
-        launchAtLoginController.launchAtLogin = bFlag;
-        lanchAtLoginMenuItem.state = NSControl.StateValue(rawValue: bFlag ? 1 : 0)
+        AppDelegate.setLauncherStatus(open: !AppDelegate.getLauncherStatus())
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.3) {
+            self.updateLaunchAtLoginMenu()
+        }
     }
     
     @IBAction func toggleConnectAtLaunch(_ sender: NSMenuItem) {
@@ -573,7 +572,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     }
     
     func updateLaunchAtLoginMenu() {
-        lanchAtLoginMenuItem.state = NSControl.StateValue(rawValue: launchAtLoginController.launchAtLogin ? 1 : 0)
+        lanchAtLoginMenuItem.state = NSControl.StateValue(rawValue: AppDelegate.getLauncherStatus() ? 1 : 0)
     }
     
     func updateRunningModeMenu() {
@@ -920,7 +919,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     @IBAction func quitApp(_ sender: NSMenuItem) {
         AppDelegate.stopSSR {
             //如果设置了开机启动软件，就不删了
-            if self.launchAtLoginController.launchAtLogin == false {
+            if AppDelegate.getLauncherStatus() == false {
                 RemoveSSLocal { (s) in
                     RemovePrivoxy { (ss) in
                         NSApplication.shared.terminate(self)

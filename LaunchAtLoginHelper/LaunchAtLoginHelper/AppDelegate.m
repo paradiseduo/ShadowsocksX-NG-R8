@@ -29,6 +29,9 @@
     }
     
     if (!alreadyRunning) {
+        [NSDistributedNotificationCenter.defaultCenter addObserverForName:@"ShadowsocksX_NG_R8_KILL_LAUNCHER" object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * _Nonnull note) {
+            [NSApp terminate:nil];
+        }];
         // Launch main app
         NSString *path = [[NSBundle mainBundle] bundlePath];
         NSArray *p = [path pathComponents];
@@ -40,10 +43,6 @@
         [pathComponents addObject:mainAppName];
         NSString *mainAppPath = [NSString pathWithComponents:pathComponents];
         [[NSWorkspace sharedWorkspace] launchApplication:mainAppPath];
-        // exit
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(30 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [NSApp terminate:nil];
-        });
     } else {
         [NSApp terminate:nil];
     }
