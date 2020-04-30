@@ -120,7 +120,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="bMX-qn-Qwi"/>
-                            <menuItem title="Advance Proxy Preference" id="sbx-yz-3lO">
+                            <menuItem title="Rule update address settings" id="sbx-yz-3lO">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="editProxyPreferences:" target="Voe-Tx-rLC" id="Jji-Ea-Sy8"/>

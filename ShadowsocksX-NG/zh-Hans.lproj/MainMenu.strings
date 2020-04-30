@@ -57,10 +57,10 @@
 "YZp-bf-L40.title" = "代理";
 
 /* Class = "NSMenuItem"; title = "Advance Preference ..."; ObjectID = "bZ3-fy-34d"; */
-"bZ3-fy-34d.title" = "高级设置";
+"bZ3-fy-34d.title" = "高级代理设置";
 
 /* Class = "NSMenuItem"; title = "Proxy"; ObjectID = "diI-fB-Rss"; */
-"diI-fB-Rss.title" = "代理设置";
+"diI-fB-Rss.title" = "规则名单设置";
 
 /* Class = "NSMenuItem"; title = "Launch At Login"; ObjectID = "eUq-p7-ICK"; */
 "eUq-p7-ICK.title" = "登录时自动启动";
@@ -84,7 +84,7 @@
 "rms-p0-CvB.title" = "编辑PAC用户自定规则";
 
 /* Class = "NSMenuItem"; title = "Advance Proxy Preference..."; ObjectID = "sbx-yz-3lO"; */
-"sbx-yz-3lO.title" = "高级设置";
+"sbx-yz-3lO.title" = "规则更新地址设置";
 
 /* Class = "NSMenuItem"; title = "Servers"; ObjectID = "u5M-hQ-VSc"; */
 "u5M-hQ-VSc.title" = "服务器";

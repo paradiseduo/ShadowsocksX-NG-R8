@@ -15,7 +15,7 @@ class SettingWindowController: NSWindowController, NSWindowDelegate {
     
     override func windowDidLoad() {
         super.windowDidLoad()
-        
+        self.window?.delegate = self
         launchAtLogin.state = AppDelegate.getLauncherStatus() ? .on:.off
         
         let d = UserDefaults.standard

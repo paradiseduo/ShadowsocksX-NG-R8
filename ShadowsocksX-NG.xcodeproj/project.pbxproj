@@ -176,7 +176,6 @@
 		9B0BFFF41D0460A70040E62B /* ShadowsocksX-NGTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ShadowsocksX-NGTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B0BFFF81D0460A70040E62B /* ShadowsocksX_NGTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowsocksX_NGTests.swift; sourceTree = "<group>"; };
 		9B0BFFFA1D0460A70040E62B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9B172A5D1D0ACEA100B87B9A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/AdvPreferencesWindowController.strings"; sourceTree = "<group>"; };
 		9B172A601D0ADA5B00B87B9A /* genstrings.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = genstrings.py; sourceTree = "<group>"; };
 		9B172A6D1D0ADDE800B87B9A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		9B2491B51D0ACC3A003BBECC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesWindowController.xib; sourceTree = "<group>"; };
@@ -226,6 +225,8 @@
 		BE8448832459C6B500491046 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SettingWindowController.xib; sourceTree = "<group>"; };
 		BE9B6FDA245AF9A2001A1F82 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SettingWindowController.strings"; sourceTree = "<group>"; };
 		BEAA0EDC244B273A00809ADD /* MainMenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuManager.swift; sourceTree = "<group>"; };
+		BEE8F089245B11230088145C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ProxyPreferencesNewController.strings"; sourceTree = "<group>"; };
+		BEE8F08B245B141F0088145C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/AdvPreferencesWindowController.strings"; sourceTree = "<group>"; };
 		C6D4298E1DA75988002A5711 /* install_privoxy.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = install_privoxy.sh; sourceTree = "<group>"; };
 		C6D4298F1DA75988002A5711 /* privoxy */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = privoxy; sourceTree = "<group>"; };
 		C6D429901DA75988002A5711 /* reload_conf_privoxy.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = reload_conf_privoxy.sh; sourceTree = "<group>"; };
@@ -241,7 +242,6 @@
 		C8E42A721D4F2CB10074C7EA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/UserRulesController.strings"; sourceTree = "<group>"; };
 		E835465F2416034200D7776E /* ProxyPreferencesNewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyPreferencesNewController.swift; sourceTree = "<group>"; };
 		E835466A24160D4000D7776E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ProxyPreferencesNewController.xib; sourceTree = "<group>"; };
-		E835466F24160D4400D7776E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/ProxyPreferencesNewController.strings"; sourceTree = "<group>"; };
 		E8650519243D95E00089706A /* libpcre.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libpcre.1.dylib; sourceTree = "<group>"; };
 		E8B569892456C900001DA9A7 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		E8CD016B23726D14006CB1F6 /* ToastWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastWindowController.swift; sourceTree = "<group>"; };
@@ -848,7 +848,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				9B2491B81D0ACC3E003BBECC /* Base */,
-				9B172A5D1D0ACEA100B87B9A /* zh-Hans */,
+				BEE8F08B245B141F0088145C /* zh-Hans */,
 			);
 			name = AdvPreferencesWindowController.xib;
 			sourceTree = "<group>";
@@ -884,7 +884,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				E835466A24160D4000D7776E /* Base */,
-				E835466F24160D4400D7776E /* zh-Hans */,
+				BEE8F089245B11230088145C /* zh-Hans */,
 			);
 			name = ProxyPreferencesNewController.xib;
 			sourceTree = "<group>";
