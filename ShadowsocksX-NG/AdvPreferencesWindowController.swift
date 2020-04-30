@@ -20,8 +20,7 @@ class AdvPreferencesWindowController: NSWindowController, NSWindowDelegate {
     //------------------------------------------------------------
     // NSWindowDelegate
     func windowWillClose(_ notification: Notification) {
-        NotificationCenter.default
-            .post(name: NOTIFY_ADV_CONF_CHANGED, object: nil)
+        NotificationCenter.default.post(name: NOTIFY_ADV_CONF_CHANGED, object: nil)
     }
     
 }

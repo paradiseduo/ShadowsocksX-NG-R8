@@ -1,6 +1,6 @@
 
 /* Class = "NSMenuItem"; title = "Export All Server To Json..."; ObjectID = "6k0-gn-DQv"; */
-"6k0-gn-DQv.title" = "导出全部服务器配置...";
+"6k0-gn-DQv.title" = "导出全部服务器配置";
 
 /* Class = "NSMenuItem"; title = "Import Server URLs From Pasteboard"; ObjectID = "gM9-ym-4L0"; */
 "gM9-ym-4L0.title" = "从剪贴板导入服务器配置链接";
@@ -18,7 +18,7 @@
 "Hob-KD-bx9.title" = "ShadowsocksX-NG";
 
 /* Class = "NSMenuItem"; title = "Show Logs..."; ObjectID = "Jfy-sf-Fhl"; */
-"Jfy-sf-Fhl.title" = "显示日志...";
+"Jfy-sf-Fhl.title" = "显示日志";
 
 /* Class = "NSMenuItem"; title = "White List Domain"; ObjectID = "L27-aH-Wwl"; */
 "L27-aH-Wwl.title" = "域名白名单";
@@ -27,22 +27,22 @@
 "LgB-6g-Gba.title" = "关于";
 
 /* Class = "NSMenuItem"; title = "Server Preferences..."; ObjectID = "M5r-E7-44f"; */
-"M5r-E7-44f.title" = "服务器设置...";
+"M5r-E7-44f.title" = "服务器设置";
 
 /* Class = "NSMenuItem"; title = "Global Mode"; ObjectID = "Mw3-Jm-eXA"; */
 "Mw3-Jm-eXA.title" = "全局模式";
 
 /* Class = "NSMenuItem"; title = "Scan QR Code From Screen..."; ObjectID = "Qe6-bF-paT"; */
-"Qe6-bF-paT.title" = "扫描屏幕上的二维码...";
+"Qe6-bF-paT.title" = "扫描屏幕上的二维码";
 
 /* Class = "NSMenuItem"; title = "Show QR Code For Current Server..."; ObjectID = "R6A-96-Zcb"; */
-"R6A-96-Zcb.title" = "显示当前服务器的二维码...";
+"R6A-96-Zcb.title" = "显示当前服务器的二维码";
 
 /* Class = "NSMenuItem"; title = "White List Mode"; ObjectID = "RvZ-Zn-29U"; */
 "RvZ-Zn-29U.title" = "白名单模式";
 
 /* Class = "NSMenuItem"; title = "Import Bunch Json File..."; ObjectID = "T9g-gy-gvv"; */
-"T9g-gy-gvv.title" = "导入服务器配置文件...";
+"T9g-gy-gvv.title" = "导入服务器配置文件";
 
 /* Class = "NSMenuItem"; title = "Update PAC from GFW List"; ObjectID = "TFc-Ec-duM"; */
 "TFc-Ec-duM.title" = "从 GFW List 更新 PAC";
@@ -57,7 +57,7 @@
 "YZp-bf-L40.title" = "代理";
 
 /* Class = "NSMenuItem"; title = "Advance Preference ..."; ObjectID = "bZ3-fy-34d"; */
-"bZ3-fy-34d.title" = "高级设置...";
+"bZ3-fy-34d.title" = "高级设置";
 
 /* Class = "NSMenuItem"; title = "Proxy"; ObjectID = "diI-fB-Rss"; */
 "diI-fB-Rss.title" = "代理设置";
@@ -75,16 +75,16 @@
 "nAe-c2-Q79.title" = "白名单模式";
 
 /* Class = "NSMenuItem"; title = "Show Bunch Json Example File..."; ObjectID = "pdy-JE-50Q"; */
-"pdy-JE-50Q.title" = "显示示例服务器配置文件...";
+"pdy-JE-50Q.title" = "显示示例服务器配置文件";
 
 /* Class = "NSMenuItem"; title = "Auto Mode By PAC"; ObjectID = "r07-Gu-aEz"; */
 "r07-Gu-aEz.title" = "PAC自动模式";
 
 /* Class = "NSMenuItem"; title = "Edit User Rules For PAC..."; ObjectID = "rms-p0-CvB"; */
-"rms-p0-CvB.title" = "编辑PAC用户自定规则...";
+"rms-p0-CvB.title" = "编辑PAC用户自定规则";
 
 /* Class = "NSMenuItem"; title = "Advance Proxy Preference..."; ObjectID = "sbx-yz-3lO"; */
-"sbx-yz-3lO.title" = "高级设置...";
+"sbx-yz-3lO.title" = "高级设置";
 
 /* Class = "NSMenuItem"; title = "Servers"; ObjectID = "u5M-hQ-VSc"; */
 "u5M-hQ-VSc.title" = "服务器";
@@ -102,7 +102,7 @@
 "aB3-cf-5j0.title" = "打开时自动连接";
 
 /* Class = "NSMenuItem"; title = "HTTP Proxy Preference ..."; ObjectID = "uEp-Gz-cu0"; */
-"uEp-Gz-cu0.title" = "HTTP代理设置...";
+"uEp-Gz-cu0.title" = "HTTP代理设置";
 
 "wyZ-4G-qg9.title" = "检查更新";
 
@@ -131,3 +131,5 @@
 "eL4-tv-vDa.title" = "使用TCP";
 
 "por-hD-Ks6.title" = "服务器列表按延时升序";
+
+"hgj-kn-XcH.title" = "应用设置";

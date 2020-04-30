@@ -1,0 +1,39 @@
+
+/* Class = "NSTextFieldCell"; title = "Launch At Login"; ObjectID = "2eL-ks-Usj"; */
+"2eL-ks-Usj.title" = "登录后自动启动";
+
+/* Class = "NSTextFieldCell"; title = "Connect At Launch"; ObjectID = "Bca-BF-OZ5"; */
+"Bca-BF-OZ5.title" = "打开后自动连接";
+
+/* Class = "NSWindow"; title = "Setting"; ObjectID = "F0z-JX-Cv5"; */
+"F0z-JX-Cv5.title" = "应用设置";
+
+/* Class = "NSTextFieldCell"; title = "Ascending by delay"; ObjectID = "JI9-6M-Lms"; */
+"JI9-6M-Lms.title" = "延迟按升序排序";
+
+/* Class = "NSTextFieldCell"; title = "Show network speed"; ObjectID = "K5J-sZ-tBk"; */
+"K5J-sZ-tBk.title" = "显示网速";
+
+/* Class = "NSTextFieldCell"; title = "Network speed measurement options"; ObjectID = "OdI-7U-Q5G"; */
+"OdI-7U-Q5G.title" = "延迟测试选项";
+
+/* Class = "NSTextFieldCell"; title = "Check Updates At Launch"; ObjectID = "Ozx-o5-M4a"; */
+"Ozx-o5-M4a.title" = "打开后自动检查更新";
+
+/* Class = "NSTextFieldCell"; title = "Update Subscribe At Launch"; ObjectID = "Slz-GX-Cdp"; */
+"Slz-GX-Cdp.title" = "打开后自动更新订阅";
+
+/* Class = "NSTextFieldCell"; title = "Delay Test Method"; ObjectID = "VL7-AA-WMw"; */
+"VL7-AA-WMw.title" = "延迟测试方式";
+
+/* Class = "NSTextFieldCell"; title = "Other options"; ObjectID = "dNk-UW-dxA"; */
+"dNk-UW-dxA.title" = "其它选项";
+
+/* Class = "NSTextFieldCell"; title = "Login options"; ObjectID = "sLG-9D-rDI"; */
+"sLG-9D-rDI.title" = "登录选项";
+
+/* Class = "NSComboBoxCell"; sm6-oM-OMv.ibShadowedObjectValues[0] = "ICMP"; ObjectID = "sm6-oM-OMv"; */
+"sm6-oM-OMv.ibShadowedObjectValues[0]" = "ICMP";
+
+/* Class = "NSComboBoxCell"; sm6-oM-OMv.ibShadowedObjectValues[1] = "TCP"; ObjectID = "sm6-oM-OMv"; */
+"sm6-oM-OMv.ibShadowedObjectValues[1]" = "TCP";

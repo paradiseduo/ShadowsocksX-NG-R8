@@ -18,6 +18,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     var httpPreferencesWinCtrl : HTTPPreferencesWindowController!
     var subscribePreferenceWinCtrl: SubscribePreferenceWindowController!
     var toastWindowCtrl: ToastWindowController!
+    var settingWindowCtrl: SettingWindowController!
     
     // MARK: Outlets
     @IBOutlet weak var statusMenu: NSMenu!
@@ -44,21 +45,11 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     
     @IBOutlet var copyHttpProxyExportCmdLineMenuItem: NSMenuItem!
     
-    @IBOutlet weak var lanchAtLoginMenuItem: NSMenuItem!
-    @IBOutlet weak var connectAtLaunchMenuItem: NSMenuItem!
-    @IBOutlet weak var ShowNetworkSpeedItem: NSMenuItem!
     @IBOutlet weak var checkUpdateMenuItem: NSMenuItem!
-    @IBOutlet weak var checkUpdateAtLaunchMenuItem: NSMenuItem!
-    @IBOutlet var updateSubscribeAtLaunchMenuItem: NSMenuItem!
     @IBOutlet var manualUpdateSubscribeMenuItem: NSMenuItem!
     @IBOutlet var editSubscribeMenuItem: NSMenuItem!
     
     @IBOutlet weak var copyCommandLine: NSMenuItem!
-    
-    @IBOutlet weak var icmpMenuItem: NSMenuItem!
-    @IBOutlet weak var tcpMenuItem: NSMenuItem!
-    
-    @IBOutlet weak var ascendingMenuItem: NSMenuItem!
     
     // MARK: Variables
     var statusItemView:StatusItemView!
@@ -151,6 +142,10 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
                 
             }
         }
+        notifyCenter.addObserver(forName: NOTIFY_SETTING_UPDATE, object: nil, queue: OperationQueue.main) { (noti) in
+            self.setUpMenu(UserDefaults.standard.bool(forKey: USERDEFAULTS_ENABLE_SHOW_SPEED))
+            self.updateMainMenu()
+        }
         
         DispatchQueue.main.async {
             self.setUpMenu(defaults.bool(forKey: USERDEFAULTS_ENABLE_SHOW_SPEED))
@@ -158,7 +153,6 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             self.updateCopyHttpProxyExportMenu()
             self.updateServersMenu()
             self.updateRunningModeMenu()
-            self.updateLaunchAtLoginMenu()
             
             if defaults.bool(forKey: USERDEFAULTS_CONNECT_AT_LAUNCH) && ServerProfileManager.instance.getActiveProfileId() != "" {
                 defaults.set(false, forKey: USERDEFAULTS_SHADOWSOCKS_ON)
@@ -237,21 +231,6 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         NSApp.activate(ignoringOtherApps: true)
         ctrl.window?.makeKeyAndOrderFront(self)
     }
-    
-    @IBAction func toggleLaunghAtLogin(_ sender: NSMenuItem) {
-        AppDelegate.setLauncherStatus(open: !AppDelegate.getLauncherStatus())
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.3) {
-            self.updateLaunchAtLoginMenu()
-        }
-    }
-    
-    @IBAction func toggleConnectAtLaunch(_ sender: NSMenuItem) {
-        let defaults = UserDefaults.standard
-        defaults.set(!defaults.bool(forKey: USERDEFAULTS_CONNECT_AT_LAUNCH), forKey: USERDEFAULTS_CONNECT_AT_LAUNCH)
-        defaults.synchronize()
-        updateMainMenu()
-    }
-    
     
     @IBAction func toggleCopyCommandLine(_ sender: NSMenuItem) {
         // Get the Http proxy config.
@@ -355,14 +334,6 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     @IBAction func updateSubscribe(_ sender: NSMenuItem) {
         SubscribeManager.instance.updateAllServerFromSubscribe(auto: false)
     }
-    
-    @IBAction func updateSubscribeAtLaunch(_ sender: NSMenuItem) {
-        let defaults = UserDefaults.standard
-        defaults.set(!defaults.bool(forKey: USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE), forKey: USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE)
-        defaults.synchronize()
-        updateSubscribeAtLaunchMenuItem.state = NSControl.StateValue(rawValue: defaults.bool(forKey: USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE) ? 1 : 0)
-    }
-    
     
     // MARK: Proxy submenu function
 
@@ -516,30 +487,6 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         }
         UserDefaults.standard.synchronize()
     }
-    
-    @IBAction func doPingTest(_ sender: NSMenuItem) {
-        icmpMenuItem.state = NSControl.StateValue(rawValue: 1)
-        tcpMenuItem.state = NSControl.StateValue(rawValue: 0)
-        UserDefaults.standard.set(false, forKey: USERDEFAULTS_TCP)
-        UserDefaults.standard.synchronize()
-    }
-    
-    @IBAction func doTcpingTest(_ sender: NSMenuItem) {
-        icmpMenuItem.state = NSControl.StateValue(rawValue: 0)
-        tcpMenuItem.state = NSControl.StateValue(rawValue: 1)
-        UserDefaults.standard.set(true, forKey: USERDEFAULTS_TCP)
-        UserDefaults.standard.synchronize()
-    }
-    
-    @IBAction func showSpeedTap(_ sender: NSMenuItem) {
-        let defaults = UserDefaults.standard
-        var enable = defaults.bool(forKey: USERDEFAULTS_ENABLE_SHOW_SPEED)
-        enable = !enable
-        setUpMenu(enable)
-        defaults.set(enable, forKey: USERDEFAULTS_ENABLE_SHOW_SPEED)
-        defaults.synchronize()
-        updateMainMenu()
-    }
 
     @IBAction func showLogs(_ sender: NSMenuItem) {
         let ws = NSWorkspace.shared
@@ -550,6 +497,17 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         }
     }
 
+    @IBAction func tapSetting(_ sender: NSMenuItem) {
+        if settingWindowCtrl != nil {
+            settingWindowCtrl.close()
+        }
+        let ctrl = SettingWindowController(windowNibName: "SettingWindowController")
+        settingWindowCtrl = ctrl
+        
+        ctrl.showWindow(self)
+        NSApp.activate(ignoringOtherApps: true)
+        ctrl.window?.makeKeyAndOrderFront(self)
+    }
     
     @IBAction func feedback(_ sender: NSMenuItem) {
         NSWorkspace.shared.open(URL(string: "https://github.com/paradiseduo/ShadowsocksX-NG-R8/issues")!)
@@ -559,20 +517,9 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         checkForUpdate(mustShowAlert: true)
     }
     
-    @IBAction func checkUpdatesAtLaunch(_ sender: NSMenuItem) {
-        let defaults = UserDefaults.standard
-        defaults.set(!defaults.bool(forKey: USERDEFAULTS_AUTO_CHECK_UPDATE), forKey: USERDEFAULTS_AUTO_CHECK_UPDATE)
-        defaults.synchronize()
-        checkUpdateAtLaunchMenuItem.state = NSControl.StateValue(rawValue: defaults.bool(forKey: USERDEFAULTS_AUTO_CHECK_UPDATE) ? 1 : 0)
-    }
-    
     @IBAction func showAbout(_ sender: NSMenuItem) {
         NSApp.orderFrontStandardAboutPanel(sender);
         NSApp.activate(ignoringOtherApps: true)
-    }
-    
-    func updateLaunchAtLoginMenu() {
-        lanchAtLoginMenuItem.state = NSControl.StateValue(rawValue: AppDelegate.getLauncherStatus() ? 1 : 0)
     }
     
     func updateRunningModeMenu() {
@@ -666,17 +613,6 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
                 statusItemView.setIconWith(mode: "disabled")
             }
         }
-        if defaults.bool(forKey: USERDEFAULTS_TCP) {
-            icmpMenuItem.state = NSControl.StateValue(rawValue: 0)
-            tcpMenuItem.state = NSControl.StateValue(rawValue: 1)
-        } else {
-            icmpMenuItem.state = NSControl.StateValue(rawValue: 1)
-            tcpMenuItem.state = NSControl.StateValue(rawValue: 0)
-        }
-        ShowNetworkSpeedItem.state          = NSControl.StateValue(rawValue: defaults.bool(forKey: USERDEFAULTS_ENABLE_SHOW_SPEED) ? 1 : 0)
-        connectAtLaunchMenuItem.state       = NSControl.StateValue(rawValue: defaults.bool(forKey: USERDEFAULTS_CONNECT_AT_LAUNCH)  ? 1 : 0)
-        checkUpdateAtLaunchMenuItem.state   = NSControl.StateValue(rawValue: defaults.bool(forKey: USERDEFAULTS_AUTO_CHECK_UPDATE)  ? 1 : 0)
-        ascendingMenuItem.state             = NSControl.StateValue(rawValue: defaults.bool(forKey: USERDEFAULTS_ASCENDING_DELAY)  ? 1 : 0)
     }
     
     func updateCopyHttpProxyExportMenu() {
@@ -696,13 +632,10 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         let importBuntch = importBunchJsonFileItem
         let exportAllServer = exportAllServerProfileItem
         let updateSubscribeItem = manualUpdateSubscribeMenuItem
-        let autoUpdateSubscribeItem = updateSubscribeAtLaunchMenuItem
         let editSubscribeItem = editSubscribeMenuItem
         let copyHttpProxyExportCmdLineItem = copyHttpProxyExportCmdLineMenuItem
         
         serversMenuItem.submenu?.addItem(editSubscribeItem!)
-        serversMenuItem.submenu?.addItem(autoUpdateSubscribeItem!)
-        autoUpdateSubscribeItem?.state = NSControl.StateValue(rawValue: UserDefaults.standard.bool(forKey: USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE) ? 1 : 0)
         serversMenuItem.submenu?.addItem(updateSubscribeItem!)
         serversMenuItem.submenu?.addItem(showQRItem!)
         serversMenuItem.submenu?.addItem(scanQRItem!)

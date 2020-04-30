@@ -61,8 +61,7 @@ class ProxyPreferencesNewController: NSWindowController, NSWindowDelegate, NSTab
         return 0;
     }
         
-    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?
-        , row: Int) -> Any? {
+    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         let cell = tableColumn!.dataCell as! NSButtonCell
         
         let key = (networkServices[row] as AnyObject)["key"] as! String
@@ -76,8 +75,7 @@ class ProxyPreferencesNewController: NSWindowController, NSWindowDelegate, NSTab
         return cell
     }
     
-    func tableView(_ tableView: NSTableView, setObjectValue object: Any?
-        , for tableColumn: NSTableColumn?, row: Int) {
+    func tableView(_ tableView: NSTableView, setObjectValue object: Any?, for tableColumn: NSTableColumn?, row: Int) {
         let key = (networkServices[row] as AnyObject)["key"] as! String
         
         if (object! as AnyObject).intValue == 1 {

@@ -16,6 +16,7 @@ let NOTIFY_INVALIDE_QR = Notification.Name(rawValue: "NOTIFY_INVALIDE_QR")
 let NOTIFY_FOUND_SS_URL = Notification.Name(rawValue: "NOTIFY_FOUND_SS_URL")
 let NOTIFY_UPDATE_MAINMENU = Notification.Name(rawValue: "NOTIFY_UPDATE_MAINMENU")
 let NOTIFY_TOGGLE_RUNNING = Notification.Name(rawValue: "NOTIFY_TOGGLE_RUNNING")
+let NOTIFY_SETTING_UPDATE = Notification.Name(rawValue: "NOTIFY_SETTING_UPDATE")
 
 let USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE = "AutoUpdateSubscribe"
 let USERDEFAULTS_FASTEST_NODE = "FastestNode"
