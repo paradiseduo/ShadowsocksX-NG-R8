@@ -100,7 +100,7 @@ class Tcping {
         
         neverSpeedTestBefore = false
         count = 5
-        self.timer = Timer.scheduledTimer(withTimeInterval: Tcping.timeout+0.1, repeats: true) { [weak self] (t) in
+        self.timer = Timer(timeInterval: Tcping.timeout+0.1, repeats: true) { [weak self] (t) in
             guard let w = self else {return}
             if w.count > 0 {
                 print("Tcping Residual times \(w.count)")
@@ -165,6 +165,6 @@ class Tcping {
                 }
             }
         }
-
+        RunLoop.main.add(self.timer!, forMode: RunLoop.Mode.common)
     }
 }
