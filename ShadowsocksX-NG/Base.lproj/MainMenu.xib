@@ -98,9 +98,9 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Proxy Settings" id="diI-fB-Rss">
+                <menuItem title="Rule List Settings" id="diI-fB-Rss">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Proxy Settings" id="YZp-bf-L40">
+                    <menu key="submenu" title="Rule List Settings" id="YZp-bf-L40">
                         <items>
                             <menuItem title="Update PAC File" id="TFc-Ec-duM">
                                 <modifierMask key="keyEquivalentModifierMask"/>
