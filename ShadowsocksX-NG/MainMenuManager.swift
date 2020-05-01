@@ -748,14 +748,15 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             if speedMonitor == nil{
                 speedMonitor = NetSpeedMonitor()
             }
-            speedTimer = Timer.scheduledTimer(withTimeInterval: repeatTimeinterval, repeats: true, block: {[weak self] (timer) in
+            speedTimer = Timer(timeInterval: repeatTimeinterval, repeats: true) {[weak self] (timer) in
                 guard let w = self else {return}
                 w.speedMonitor?.timeInterval(w.repeatTimeinterval, downloadAndUploadSpeed: { (down, up) in
                     if let b = w.speedItem.button {
                         b.attributedTitle = SpeedTools.speedAttributedString(up: up, down: down)
                     }
                 })
-            })
+            }
+            RunLoop.main.add(speedTimer!, forMode: RunLoop.Mode.common)
         }else{
             speedItem.attributedTitle = NSAttributedString(string: "")
             NSStatusBar.system.removeStatusItem(speedItem)
