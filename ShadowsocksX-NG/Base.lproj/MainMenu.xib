@@ -102,26 +102,26 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Proxy Settings" id="YZp-bf-L40">
                         <items>
-                            <menuItem title="Update PAC file" id="TFc-Ec-duM">
+                            <menuItem title="Update PAC File" id="TFc-Ec-duM">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="updateGFWList:" target="Voe-Tx-rLC" id="Ztt-PS-F3T"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Update ACL file" id="gde-ZE-086">
+                            <menuItem title="Update ACL File" id="gde-ZE-086">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="updateWhiteList:" target="Voe-Tx-rLC" id="2Iv-M4-k9C"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Edit User Rules For PAC" id="rms-p0-CvB">
+                            <menuItem title="⚙ Edit User Rules For PAC" id="rms-p0-CvB">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="editUserRulesForPAC:" target="Voe-Tx-rLC" id="ZtK-2d-Pcl"/>
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="bMX-qn-Qwi"/>
-                            <menuItem title="Rule update address settings" id="sbx-yz-3lO">
+                            <menuItem title="⚙ Rule Update Settings" id="sbx-yz-3lO">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="editProxyPreferences:" target="Voe-Tx-rLC" id="Jji-Ea-Sy8"/>
@@ -142,7 +142,7 @@
                     <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
                     <menu key="submenu" title="Servers" id="9Y1-db-3HK">
                         <items>
-                            <menuItem title="Edit Subscribe Feed" id="QJ6-eg-mzv">
+                            <menuItem title="⚙ Edit Subscribe Feed" id="QJ6-eg-mzv">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="editSubscribeFeed:" target="Voe-Tx-rLC" id="V3v-T4-Rfn"/>
@@ -191,7 +191,7 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="6sL-A4-S7N"/>
-                            <menuItem title="Server Preferences" id="M5r-E7-44f">
+                            <menuItem title="⚙ Server Settings" id="M5r-E7-44f">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
                                     <action selector="editServerPreferences:" target="Voe-Tx-rLC" id="6Lv-6i-Neb"/>
@@ -200,13 +200,13 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Advance Preference" id="bZ3-fy-34d">
+                <menuItem title="⚙ Advanced Proxy Settings" id="bZ3-fy-34d">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="editAdvPreferences:" target="Voe-Tx-rLC" id="mEF-XS-HJE"/>
                     </connections>
                 </menuItem>
-                <menuItem title="HTTP Proxy Preference" id="uEp-Gz-cu0">
+                <menuItem title="⚙ HTTP Proxy Settings" id="uEp-Gz-cu0">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="editHTTPPreferences:" target="Voe-Tx-rLC" id="tkC-e3-PH9"/>
@@ -219,7 +219,7 @@
                     </connections>
                 </menuItem>
                 <menuItem isSeparatorItem="YES" id="DTJ-NF-Wxr"/>
-                <menuItem title="Application Setting" id="hgj-kn-XcH">
+                <menuItem title="⚙ Application Setting" id="hgj-kn-XcH">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
                         <action selector="tapSetting:" target="Voe-Tx-rLC" id="jFI-sI-KBE"/>

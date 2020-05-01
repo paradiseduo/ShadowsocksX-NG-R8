@@ -27,7 +27,7 @@
 "LgB-6g-Gba.title" = "关于";
 
 /* Class = "NSMenuItem"; title = "Server Preferences..."; ObjectID = "M5r-E7-44f"; */
-"M5r-E7-44f.title" = "服务器设置";
+"M5r-E7-44f.title" = "⚙ 服务器设置";
 
 /* Class = "NSMenuItem"; title = "Global Mode"; ObjectID = "Mw3-Jm-eXA"; */
 "Mw3-Jm-eXA.title" = "全局模式";
@@ -57,7 +57,7 @@
 "YZp-bf-L40.title" = "代理";
 
 /* Class = "NSMenuItem"; title = "Advance Preference ..."; ObjectID = "bZ3-fy-34d"; */
-"bZ3-fy-34d.title" = "高级代理设置";
+"bZ3-fy-34d.title" = "⚙ 高级代理设置";
 
 /* Class = "NSMenuItem"; title = "Proxy"; ObjectID = "diI-fB-Rss"; */
 "diI-fB-Rss.title" = "规则名单设置";
@@ -81,10 +81,10 @@
 "r07-Gu-aEz.title" = "PAC自动模式";
 
 /* Class = "NSMenuItem"; title = "Edit User Rules For PAC..."; ObjectID = "rms-p0-CvB"; */
-"rms-p0-CvB.title" = "编辑PAC用户自定规则";
+"rms-p0-CvB.title" = "⚙ 编辑PAC用户自定规则";
 
 /* Class = "NSMenuItem"; title = "Advance Proxy Preference..."; ObjectID = "sbx-yz-3lO"; */
-"sbx-yz-3lO.title" = "规则更新地址设置";
+"sbx-yz-3lO.title" = "⚙ 规则更新地址设置";
 
 /* Class = "NSMenuItem"; title = "Servers"; ObjectID = "u5M-hQ-VSc"; */
 "u5M-hQ-VSc.title" = "服务器";
@@ -102,7 +102,7 @@
 "aB3-cf-5j0.title" = "打开时自动连接";
 
 /* Class = "NSMenuItem"; title = "HTTP Proxy Preference ..."; ObjectID = "uEp-Gz-cu0"; */
-"uEp-Gz-cu0.title" = "HTTP代理设置";
+"uEp-Gz-cu0.title" = "⚙ HTTP代理设置";
 
 "wyZ-4G-qg9.title" = "检查更新";
 
@@ -120,7 +120,7 @@
 
 "nQ4-Nv-tox.title" = "打开时自动更新订阅";
 
-"QJ6-eg-mzv.title" = "编辑订阅";
+"QJ6-eg-mzv.title" = "⚙ 编辑订阅";
 
 "Lod-lA-Gfa.title" = "复制终端代理命令";
 
@@ -132,6 +132,6 @@
 
 "por-hD-Ks6.title" = "服务器列表按延时升序";
 
-"hgj-kn-XcH.title" = "应用设置";
+"hgj-kn-XcH.title" = "⚙ 应用设置";
 
 "GON-fS-emF.title" = "关闭";
