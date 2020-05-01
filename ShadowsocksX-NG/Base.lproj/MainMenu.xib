@@ -36,6 +36,7 @@
                 <outlet property="serversPreferencesMenuItem" destination="M5r-E7-44f" id="voe-SX-k6a"/>
                 <outlet property="showBunchJsonExampleFileItem" destination="pdy-JE-50Q" id="aWi-DB-deq"/>
                 <outlet property="showQRCodeMenuItem" destination="R6A-96-Zcb" id="XHz-pz-nCz"/>
+                <outlet property="speedMenu" destination="yeJ-HT-sBl" id="fYv-Vc-e6P"/>
                 <outlet property="statusMenu" destination="Hob-KD-bx9" id="Z0D-Ny-SwF"/>
                 <outlet property="toggleRunningMenuItem" destination="GSu-Tf-StS" id="XHw-pU-nCa"/>
                 <outlet property="whiteListModeMenuItem" destination="RvZ-Zn-29U" id="2v5-Bd-EDj"/>
@@ -256,6 +257,17 @@
                 </menuItem>
             </items>
             <point key="canvasLocation" x="140" y="152"/>
+        </menu>
+        <menu id="yeJ-HT-sBl">
+            <items>
+                <menuItem title="Close" id="GON-fS-emF">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="closeSpeedItem:" target="Voe-Tx-rLC" id="RFE-5J-yhl"/>
+                    </connections>
+                </menuItem>
+            </items>
+            <point key="canvasLocation" x="-220" y="17"/>
         </menu>
     </objects>
 </document>

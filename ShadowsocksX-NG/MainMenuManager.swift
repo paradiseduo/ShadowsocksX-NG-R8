@@ -22,6 +22,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     
     // MARK: Outlets
     @IBOutlet weak var statusMenu: NSMenu!
+    @IBOutlet weak var speedMenu: NSMenu!
     
     @IBOutlet weak var runningStatusMenuItem: NSMenuItem!
     @IBOutlet weak var toggleRunningMenuItem: NSMenuItem!
@@ -148,6 +149,10 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         }
         
         DispatchQueue.main.async {
+            self.statusItem.image = NSImage(named: "menu_icon")
+            self.statusItem.image?.isTemplate = true
+            self.statusItem.menu = self.statusMenu
+            
             self.setUpMenu(defaults.bool(forKey: USERDEFAULTS_ENABLE_SHOW_SPEED))
             self.updateMainMenu()
             self.updateCopyHttpProxyExportMenu()
@@ -734,14 +739,9 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     }
     
     func setUpMenu(_ showSpeed:Bool){
-        // should not operate the system status bar
-        // we can add sub menu like bittorrent sync
-        statusItem.image = NSImage(named: "menu_icon")
-        statusItem.image?.isTemplate = true
-        statusItem.menu = self.statusMenu
-        
         if showSpeed{
             speedItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+            speedItem.menu = speedMenu
             if let b = speedItem.button {
                 b.attributedTitle = SpeedTools.speedAttributedString(up: 0.0, down: 0.0)
             }
@@ -855,6 +855,12 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
                 finish(true)
             }
         }
+    }
+    
+    @IBAction func closeSpeedItem(_ sender: NSMenuItem) {
+        UserDefaults.standard.setValue(false, forKey: USERDEFAULTS_ENABLE_SHOW_SPEED)
+        UserDefaults.standard.synchronize()
+        self.setUpMenu(false)
     }
     
     @IBAction func quitApp(_ sender: NSMenuItem) {
