@@ -25,6 +25,12 @@ class UserRulesController: NSWindowController {
         userRulesView.string = str ?? ""
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        window?.center()
+    }
+    
     @IBAction func didCancel(_ sender: AnyObject) {
         window?.performClose(self)
     }

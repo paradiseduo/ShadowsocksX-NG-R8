@@ -101,14 +101,11 @@ class PreferencesWindowController: NSWindowController
         updateProfileBoxVisible()
     }
     
-    //    override func awakeFromNib() {
-    //        profilesTableView.registerForDraggedTypes(convertToNSPasteboardPasteboardTypeArray([tableViewDragType]))
-    //        profilesTableView.allowsMultipleSelection = true
-    //    }
-    
     override func awakeFromNib() {
+        super.awakeFromNib()
         profilesTableView.registerForDraggedTypes([NSPasteboard.PasteboardType(rawValue: tableViewDragType)])
         profilesTableView.allowsMultipleSelection = true
+        window?.center()
     }
     
     
@@ -301,9 +298,7 @@ class PreferencesWindowController: NSWindowController
         return 0
     }
     
-    func tableView(_ tableView: NSTableView
-        , objectValueFor tableColumn: NSTableColumn?
-        , row: Int) -> Any? {
+    func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
         
         let (title, isActive) = getDataAtRow(row)
         
@@ -316,17 +311,6 @@ class PreferencesWindowController: NSWindowController
                 return nil
             }
         }
-        
-        
-        //        if convertFromNSUserInterfaceItemIdentifier(tableColumn?.identifier) == "main" {
-        //            return title
-        //        } else if convertFromNSUserInterfaceItemIdentifier(tableColumn?.identifier) == "status" {
-        //            if isActive {
-        //                return NSImage(named: "NSMenuOnStateTemplate")
-        //            } else {
-        //                return nil
-        //            }
-        //        }
         return ""
     }
     
@@ -350,11 +334,6 @@ class PreferencesWindowController: NSWindowController
         , row: Int, dropOperation: NSTableView.DropOperation) -> Bool {
         if let mgr = profileMgr {
             var oldIndexes = [Int]()
-            //            info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:]) {arg,arg,arg,
-            //                if let str = ($0.item as! NSPasteboardItem).string(forType: convertToNSPasteboardPasteboardType(self.tableViewDragType)), let index = Int(str) {
-            //                    oldIndexes.append(index)
-            //                }
-            //            }
             
             info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:], using: {
                 (draggingItem: NSDraggingItem, idx: Int, stop: UnsafeMutablePointer<ObjCBool>) in
@@ -362,9 +341,7 @@ class PreferencesWindowController: NSWindowController
                     oldIndexes.append(index)
                 }
             })
-            
-            
-            
+
             var oldIndexOffset = 0
             var newIndexOffset = 0
             

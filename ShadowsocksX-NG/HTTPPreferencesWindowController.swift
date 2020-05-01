@@ -17,11 +17,15 @@ class HTTPPreferencesWindowController: NSWindowController, NSWindowDelegate {
         self.window?.delegate = self
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        window?.center()
+    }
+    
     //------------------------------------------------------------
     // NSWindowDelegate
     func windowWillClose(_ notification: Notification) {
-        NotificationCenter.default
-            .post(name: NOTIFY_HTTP_CONF_CHANGED, object: nil)
+        NotificationCenter.default.post(name: NOTIFY_HTTP_CONF_CHANGED, object: nil)
     }
     
 }

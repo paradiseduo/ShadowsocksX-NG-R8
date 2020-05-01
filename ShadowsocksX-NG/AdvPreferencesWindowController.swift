@@ -31,6 +31,11 @@ class AdvPreferencesWindowController: NSWindowController, NSTableViewDataSource,
         tableView.reloadData()
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        window?.center()
+    }
+    
     @IBAction func ok(_ sender: NSButton) {
         ProxyConfHelper.disableProxy("hi")
         

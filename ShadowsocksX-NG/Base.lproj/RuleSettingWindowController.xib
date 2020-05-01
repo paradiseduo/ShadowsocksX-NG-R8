@@ -6,7 +6,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="ProxyPreferencesNewController" customModule="ShadowsocksX_NG" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="RuleSettingWindowController" customModule="ShadowsocksX_NG" customModuleProvider="target">
             <connections>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>

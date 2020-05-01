@@ -13,7 +13,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     var qrcodeWinCtrl: SWBQRCodeWindowController!
     var preferencesWinCtrl: PreferencesWindowController!
     var advPreferencesWinCtrl: AdvPreferencesWindowController!
-    var proxyPreferencesWinCtrl: ProxyPreferencesNewController!
+    var ruleSettingWinCtrl: RuleSettingWindowController!
     var editUserRulesWinCtrl: UserRulesController!
     var httpPreferencesWinCtrl : HTTPPreferencesWindowController!
     var subscribePreferenceWinCtrl: SubscribePreferenceWindowController!
@@ -451,11 +451,11 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     }
     
     @IBAction func editProxyPreferences(_ sender: NSMenuItem) {
-        if proxyPreferencesWinCtrl != nil {
-            proxyPreferencesWinCtrl.close()
+        if ruleSettingWinCtrl != nil {
+            ruleSettingWinCtrl.close()
         }
-        let ctrl = ProxyPreferencesNewController(windowNibName: "ProxyPreferencesNewController")
-        proxyPreferencesWinCtrl = ctrl
+        let ctrl = RuleSettingWindowController(windowNibName: "RuleSettingWindowController")
+        ruleSettingWinCtrl = ctrl
         
         ctrl.showWindow(self)
         NSApp.activate(ignoringOtherApps: true)

@@ -22,6 +22,11 @@ class SettingWindowController: NSWindowController, NSWindowDelegate {
         delayTestMethod.stringValue = d.bool(forKey: USERDEFAULTS_TCP) ? "TCP":"ICMP"
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        window?.center()
+    }
+    
     func windowWillClose(_ notification: Notification) {
         let d = UserDefaults.standard
         d.setValue(delayTestMethod.stringValue == "TCP" ? true:false, forKey: USERDEFAULTS_TCP)

@@ -8,9 +8,14 @@
 
 import Cocoa
 
-class ProxyPreferencesNewController: NSWindowController { 
+class RuleSettingWindowController: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
 
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        window?.center()
     }
 }
