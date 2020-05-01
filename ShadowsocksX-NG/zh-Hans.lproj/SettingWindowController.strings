@@ -1,39 +1,48 @@
 
-/* Class = "NSTextFieldCell"; title = "Launch At Login"; ObjectID = "2eL-ks-Usj"; */
-"2eL-ks-Usj.title" = "登录后自动启动";
-
-/* Class = "NSTextFieldCell"; title = "Connect At Launch"; ObjectID = "Bca-BF-OZ5"; */
-"Bca-BF-OZ5.title" = "打开后自动连接";
+/* Class = "NSButtonCell"; title = "Connect At Launch"; ObjectID = "Dg5-tb-PKg"; */
+"Dg5-tb-PKg.title" = "打开后自动连接";
 
 /* Class = "NSWindow"; title = "Setting"; ObjectID = "F0z-JX-Cv5"; */
 "F0z-JX-Cv5.title" = "应用设置";
 
-/* Class = "NSTextFieldCell"; title = "Ascending by delay"; ObjectID = "JI9-6M-Lms"; */
-"JI9-6M-Lms.title" = "延迟按升序排序";
+/* Class = "NSButtonCell"; title = "Check Updates At Launch"; ObjectID = "JIh-ld-QtD"; */
+"JIh-ld-QtD.title" = "打开后自动检查更新";
 
-/* Class = "NSTextFieldCell"; title = "Show network speed"; ObjectID = "K5J-sZ-tBk"; */
-"K5J-sZ-tBk.title" = "显示网速";
+/* Class = "NSButtonCell"; title = "Remove Node After Delete Subscription"; ObjectID = "K8N-Yn-gyR"; */
+"K8N-Yn-gyR.title" = "删除订阅时删除相应节点";
 
-/* Class = "NSTextFieldCell"; title = "Network speed measurement options"; ObjectID = "OdI-7U-Q5G"; */
-"OdI-7U-Q5G.title" = "延迟测试选项";
+/* Class = "NSTextFieldCell"; title = "Network speed Test options :"; ObjectID = "OdI-7U-Q5G"; */
+"OdI-7U-Q5G.title" = "网速延迟测试选项 :";
 
-/* Class = "NSTextFieldCell"; title = "Check Updates At Launch"; ObjectID = "Ozx-o5-M4a"; */
-"Ozx-o5-M4a.title" = "打开后自动检查更新";
+/* Class = "NSButtonCell"; title = "Ascending By Delay"; ObjectID = "Ska-dR-4WB"; */
+"Ska-dR-4WB.title" = "延迟按升序排序";
 
-/* Class = "NSTextFieldCell"; title = "Update Subscribe At Launch"; ObjectID = "Slz-GX-Cdp"; */
-"Slz-GX-Cdp.title" = "打开后自动更新订阅";
+/* Class = "NSButtonCell"; title = "Show Network Speed"; ObjectID = "Tku-Zl-wRg"; */
+"Tku-Zl-wRg.title" = "显示网速";
+
+/* Class = "NSButtonCell"; title = "Launch At Login"; ObjectID = "TxB-im-9BP"; */
+"TxB-im-9BP.title" = "登录后自动启动";
 
 /* Class = "NSTextFieldCell"; title = "Delay Test Method"; ObjectID = "VL7-AA-WMw"; */
 "VL7-AA-WMw.title" = "延迟测试方式";
 
-/* Class = "NSTextFieldCell"; title = "Other options"; ObjectID = "dNk-UW-dxA"; */
-"dNk-UW-dxA.title" = "其它选项";
+/* Class = "NSButtonCell"; title = "Update Subscribe At Launch"; ObjectID = "VXf-Uj-d7Q"; */
+"VXf-Uj-d7Q.title" = "打开后自动更新订阅";
 
-/* Class = "NSTextFieldCell"; title = "Login options"; ObjectID = "sLG-9D-rDI"; */
-"sLG-9D-rDI.title" = "登录选项";
+/* Class = "NSTextFieldCell"; title = "Other options :"; ObjectID = "dNk-UW-dxA"; */
+"dNk-UW-dxA.title" = "其它选项 :";
+
+/* Class = "NSButtonCell"; title = "Speed ​​Test After Subscription"; ObjectID = "jet-3h-th2"; */
+"jet-3h-th2.title" = "更新订阅后自动测试延迟";
+
+/* Class = "NSTextFieldCell"; title = "Login options :"; ObjectID = "sLG-9D-rDI"; */
+"sLG-9D-rDI.title" = "登录选项 :";
 
 /* Class = "NSComboBoxCell"; sm6-oM-OMv.ibShadowedObjectValues[0] = "ICMP"; ObjectID = "sm6-oM-OMv"; */
 "sm6-oM-OMv.ibShadowedObjectValues[0]" = "ICMP";
 
 /* Class = "NSComboBoxCell"; sm6-oM-OMv.ibShadowedObjectValues[1] = "TCP"; ObjectID = "sm6-oM-OMv"; */
 "sm6-oM-OMv.ibShadowedObjectValues[1]" = "TCP";
+
+/* Class = "NSButtonCell"; title = "Fixed Network Speed View Width"; ObjectID = "zpW-0N-efE"; */
+"zpW-0N-efE.title" = "固定网速视图宽度";

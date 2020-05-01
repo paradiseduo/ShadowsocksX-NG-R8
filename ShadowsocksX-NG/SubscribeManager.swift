@@ -37,9 +37,8 @@ class SubscribeManager:NSObject{
         subscribes.append(oneSubscribe)
         return true
     }
-    func deleteSubscribe(atIndex: Int) -> Bool {
-        subscribes.remove(at: atIndex)
-        return true
+    func deleteSubscribe(atIndex: Int) -> Subscribe {
+        return subscribes.remove(at: atIndex)
     }
     func save() {
         defaults.set(subscribesToDefaults(data: subscribes), forKey: USERDEFAULTS_SUBSCRIBES)
@@ -84,7 +83,9 @@ class SubscribeManager:NSObject{
         }
         //每次更新订阅后自动测试延时
         group.notify(queue: DispatchQueue.main) {
-            ConnectTestigManager.start()
+            if UserDefaults.standard.bool(forKey: USERDEFAULTS_SPEED_TEST_AFTER_SUBSCRIPTION) {
+                ConnectTestigManager.start()
+            }
         }
     }
 }

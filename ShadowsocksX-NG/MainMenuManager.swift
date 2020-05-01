@@ -43,6 +43,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     @IBOutlet var importBunchJsonFileItem: NSMenuItem!
     @IBOutlet var exportAllServerProfileItem: NSMenuItem!
     @IBOutlet var serversPreferencesMenuItem: NSMenuItem!
+    @IBOutlet var importServerFromPasteboard: NSMenuItem!
     
     @IBOutlet var copyHttpProxyExportCmdLineMenuItem: NSMenuItem!
     
@@ -94,6 +95,9 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             USERDEFAULTS_ACL_FILE_NAME: "chn.acl",
             USERDEFAULTS_SUBSCRIBES: [],
             USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE:false,
+            USERDEFAULTS_SPEED_TEST_AFTER_SUBSCRIPTION:true,
+            USERDEFAULTS_FIXED_NETWORK_SPEED_VIEW_WIDTH:false,
+            USERDEFAULTS_REMOVE_NODE_AFTER_DELETE_SUBSCRIPTION:false
         ])
         
         let notifyCenter = NotificationCenter.default
@@ -638,11 +642,13 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         let exportAllServer = exportAllServerProfileItem
         let updateSubscribeItem = manualUpdateSubscribeMenuItem
         let editSubscribeItem = editSubscribeMenuItem
+        let importServerFromP = importServerFromPasteboard
         
         serversMenuItem.submenu?.addItem(editSubscribeItem!)
         serversMenuItem.submenu?.addItem(updateSubscribeItem!)
         serversMenuItem.submenu?.addItem(showQRItem!)
         serversMenuItem.submenu?.addItem(scanQRItem!)
+        serversMenuItem.submenu?.addItem(importServerFromP!)
         serversMenuItem.submenu?.addItem(showBunch!)
         serversMenuItem.submenu?.addItem(importBuntch!)
         serversMenuItem.submenu?.addItem(exportAllServer!)

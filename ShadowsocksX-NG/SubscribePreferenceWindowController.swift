@@ -57,7 +57,9 @@ class SubscribePreferenceWindowController: NSWindowController, NSTableViewDataSo
             if editingSubscribe.isActive{
                 editingSubscribe.updateServerFromFeed {
                     DispatchQueue.main.async {
-                        ConnectTestigManager.start()
+                        if UserDefaults.standard.bool(forKey: USERDEFAULTS_SPEED_TEST_AFTER_SUBSCRIPTION) {
+                            ConnectTestigManager.start()
+                        }
                     }
                 }
             }
@@ -110,10 +112,12 @@ class SubscribePreferenceWindowController: NSWindowController, NSTableViewDataSo
     @IBAction func onDelete(_ sender: NSButton) {
         let index = Int(SubscribeTableView.selectedRowIndexes.first!)
         var deleteCount = 0
+        var deleteGroupName = [String]()
         if index >= 0 {
             SubscribeTableView.beginUpdates()
             for (_, toDeleteIndex) in SubscribeTableView.selectedRowIndexes.enumerated() {
-                _ = sbMgr.deleteSubscribe(atIndex: toDeleteIndex - deleteCount)
+                let s = sbMgr.deleteSubscribe(atIndex: toDeleteIndex - deleteCount)
+                deleteGroupName.append(s.groupName)
                 SubscribeTableView.removeRows(at: IndexSet(integer: toDeleteIndex - deleteCount), withAnimation: .effectFade)
                 deleteCount += 1
                 if sbMgr.subscribes.count == 0 {
@@ -125,6 +129,15 @@ class SubscribePreferenceWindowController: NSWindowController, NSTableViewDataSo
         self.SubscribeTableView.scrollRowToVisible(index - 1)
         self.SubscribeTableView.selectRowIndexes(IndexSet(integer: index - 1), byExtendingSelection: false)
         updateSubscribeBoxVisible()
+        if UserDefaults.standard.bool(forKey: USERDEFAULTS_REMOVE_NODE_AFTER_DELETE_SUBSCRIPTION) {
+            print(deleteGroupName)
+            for g in deleteGroupName {
+                ServerProfileManager.instance.profiles = ServerProfileManager.instance.profiles.filter { $0.ssrGroup != g}
+                print(g, ServerProfileManager.instance.profiles.count)
+            }
+            ServerProfileManager.instance.save()
+            NotificationCenter.default.post(name: NOTIFY_UPDATE_MAINMENU, object: nil)
+        }
     }
     
     func updateSubscribeBoxVisible() {

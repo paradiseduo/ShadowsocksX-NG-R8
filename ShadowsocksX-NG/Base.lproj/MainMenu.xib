@@ -27,6 +27,7 @@
                 <outlet property="exportAllServerProfileItem" destination="6k0-gn-DQv" id="1xA-cd-5Ia"/>
                 <outlet property="globalModeMenuItem" destination="Mw3-Jm-eXA" id="ar5-Yx-3ze"/>
                 <outlet property="importBunchJsonFileItem" destination="T9g-gy-gvv" id="GW7-ii-U1j"/>
+                <outlet property="importServerFromPasteboard" destination="gM9-ym-4L0" id="O9j-AY-BXM"/>
                 <outlet property="manualModeMenuItem" destination="8PR-gs-c5N" id="9qz-mU-5kt"/>
                 <outlet property="manualUpdateSubscribeMenuItem" destination="NnE-Ad-1An" id="2Vf-Br-EnF"/>
                 <outlet property="proxyMenuItem" destination="diI-fB-Rss" id="Qjk-9U-3Qy"/>

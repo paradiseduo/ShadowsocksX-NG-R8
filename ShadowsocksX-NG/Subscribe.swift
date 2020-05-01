@@ -178,7 +178,12 @@ import Alamofire
             }
             // clear and add
             let clearOldGroup = true
-            let group = profiles.first?.ssrGroup
+            var group = profiles.first?.ssrGroup
+            if let g = group {
+                self.groupName = g
+            } else {
+                group = self.groupName
+            }
             let groupSame = profiles.allSatisfy({ $0.ssrGroup == group })
             var cleanCount = 0
             if groupSame && clearOldGroup {

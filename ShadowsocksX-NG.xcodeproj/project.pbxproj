@@ -216,13 +216,13 @@
 		BE492022242F412900A6C78E /* tcping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tcping.swift; sourceTree = "<group>"; };
 		BE492023242F412900A6C78E /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
 		BE492024242F412900A6C78E /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+		BE5C5C5C245C6D0F00D06C1E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SettingWindowController.strings"; sourceTree = "<group>"; };
 		BE61A1E0245BFE8E0007FB64 /* SpeedTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTools.swift; sourceTree = "<group>"; };
 		BE61A1E5245C1D010007FB64 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MainMenu.strings"; sourceTree = "<group>"; };
 		BE76C2CA24277EAB00FB3516 /* NetSpeedMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetSpeedMonitor.h; sourceTree = "<group>"; };
 		BE76C2CB24277EAC00FB3516 /* NetSpeedMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetSpeedMonitor.m; sourceTree = "<group>"; };
 		BE84487E2459BEA900491046 /* SettingWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingWindowController.swift; sourceTree = "<group>"; };
 		BE8448832459C6B500491046 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SettingWindowController.xib; sourceTree = "<group>"; };
-		BE9B6FDA245AF9A2001A1F82 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SettingWindowController.strings"; sourceTree = "<group>"; };
 		BEAA0EDC244B273A00809ADD /* MainMenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuManager.swift; sourceTree = "<group>"; };
 		BEE8F089245B11230088145C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/RuleSettingWindowController.strings"; sourceTree = "<group>"; };
 		BEE8F08B245B141F0088145C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/AdvPreferencesWindowController.strings"; sourceTree = "<group>"; };
@@ -853,7 +853,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				BE8448832459C6B500491046 /* Base */,
-				BE9B6FDA245AF9A2001A1F82 /* zh-Hans */,
+				BE5C5C5C245C6D0F00D06C1E /* zh-Hans */,
 			);
 			name = SettingWindowController.xib;
 			sourceTree = "<group>";
