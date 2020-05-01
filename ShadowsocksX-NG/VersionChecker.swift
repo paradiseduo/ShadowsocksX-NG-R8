@@ -69,7 +69,12 @@ class VersionChecker: NSObject {
             guard NSDictionary(contentsOf: URL(string:_VERSION_XML_URL)!) != nil else {
                 throw versionError.CanNotGetOnlineData
             }
-            return NSDictionary(contentsOf: URL(string:_VERSION_XML_URL)!)!
+            if let u = URL(string:_VERSION_XML_URL) {
+                if let d = NSDictionary(contentsOf: u) {
+                    return d
+                }
+            }
+            return NSDictionary()
         }
         
         var localData: NSDictionary = NSDictionary()
@@ -88,10 +93,14 @@ class VersionChecker: NSObject {
             ]
         }
         
-        let versionString:String = onlineData["CFBundleShortVersionString"] as! String
-        let buildString:String = onlineData["CFBundleVersion"] as! String
         let currentVersionString:String = localData["CFBundleShortVersionString"] as! String
         let currentBuildString:String = localData["CFBundleVersion"] as! String
+        var versionString = localData["CFBundleShortVersionString"] as! String
+        var buildString = localData["CFBundleVersion"] as! String
+        if onlineData.count > 0 {
+            versionString = onlineData["CFBundleShortVersionString"] as! String
+            buildString = onlineData["CFBundleVersion"] as! String
+        }
         var subtitle:String
         if (versionString == currentVersionString){
             
