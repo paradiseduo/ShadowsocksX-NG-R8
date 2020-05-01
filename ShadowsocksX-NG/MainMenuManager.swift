@@ -97,55 +97,49 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         ])
         
         let notifyCenter = NotificationCenter.default
-        notifyCenter.addObserver(forName: NOTIFY_ADV_PROXY_CONF_CHANGED, object: nil, queue: nil) { (noti) in
-            self.applyConfig { (s) in
-                self.updateCopyHttpProxyExportMenu()
-            }
-        }
         notifyCenter.addObserver(forName: NOTIFY_SERVER_PROFILES_CHANGED, object: nil, queue: nil) { (noti) in
             let profileMgr = ServerProfileManager.instance
-            if profileMgr.getActiveProfileId() == "" &&
-                profileMgr.profiles.count > 0{
+            if profileMgr.getActiveProfileId() == "" && profileMgr.profiles.count > 0 {
                 if profileMgr.profiles[0].isValid(){
                     profileMgr.setActiveProfiledId(profileMgr.profiles[0].uuid)
                 }
             }
-            SyncSSLocal { (suce) in
-                self.updateServersMenu()
-                self.updateMainMenu()
-                self.updateRunningModeMenu()
+            if profileMgr.profiles.count == 0 {
+                //调用开关按钮自动翻转状态，因此这里传true
+                UserDefaults.standard.set(true, forKey: USERDEFAULTS_SHADOWSOCKS_ON)
+                UserDefaults.standard.synchronize()
+                self.toggle { (suc) in
+                    self.refresh()
+                }
+            } else {
+                SyncSSLocal { (suce) in
+                    self.refresh()
+                }
             }
         }
         notifyCenter.addObserver(forName: NOTIFY_ADV_CONF_CHANGED, object: nil, queue: nil) { (noti) in
             SyncSSLocal { (suce) in
                 self.applyConfig { (s) in
-                    
+                    self.refresh()
                 }
             }
         }
         notifyCenter.addObserver(forName: NOTIFY_HTTP_CONF_CHANGED, object: nil, queue: nil) { (noti) in
             SyncPrivoxy {
                 self.applyConfig { (s) in
-                    
+                    self.refresh()
                 }
             }
-            
         }
         notifyCenter.addObserver(forName: NOTIFY_FOUND_SS_URL, object: nil, queue: nil) { (noti: Notification) in
             self.foundSSRURL(noti)
         }
         notifyCenter.addObserver(forName: NOTIFY_UPDATE_MAINMENU, object: nil, queue: OperationQueue.main) { (noti) in
-            self.updateServersMenu()
-            self.updateRunningModeMenu()
-        }
-        notifyCenter.addObserver(forName: NOTIFY_TOGGLE_RUNNING, object: nil, queue: OperationQueue.main) { (noti) in
-            self.toggle { (suc) in
-                
-            }
+            self.refresh()
         }
         notifyCenter.addObserver(forName: NOTIFY_SETTING_UPDATE, object: nil, queue: OperationQueue.main) { (noti) in
             self.setUpMenu(UserDefaults.standard.bool(forKey: USERDEFAULTS_ENABLE_SHOW_SPEED))
-            self.updateMainMenu()
+            self.refresh()
         }
         
         DispatchQueue.main.async {
@@ -154,10 +148,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             self.statusItem.menu = self.statusMenu
             
             self.setUpMenu(defaults.bool(forKey: USERDEFAULTS_ENABLE_SHOW_SPEED))
-            self.updateMainMenu()
-            self.updateCopyHttpProxyExportMenu()
-            self.updateServersMenu()
-            self.updateRunningModeMenu()
+            self.refresh()
             
             if defaults.bool(forKey: USERDEFAULTS_CONNECT_AT_LAUNCH) && ServerProfileManager.instance.getActiveProfileId() != "" {
                 defaults.set(false, forKey: USERDEFAULTS_SHADOWSOCKS_ON)
@@ -168,6 +159,14 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             } else {
                 self.updateSubAndVersion()
             }
+        }
+    }
+    
+    private func refresh() {
+        DispatchQueue.main.async {
+            self.updateMainMenu()
+            self.updateServersMenu()
+            self.updateRunningModeMenu()
         }
     }
     
@@ -187,7 +186,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     
     @IBAction func toggleRunning(_ sender: NSMenuItem) {
         self.toggle { (s) in
-            
+            self.updateMainMenu()
         }
     }
     
@@ -198,7 +197,6 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         self.applyConfig { (suc) in
             SyncSSLocal { (s) in
                 DispatchQueue.main.async {
-                    self.updateMainMenu()
                     finish(true)
                 }
             }
@@ -624,13 +622,8 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             toggleRunningMenuItem.title = "Turn Shadowsocks On".localized
             copyCommandLine.isHidden = true
         }
+        copyHttpProxyExportCmdLineMenuItem.isHidden = !defaults.bool(forKey: USERDEFAULTS_LOCAL_HTTP_ON)
         updateStatusItemUI()
-    }
-    
-    func updateCopyHttpProxyExportMenu() {
-        let defaults = UserDefaults.standard
-        let isOn = defaults.bool(forKey: USERDEFAULTS_LOCAL_HTTP_ON)
-        copyHttpProxyExportCmdLineMenuItem.isHidden = !isOn
     }
     
     //TODO:https://git.codingcafe.org/Mirrors/shadowsocks/ShadowsocksX-NG/blob/master/ShadowsocksX-NG/AppDelegate.swift
@@ -645,13 +638,11 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         let exportAllServer = exportAllServerProfileItem
         let updateSubscribeItem = manualUpdateSubscribeMenuItem
         let editSubscribeItem = editSubscribeMenuItem
-        let copyHttpProxyExportCmdLineItem = copyHttpProxyExportCmdLineMenuItem
         
         serversMenuItem.submenu?.addItem(editSubscribeItem!)
         serversMenuItem.submenu?.addItem(updateSubscribeItem!)
         serversMenuItem.submenu?.addItem(showQRItem!)
         serversMenuItem.submenu?.addItem(scanQRItem!)
-        serversMenuItem.submenu?.addItem(copyHttpProxyExportCmdLineItem!)
         serversMenuItem.submenu?.addItem(showBunch!)
         serversMenuItem.submenu?.addItem(importBuntch!)
         serversMenuItem.submenu?.addItem(exportAllServer!)

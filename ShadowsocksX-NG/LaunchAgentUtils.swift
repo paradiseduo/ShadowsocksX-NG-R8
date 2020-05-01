@@ -440,5 +440,7 @@ func SyncPrivoxy(finish: @escaping()->()) {
                 finish()
             }
         }
+    } else {
+        finish()
     }
 }

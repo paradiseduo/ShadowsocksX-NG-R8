@@ -46,7 +46,6 @@ class AdvPreferencesWindowController: NSWindowController, NSTableViewDataSource,
         window?.performClose(self)
         
         NotificationCenter.default.post(name: NOTIFY_ADV_CONF_CHANGED, object: nil)
-        NotificationCenter.default.post(name: NOTIFY_ADV_PROXY_CONF_CHANGED, object: nil)
     }
     
     @IBAction func cancel(_ sender: NSButton) {

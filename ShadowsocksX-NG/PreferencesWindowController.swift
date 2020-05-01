@@ -143,12 +143,6 @@ class PreferencesWindowController: NSWindowController
         self.profilesTableView.scrollRowToVisible(index-1)
         self.profilesTableView.selectRowIndexes(IndexSet(integer: index-1), byExtendingSelection: false)
         updateProfileBoxVisible()
-        if profileMgr.profiles.count == 0 {
-            //调用开关按钮自动翻转状态，因此这里传true
-            defaults.set(true, forKey: USERDEFAULTS_SHADOWSOCKS_ON)
-            defaults.synchronize()
-            NotificationCenter.default.post(name: NOTIFY_TOGGLE_RUNNING, object: nil)
-        }
     }
     
     @IBAction func ok(_ sender: NSButton) {
@@ -161,10 +155,8 @@ class PreferencesWindowController: NSWindowController
         }
         profileMgr.save()
         window?.performClose(nil)
-        
-        
-        NotificationCenter.default
-            .post(name: NOTIFY_SERVER_PROFILES_CHANGED, object: nil)
+
+        NotificationCenter.default.post(name: NOTIFY_SERVER_PROFILES_CHANGED, object: nil)
     }
     
     @IBAction func cancel(_ sender: NSButton) {
