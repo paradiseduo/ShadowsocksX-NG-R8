@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		020C66675915A5F2FE906D1D /* libPods-proxy_conf_helper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 168D9B6E0133D852A5F3F791 /* libPods-proxy_conf_helper.a */; };
 		083BF8371D82742200831C68 /* PingClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083BF8351D82742200831C68 /* PingClient.swift */; };
-		083BF8391D82759600831C68 /* StatusItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083BF8381D82759600831C68 /* StatusItemView.swift */; };
-		083BF83B1D8275A800831C68 /* SystemThemeChangeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083BF83A1D8275A800831C68 /* SystemThemeChangeHelper.swift */; };
 		08635C771EF750FA00F1D25E /* SubscribeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08635C761EF750FA00F1D25E /* SubscribeManager.swift */; };
 		086A31451F1AF797004C7285 /* SubscribePreferenceWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 086A31471F1AF797004C7285 /* SubscribePreferenceWindowController.xib */; };
 		0877D6541EF1E65600126865 /* Subscribe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0877D6531EF1E65600126865 /* Subscribe.swift */; };
@@ -66,6 +64,7 @@
 		A40EFDAD315FA9A6DEAFB357 /* Pods_ShadowsocksX_NG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DEA085109C9B200E36DA0A /* Pods_ShadowsocksX_NG.framework */; };
 		BE492025242F412900A6C78E /* tcping.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE492022242F412900A6C78E /* tcping.swift */; };
 		BE492026242F412900A6C78E /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = BE492024242F412900A6C78E /* GCDAsyncSocket.m */; };
+		BE61A1E1245BFE8E0007FB64 /* SpeedTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE61A1E0245BFE8E0007FB64 /* SpeedTools.swift */; };
 		BE76C2CC24277EAC00FB3516 /* NetSpeedMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = BE76C2CB24277EAC00FB3516 /* NetSpeedMonitor.m */; };
 		BE8448802459BEA900491046 /* SettingWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE84487E2459BEA900491046 /* SettingWindowController.swift */; };
 		BE8448822459C6B500491046 /* SettingWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE8448842459C6B500491046 /* SettingWindowController.xib */; };
@@ -139,8 +138,6 @@
 
 /* Begin PBXFileReference section */
 		083BF8351D82742200831C68 /* PingClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PingClient.swift; sourceTree = "<group>"; };
-		083BF8381D82759600831C68 /* StatusItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusItemView.swift; sourceTree = "<group>"; };
-		083BF83A1D8275A800831C68 /* SystemThemeChangeHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SystemThemeChangeHelper.swift; sourceTree = "<group>"; };
 		085641E91D7188C400116B27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		08635C761EF750FA00F1D25E /* SubscribeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscribeManager.swift; sourceTree = "<group>"; };
 		086A31461F1AF797004C7285 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SubscribePreferenceWindowController.xib; sourceTree = "<group>"; };
@@ -219,6 +216,7 @@
 		BE492022242F412900A6C78E /* tcping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tcping.swift; sourceTree = "<group>"; };
 		BE492023242F412900A6C78E /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
 		BE492024242F412900A6C78E /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+		BE61A1E0245BFE8E0007FB64 /* SpeedTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTools.swift; sourceTree = "<group>"; };
 		BE76C2CA24277EAB00FB3516 /* NetSpeedMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetSpeedMonitor.h; sourceTree = "<group>"; };
 		BE76C2CB24277EAC00FB3516 /* NetSpeedMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetSpeedMonitor.m; sourceTree = "<group>"; };
 		BE84487E2459BEA900491046 /* SettingWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingWindowController.swift; sourceTree = "<group>"; };
@@ -380,8 +378,7 @@
 				0877D6531EF1E65600126865 /* Subscribe.swift */,
 				08635C761EF750FA00F1D25E /* SubscribeManager.swift */,
 				08BDBB471E2361BD00C4BBC2 /* VersionChecker.swift */,
-				083BF8381D82759600831C68 /* StatusItemView.swift */,
-				083BF83A1D8275A800831C68 /* SystemThemeChangeHelper.swift */,
+				BE61A1E0245BFE8E0007FB64 /* SpeedTools.swift */,
 				9BEEF0771D04FE8A00FC52B3 /* LaunchAgentUtils.swift */,
 				9B3FFF0C1D05FEB30019A709 /* Utils.swift */,
 				9B3FFF201D08826E0019A709 /* PACUtils.swift */,
@@ -755,6 +752,7 @@
 				9B3FFF211D08826E0019A709 /* PACUtils.swift in Sources */,
 				BE8448802459BEA900491046 /* SettingWindowController.swift in Sources */,
 				9B3FFF141D0705810019A709 /* Configure.swift in Sources */,
+				BE61A1E1245BFE8E0007FB64 /* SpeedTools.swift in Sources */,
 				9BEEF0701D04DDB100FC52B3 /* ServerProfileManager.swift in Sources */,
 				08635C771EF750FA00F1D25E /* SubscribeManager.swift in Sources */,
 				0877D6571EF1E82400126865 /* SubscribePreferenceWindowController.swift in Sources */,
@@ -762,9 +760,7 @@
 				0877D6541EF1E65600126865 /* Subscribe.swift in Sources */,
 				9BEEF07B1D05631500FC52B3 /* AdvPreferencesWindowController.swift in Sources */,
 				BE492026242F412900A6C78E /* GCDAsyncSocket.m in Sources */,
-				083BF8391D82759600831C68 /* StatusItemView.swift in Sources */,
 				9BEEF06E1D04DCE400FC52B3 /* ServerProfile.swift in Sources */,
-				083BF83B1D8275A800831C68 /* SystemThemeChangeHelper.swift in Sources */,
 				9B3FFF0D1D05FEB30019A709 /* Utils.swift in Sources */,
 				9BEEF0751D04EF3E00FC52B3 /* PreferencesWindowController.swift in Sources */,
 				9B0BFFE91D0460A70040E62B /* AppDelegate.swift in Sources */,

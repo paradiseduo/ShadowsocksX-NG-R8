@@ -52,8 +52,8 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     @IBOutlet weak var copyCommandLine: NSMenuItem!
     
     // MARK: Variables
-    var statusItemView:StatusItemView!
-    var statusItem: NSStatusItem?
+    let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+    var speedItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     var speedMonitor:NetSpeedMonitor?
     var globalSubscribeFeed: Subscribe!
     
@@ -457,7 +457,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         ctrl.window?.makeKeyAndOrderFront(self)
     }
     
-    @IBAction func selectServer(_ sender: NSMenuItem) {
+    @objc func selectServer(_ sender: NSMenuItem) {
         let index = sender.tag
         let spMgr = ServerProfileManager.instance
         let newProfile = spMgr.profiles[index]
@@ -583,16 +583,26 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     func updateStatusItemUI() {
         let defaults = UserDefaults.standard
         let mode = defaults.string(forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
-        if !defaults.bool(forKey: USERDEFAULTS_SHADOWSOCKS_ON) {
-            return
-        }
-        let titleWidth:CGFloat = 0
-        let imageWidth:CGFloat = 22
-        if statusItemView != nil {
-            statusItemView.setIconWith(mode: mode)
+        if defaults.bool(forKey: USERDEFAULTS_SHADOWSOCKS_ON) {
+            if mode == "auto" {
+                statusItem.image = NSImage(named: "menu_icon_pac")!
+            } else if mode == "global" {
+                statusItem.image = NSImage(named: "menu_icon_global")!
+            } else if mode == "manual" {
+                statusItem.image = NSImage(named: "menu_icon_manual")!
+            } else if mode == "whiteList" {
+                if UserDefaults.standard.string(forKey: USERDEFAULTS_ACL_FILE_NAME)! == "chn.acl" {
+                    statusItem.image = NSImage(named: "menu_icon_white")!
+                } else {
+                    statusItem.image = NSImage(named: "menu_icon_acl")!
+                }
+            } else {
+                statusItem.image = NSImage(named: "menu_icon")!
+            }
         } else {
-            statusItem?.length = titleWidth + imageWidth
+            statusItem.image = NSImage(named: "menu_icon_disabled")!
         }
+        statusItem.image?.isTemplate = true
     }
     
     func updateMainMenu() {
@@ -603,16 +613,13 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             runningStatusMenuItem.image = NSImage(named: NSImage.statusAvailableName)
             toggleRunningMenuItem.title = "Turn Shadowsocks Off".localized
             copyCommandLine.isHidden = false
-            updateStatusItemUI()
         } else {
             runningStatusMenuItem.title = "Shadowsocks: Off".localized
             runningStatusMenuItem.image = NSImage(named: NSImage.statusUnavailableName)
             toggleRunningMenuItem.title = "Turn Shadowsocks On".localized
             copyCommandLine.isHidden = true
-            if statusItemView != nil {
-                statusItemView.setIconWith(mode: "disabled")
-            }
         }
+        updateStatusItemUI()
     }
     
     func updateCopyHttpProxyExportMenu() {
@@ -729,31 +736,32 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     func setUpMenu(_ showSpeed:Bool){
         // should not operate the system status bar
         // we can add sub menu like bittorrent sync
-        if statusItem == nil{
-            statusItem = NSStatusBar.system.statusItem(withLength: 85)
-            let image = NSImage(named: "menu_icon")
-            image?.isTemplate = true
-            statusItem?.image = image
-            statusItemView = StatusItemView(statusItem: statusItem!, menu: statusMenu)
-            statusItem!.view = statusItemView
-        }
-        statusItemView.showSpeed = showSpeed
+        statusItem.image = NSImage(named: "menu_icon")
+        statusItem.image?.isTemplate = true
+        statusItem.menu = self.statusMenu
+        
         if showSpeed{
+            speedItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+            if let b = speedItem.button {
+                b.attributedTitle = SpeedTools.speedAttributedString(up: 0.0, down: 0.0)
+            }
             if speedMonitor == nil{
                 speedMonitor = NetSpeedMonitor()
             }
-            statusItem?.length = 85
             speedTimer = Timer.scheduledTimer(withTimeInterval: repeatTimeinterval, repeats: true, block: {[weak self] (timer) in
                 guard let w = self else {return}
                 w.speedMonitor?.timeInterval(w.repeatTimeinterval, downloadAndUploadSpeed: { (down, up) in
-                    w.statusItemView.setRateData(up: Float(up), down: Float(down))
+                    if let b = w.speedItem.button {
+                        b.attributedTitle = SpeedTools.speedAttributedString(up: up, down: down)
+                    }
                 })
             })
         }else{
+            speedItem.attributedTitle = NSAttributedString(string: "")
+            NSStatusBar.system.removeStatusItem(speedItem)
             speedTimer?.invalidate()
             speedTimer = nil
             speedMonitor = nil
-            statusItem?.length = 20
         }
     }
     
