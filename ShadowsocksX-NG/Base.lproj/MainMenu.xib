@@ -25,6 +25,7 @@
                 <outlet property="copyHttpProxyExportCmdLineMenuItem" destination="gM9-ym-4L0" id="62x-pY-NaN"/>
                 <outlet property="editSubscribeMenuItem" destination="QJ6-eg-mzv" id="KC0-uH-8q0"/>
                 <outlet property="exportAllServerProfileItem" destination="6k0-gn-DQv" id="1xA-cd-5Ia"/>
+                <outlet property="fixedWidth" destination="hcf-sD-udd" id="SoW-fQ-fYj"/>
                 <outlet property="globalModeMenuItem" destination="Mw3-Jm-eXA" id="ar5-Yx-3ze"/>
                 <outlet property="importBunchJsonFileItem" destination="T9g-gy-gvv" id="GW7-ii-U1j"/>
                 <outlet property="importServerFromPasteboard" destination="gM9-ym-4L0" id="O9j-AY-BXM"/>
@@ -261,6 +262,13 @@
         </menu>
         <menu id="yeJ-HT-sBl">
             <items>
+                <menuItem title="Fixed Width" id="hcf-sD-udd">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <connections>
+                        <action selector="fixedWidth:" target="Voe-Tx-rLC" id="ruC-kN-qB0"/>
+                    </connections>
+                </menuItem>
+                <menuItem isSeparatorItem="YES" id="Qxe-pa-Yif"/>
                 <menuItem title="Close" id="GON-fS-emF">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>

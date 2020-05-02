@@ -53,6 +53,8 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     
     @IBOutlet weak var copyCommandLine: NSMenuItem!
     
+    @IBOutlet weak var fixedWidth: NSMenuItem!
+    
     // MARK: Variables
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     var speedItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -739,6 +741,13 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         if showSpeed{
             speedItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
             speedItem.menu = speedMenu
+            if UserDefaults.standard.bool(forKey: USERDEFAULTS_FIXED_NETWORK_SPEED_VIEW_WIDTH) {
+                self.fixedSpeedItemWidth(true)
+                self.fixedWidth.state = NSControl.StateValue.on
+            } else {
+                self.fixedSpeedItemWidth(false)
+                self.fixedWidth.state = NSControl.StateValue.off
+            }
             if let b = speedItem.button {
                 b.attributedTitle = SpeedTools.speedAttributedString(up: 0.0, down: 0.0)
             }
@@ -855,12 +864,6 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         }
     }
     
-    @IBAction func closeSpeedItem(_ sender: NSMenuItem) {
-        UserDefaults.standard.setValue(false, forKey: USERDEFAULTS_ENABLE_SHOW_SPEED)
-        UserDefaults.standard.synchronize()
-        self.setUpMenu(false)
-    }
-    
     @IBAction func quitApp(_ sender: NSMenuItem) {
         AppDelegate.stopSSR {
             //如果设置了开机启动软件，就不删了
@@ -893,5 +896,30 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         NSApp.activate(ignoringOtherApps: true)
         toastWindowCtrl.window?.makeKeyAndOrderFront(self)
         toastWindowCtrl.fadeInHud()
+    }
+    
+    //------------------------------------------------------------
+    // MARK: Speed Item Actions
+    
+    @IBAction func fixedWidth(_ sender: NSMenuItem) {
+        sender.state = (sender.state == .on ? .off:.on)
+        let b = sender.state == .on ? true:false
+        UserDefaults.standard.setValue(b, forKey: USERDEFAULTS_FIXED_NETWORK_SPEED_VIEW_WIDTH)
+        UserDefaults.standard.synchronize()
+        self.fixedSpeedItemWidth(b)
+    }
+    
+    @IBAction func closeSpeedItem(_ sender: NSMenuItem) {
+        UserDefaults.standard.setValue(false, forKey: USERDEFAULTS_ENABLE_SHOW_SPEED)
+        UserDefaults.standard.synchronize()
+        self.setUpMenu(false)
+    }
+    
+    private func fixedSpeedItemWidth(_ fixed: Bool) {
+        if fixed {
+            speedItem.length = 70
+        } else {
+            speedItem.length = NSStatusItem.variableLength
+        }
     }
 }

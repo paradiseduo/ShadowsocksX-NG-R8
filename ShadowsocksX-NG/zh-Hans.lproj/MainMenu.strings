@@ -115,3 +115,6 @@
 
 /* Class = "NSMenuItem"; title = "Check Updates"; ObjectID = "wyZ-4G-qg9"; */
 "wyZ-4G-qg9.title" = "检查更新";
+
+/* Class = "NSMenuItem"; title = "Fixed Width"; ObjectID = "hcf-sD-udd"; */
+"hcf-sD-udd.title" = "固定宽度";
