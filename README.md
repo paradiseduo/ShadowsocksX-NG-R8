@@ -1,9 +1,9 @@
 # 使用须知
-## 本工具是为了方便学习与工作，毕竟很多东西用Google搜比Baidu更靠谱，因此希望大家注意以下几点
+## 维护本工具是为了帮助更多人的学习与工作，毕竟Google比Baidu更靠谱，因此希望大家注意以下几点
 
 - GFW=智商墙，请注意提高自己的智力，勿被境外利益集团洗脑 
 
-- 墙外≠法外，请注意自己言行，本工具是为了学习而不是让你叛国
+- 墙外≠法外，请注意自己言行，本工具是为了帮助学习而不是让你叛国（[自2020年5月1日起，互联网聊天记录可作为呈堂证供](http://www.npc.gov.cn/npc/c30834/201912/9bce4fdad6734765b316f06279aba6b8.shtml)）
 
 - 爱国富强的前提是自己要有独立思考问题的能力，而不是秀智力
 
@@ -32,9 +32,9 @@ rm -rf ~/Library/Caches/com.qiuyuzhou.ShadowsocksX-NG
 
 # ShadowsocksX-NG-R
 
-Current version is 1.6.4
+Current version is 1.6.5
 
-Continuesly release under 1.6.4
+Continuesly release under 1.6.5
 
 [![Build Status](https://travis-ci.org/shadowsocksr/ShadowsocksX-NG.svg?branches=develop)](https://travis-ci.org/shadowsocksr/ShadowsocksX-NG)
 [![Swift](https://img.shields.io/badge/swift-5.2-orange.svg)](https://www.python.org/downloads/)
