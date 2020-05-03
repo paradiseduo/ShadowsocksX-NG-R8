@@ -156,40 +156,68 @@ import Alamofire
             // hold if user fill a maxCount larger then server return
             // Should push a notification about it and correct the user filled maxCount?
             let maxN = (self.maxCount > urls.count) ? urls.count : (self.maxCount == -1) ? urls.count: self.maxCount
-
-            var count = 0
             
-            var successCount = 0
+            // 存一下原有group中的 profile ，为了计算下列数量
+            let oldNodes = self.profileMgr.profiles.filter { $0.ssrGroup == self.getGroupName()}
+            // 原有的 group 中的 profile 全部清除
+            self.profileMgr.profiles = self.profileMgr.profiles.filter { $0.ssrGroup != self.getGroupName()}
+            
+            //更新对应4种情况：
+            //1.节点原来存在，更新后被删除
+            //2.节点原来不存在，更新后增加
+            //3.节点原来存在，并且更新完之后啥也不用干（本地节点信息跟服务端已经一致）
+            //4.节点原来存在，只更新内容（本地节点与服务端信息不一致，比如密码换了）
+            var subCount = 0
+            var addCount = 0
             var dupCount = 0
             var existCount = 0
-
-            for index in 0..<urls.count {
+            //这里处理后三种情况
+            var newNodes = [ServerProfile]()
+            for index in 0..<maxN {
                 if let profileDict = ParseAppURLSchemes(URL(string: urls[index])) {
                     let profile = ServerProfile.fromDictionary(profileDict as [String : AnyObject])
-                    let (exists, existIndex, duplicated) = self.profileMgr.isDuplicatedOrExists(profile: profile)
+                    newNodes.append(profile)
+                    let (exists, duplicated) = ServerProfileManager.isDuplicatedOrExists(oldNodes, profile)
                     if duplicated {
                         dupCount += 1
-                        continue
-                    }
-                    
-                    if exists {
-                        self.profileMgr.profiles.replaceSubrange((existIndex..<existIndex + 1), with: [profile])
+                    } else if exists {
                         existCount += 1
-                        continue
+                    } else {
+                        addCount += 1
                     }
-                    
-                    self.profileMgr.profiles.append(profile)
-                    successCount += 1
-                    count += 1
+                } else {
+                    print("\(index), \(urls[index]) ParseAppURLSchemes Error!")
                 }
-                if count > maxN {
-                    break
+            }
+            //这里处理第一种情况
+            for item in oldNodes {
+                if !newNodes.contains(where: { (s) -> Bool in
+                    return item.isSame(profile: s)
+                }) {
+                    subCount += 1
                 }
+            }
+            //将更新后的节点加回原来的数组
+            for item in newNodes {
+                self.profileMgr.profiles.append(item)
             }
             
             self.profileMgr.save()
             DispatchQueue.main.async {
-                self.pushNotification(title: "成功更新订阅", subtitle: "总数:\(maxN) 成功:\(successCount) 重复:\(dupCount) 已存在:\(existCount)", info: "更新来自\(self.subscribeFeed)的订阅")
+                var message = "节点总数:\(maxN)"
+                if dupCount > 0 {
+                    message += " 无需更新:\(dupCount)"
+                }
+                if existCount > 0 {
+                    message += " 更新:\(existCount)"
+                }
+                if addCount > 0 {
+                    message += " 新增:\(addCount)"
+                }
+                if subCount > 0 {
+                    message += " 删除:\(subCount)"
+                }
+                self.pushNotification(title: "成功更新订阅", subtitle: message, info: "更新来自\(self.subscribeFeed)的订阅")
                 NotificationCenter.default.post(name: NOTIFY_UPDATE_MAINMENU, object: nil)
                 handle()
             }

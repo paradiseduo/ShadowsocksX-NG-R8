@@ -198,7 +198,6 @@ static NSDictionary<NSString*, id>* ParseSSRURL(NSURL* url) {
          ];
     }else{
         NSRange paramSplit = [decodedString rangeOfString:@"?"];
-        NSLog(@"%lu", (unsigned long)paramSplit.location);
         
         if (paramSplit.length == 0){
             firstParam = decodedString;
