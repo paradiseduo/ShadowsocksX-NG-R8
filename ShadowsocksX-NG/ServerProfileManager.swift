@@ -108,33 +108,17 @@ class ServerProfileManager: NSObject {
         return nil
     }
     
-    func isExisted(profile: ServerProfile) -> (Bool, Int){
+    func isDuplicatedOrExists(profile: ServerProfile) -> (Bool, Int, Bool){
         for (index, value) in profiles.enumerated() {
-            // 同一个服务器可以放在不同的分组中，加上分组名判断 by Ray
-            let ret = (value.serverHost == profile.serverHost && value.serverPort == profile.serverPort && value.ssrGroup == profile.ssrGroup)
-            if ret {
-                return (ret, index)
+            if value.isSame(profile: profile) {
+                //相同节点(不需要更新配置)
+                return (true, index, true)
+            } else if (value.serverHost == profile.serverHost && value.serverPort == profile.serverPort) {
+                //存在节点(但是更新了配置)
+                return (true, index, false)
             }
         }
-        return (false, -1)
-    }
-    
-    func isDuplicated(profile: ServerProfile) -> (Bool, Int){
-        for (index, value) in profiles.enumerated() {
-            let ret = value.serverHost == profile.serverHost
-                && value.password == profile.password
-                && value.serverPort == profile.serverPort
-                && value.ssrProtocol == profile.ssrProtocol
-                && value.ssrObfs == profile.ssrObfs
-                && value.ssrObfsParam == profile.ssrObfsParam
-                && value.ssrProtocolParam == profile.ssrProtocolParam
-                && value.remark == profile.remark
-                // && value.ssrGroup == profile.ssrGroup
-            if ret {
-                return (ret, index)
-            }
-        }
-        return (false, -1)
+        return (false, -1, false)
     }
 
     func importConfigFile() {

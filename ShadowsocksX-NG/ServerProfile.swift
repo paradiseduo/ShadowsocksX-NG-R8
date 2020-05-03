@@ -118,6 +118,22 @@ import Cocoa
         return conf
     }
     
+    func isSame(profile:ServerProfile) -> Bool {
+        var result : Bool
+        if self == profile {
+            result = true
+        }else {
+            result = self.serverHost == profile.serverHost
+                && self.password == profile.password
+                && self.serverPort == profile.serverPort
+                && self.ssrProtocol == profile.ssrProtocol
+                && self.ssrObfs == profile.ssrObfs
+                && self.ssrObfsParam == profile.ssrObfsParam
+                && self.ssrProtocolParam == profile.ssrProtocolParam
+        }
+        return result
+    }
+    
     func isValid() -> Bool {
         func validateIpAddress(_ ipToValidate: String) -> Bool {
             
@@ -196,6 +212,10 @@ import Cocoa
         } else {
             return "\(remark) (\(serverHost):\(serverPort))"
         }
+    }
+    
+    override var description: String {
+        return "\(serverHost):\(serverPort), \(method), \(password), \(remark), \(ssrProtocol), \(ssrProtocolParam), \(ssrObfs), \(ssrObfsParam), \(ssrGroup), \(latency)"
     }
 }
 

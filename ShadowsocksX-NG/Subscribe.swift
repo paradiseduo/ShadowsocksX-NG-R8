@@ -58,22 +58,14 @@ import Alamofire
     }
     
     func setGroupName(newGroupName: String) {
-        func getGroupNameFromRes(resString: String) {
-            let decodeRes = decode64(resString)!
-            let ssrregexp = "ssr://([A-Za-z0-9_-]+)"
-            let urls = splitor(url: decodeRes, regexp: ssrregexp)
-            if urls.count > 0 {
-                let profile = ServerProfile.fromDictionary(ParseAppURLSchemes(URL(string: urls[0])) as [String : AnyObject])
-                self.groupName = profile.ssrGroup
-            }
+        if newGroupName != "" {
+            groupName = newGroupName
+            return
         }
-        if newGroupName != "" { return groupName = newGroupName }
-        if self.cache != "" { return getGroupNameFromRes(resString: cache) }
-        sendRequest(url: self.subscribeFeed, options: "", callback: { resString in
-            if resString == "" { return self.groupName = "New Subscribe" }
-            getGroupNameFromRes(resString: resString)
-            self.cache = resString
-        })
+        if self.cache != "" {
+            getSSRURLsFromRes(resString: cache)
+            return
+        }
     }
     func getGroupName() -> String {
         return groupName
@@ -123,8 +115,6 @@ import Alamofire
     fileprivate func sendRequest(url: String, options: Any, callback: @escaping (String) -> Void) {
         if url.isEmpty { return }
         let headers: HTTPHeaders = [
-            //            "Authorization": "Basic U2hhZG93c29ja1gtTkctUg==",
-            //            "Accept": "application/json",
             "Cache-control": "no-cache",
             "token": self.token,
             "User-Agent": "ShadowsocksX-NG-R " + (getLocalInfo()["CFBundleShortVersionString"] as! String) + " Version " + (getLocalInfo()["CFBundleVersion"] as! String)
@@ -160,70 +150,56 @@ import Alamofire
             self.cache = resString
         })
     }
-    func updateServerFromFeed(handle: @escaping ()->Void){
+    func updateServerFromFeed(handle: @escaping ()->()) {
         func updateServerHandler(resString: String) {
-            let decodeRes = decode64(resString)!
-            let ssrregexp = "ssr://([A-Za-z0-9_-]+)"
-            let urls = splitor(url: decodeRes, regexp: ssrregexp)
+            let urls = self.getSSRURLsFromRes(resString: resString)
             // hold if user fill a maxCount larger then server return
-            // Should push a notification about it and correct the user filled maxCOunt?
+            // Should push a notification about it and correct the user filled maxCount?
             let maxN = (self.maxCount > urls.count) ? urls.count : (self.maxCount == -1) ? urls.count: self.maxCount
-            // TODO change the loop into random pick
-            var profiles = [ServerProfile]()
-            for index in 0..<maxN {
-                if let profileDict = ParseAppURLSchemes(URL(string: urls[index])) {
-                    let profile = ServerProfile.fromDictionary(profileDict as [String : AnyObject])
-                    profiles.append(profile)
-                }
-            }
-            // clear and add
-            let clearOldGroup = true
-            var group = profiles.first?.ssrGroup
-            if let g = group {
-                self.groupName = g
-            } else {
-                group = self.groupName
-            }
-            let groupSame = profiles.allSatisfy({ $0.ssrGroup == group })
-            var cleanCount = 0
-            if groupSame && clearOldGroup {
-                // 原有的 group 中的 profile 全部清除
-                let activeProfile = self.profileMgr.getActiveProfile()
-                cleanCount = self.profileMgr.profiles.filter { $0.ssrGroup == group }.count
-                self.profileMgr.profiles = self.profileMgr.profiles.filter { $0.ssrGroup != group || $0 == activeProfile}
-            }
+
+            var count = 0
             
             var successCount = 0
             var dupCount = 0
             var existCount = 0
-            for profile in profiles {
-                let (dupResult, _) = self.profileMgr.isDuplicated(profile: profile)
-                let (existResult, existIndex) = self.profileMgr.isExisted(profile: profile)
-                if dupResult {
-                    dupCount += 1
-                    continue
+
+            for index in 0..<urls.count {
+                if let profileDict = ParseAppURLSchemes(URL(string: urls[index])) {
+                    let profile = ServerProfile.fromDictionary(profileDict as [String : AnyObject])
+                    let (exists, existIndex, duplicated) = self.profileMgr.isDuplicatedOrExists(profile: profile)
+                    if duplicated {
+                        dupCount += 1
+                        continue
+                    }
+                    
+                    if exists {
+                        self.profileMgr.profiles.replaceSubrange((existIndex..<existIndex + 1), with: [profile])
+                        existCount += 1
+                        continue
+                    }
+                    
+                    self.profileMgr.profiles.append(profile)
+                    successCount += 1
+                    count += 1
                 }
-                if existResult {
-                    self.profileMgr.profiles.replaceSubrange((existIndex..<existIndex + 1), with: [profile])
-                    existCount += 1
-                    continue
+                if count > maxN {
+                    break
                 }
-                self.profileMgr.profiles.append(profile)
-                successCount += 1
             }
+            
             self.profileMgr.save()
             DispatchQueue.main.async {
-                self.pushNotification(title: "成功更新订阅", subtitle: "总数:\(maxN) 成功:\(successCount) 清除:\(cleanCount) 重复:\(dupCount) 已存在:\(existCount)", info: "更新来自\(self.subscribeFeed)的订阅")
+                self.pushNotification(title: "成功更新订阅", subtitle: "总数:\(maxN) 成功:\(successCount) 重复:\(dupCount) 已存在:\(existCount)", info: "更新来自\(self.subscribeFeed)的订阅")
                 NotificationCenter.default.post(name: NOTIFY_UPDATE_MAINMENU, object: nil)
                 handle()
             }
         }
         
-        if (!isActive){
+        if !isActive {
             handle()
             return
         }
-
+        
         sendRequest(url: self.subscribeFeed, options: "", callback: { resString in
             if resString == "" {
                 handle()
@@ -233,6 +209,18 @@ import Alamofire
             self.cache = resString
         })
     }
+    
+    @discardableResult func getSSRURLsFromRes(resString: String) -> [String] {
+        let decodeRes = decode64(resString)!
+        let ssrregexp = "ssr://([A-Za-z0-9_-]+)"
+        let urls = splitor(url: decodeRes, regexp: ssrregexp)
+        if urls.count > 0 {
+            let profile = ServerProfile.fromDictionary(ParseAppURLSchemes(URL(string: urls[0])) as [String : AnyObject])
+            self.groupName = profile.ssrGroup
+        }
+        return urls
+    }
+    
     func feedValidator() -> Bool{
         // is the right format
         // should be http or https reg
