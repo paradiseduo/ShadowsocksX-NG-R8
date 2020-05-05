@@ -99,9 +99,9 @@
  * ./ShadowsocksX-NG/UserRulesController.swift
  */
 
-"PAC has been updated by User Rules." = "PAC has been updated by User Rules.";
+"PAC has been updated by User Rules." = "PAC已由用户规则更新";
 
-"It's failed to update PAC by User Rules." = "It's failed to update PAC by User Rules.";
+"It's failed to update PAC by User Rules." = "按用户规则更新PAC失败";
 
 "Servers" = "服务器";
 

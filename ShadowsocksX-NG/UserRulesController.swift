@@ -44,13 +44,14 @@ class UserRulesController: NSWindowController {
                     // Popup a user notification
                     let notification = NSUserNotification()
                     notification.title = "PAC has been updated by User Rules.".localized
-                    NSUserNotificationCenter.default
-                        .deliver(notification)
+                    DispatchQueue.main.async {
+                        NSUserNotificationCenter.default.deliver(notification)
+                        NotificationCenter.default.post(name: NOTIFY_ADV_CONF_CHANGED, object: nil)
+                    }
                 } else {
                     let notification = NSUserNotification()
                     notification.title = "It's failed to update PAC by User Rules.".localized
-                    NSUserNotificationCenter.default
-                        .deliver(notification)
+                    NSUserNotificationCenter.default.deliver(notification)
                 }
             } catch {}
         }
