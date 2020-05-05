@@ -177,7 +177,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     }
     
     @objc private func updateSubAndVersion() {
-        DispatchQueue.global(qos: .userInteractive).async {
+        DispatchQueue.main.async {
             // Version Check!
             if UserDefaults.standard.bool(forKey: USERDEFAULTS_AUTO_CHECK_UPDATE) {
                 self.checkForUpdate(mustShowAlert: false)
@@ -340,8 +340,12 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         ServerProfileManager.instance.exportConfigFile()
     }
     
-    @IBAction func updateSubscribe(_ sender: NSMenuItem) {
-        SubscribeManager.instance.updateAllServerFromSubscribe(auto: false)
+    @IBAction func updateSubscribeWithProxy(_ sender: NSMenuItem) {
+        SubscribeManager.instance.updateAllServerFromSubscribe(auto: false, useProxy: true)
+    }
+    
+    @IBAction func updateSubscribeWithoutProxy(_ sender: NSMenuItem) {
+        SubscribeManager.instance.updateAllServerFromSubscribe(auto: false, useProxy: false)
     }
     
     // MARK: Proxy submenu function

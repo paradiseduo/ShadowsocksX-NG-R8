@@ -152,9 +152,22 @@
                             </menuItem>
                             <menuItem title="Manual Update Subscribe" id="NnE-Ad-1An">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="updateSubscribe:" target="Voe-Tx-rLC" id="Vno-Oh-0oc"/>
-                                </connections>
+                                <menu key="submenu" title="Manual Update Subscribe" id="t8r-6p-BLb">
+                                    <items>
+                                        <menuItem title="Update Subscription With Proxy" id="P8g-TD-nT5">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="updateSubscribeWithProxy:" target="Voe-Tx-rLC" id="KKD-ka-Whh"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Update Subscription Without Proxy" id="uez-5p-93R">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="updateSubscribeWithoutProxy:" target="Voe-Tx-rLC" id="2OI-0Q-GMp"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
                             </menuItem>
                             <menuItem title="Show QR Code For Current Server" id="R6A-96-Zcb">
                                 <modifierMask key="keyEquivalentModifierMask"/>

@@ -118,3 +118,9 @@
 
 /* Class = "NSMenuItem"; title = "Fixed Width"; ObjectID = "hcf-sD-udd"; */
 "hcf-sD-udd.title" = "固定宽度";
+
+/* Class = "NSMenuItem"; title = "Update Subscription With Proxy"; ObjectID = "P8g-TD-nT5"; */
+"P8g-TD-nT5.title" = "更新订阅（通过代理）";
+
+/* Class = "NSMenuItem"; title = "Update Subscription Without Proxy"; ObjectID = "uez-5p-93R"; */
+"uez-5p-93R.title" = "更新订阅（不通过代理）";

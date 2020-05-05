@@ -58,7 +58,7 @@ class SubscribeManager:NSObject{
         }
         return ret
     }
-    func updateAllServerFromSubscribe(auto: Bool){
+    func updateAllServerFromSubscribe(auto: Bool, useProxy: Bool = true) {
         let group = DispatchGroup()
         let queue = DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive)
         for item in subscribes {
@@ -66,12 +66,12 @@ class SubscribeManager:NSObject{
                 group.enter()
                 queue.async(group: group) {
                     if !auto {
-                        item.updateServerFromFeed {
+                        item.updateServerFromFeed(useProxy: useProxy) {
                             group.leave()
                         }
                     } else {
                         if item.getAutoUpdateEnable() {
-                            item.updateServerFromFeed {
+                            item.updateServerFromFeed(useProxy: useProxy) {
                                 group.leave()
                             }
                         } else {

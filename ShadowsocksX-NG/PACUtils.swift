@@ -181,7 +181,7 @@ func UpdatePACFromGFWList() {
     }
     
     let url = UserDefaults.standard.string(forKey: USERDEFAULTS_GFW_LIST_URL)
-    Network.sharedSession.request(url!).responseString { response in
+    Network.session(useProxy: true).request(url!).responseString { response in
         do {
             let value = try response.result.get()
             try value.write(toFile: GFWListFilePath, atomically: true, encoding: String.Encoding.utf8)
@@ -252,7 +252,7 @@ func UpdateACL(){
     queue.async(group: group, qos: .default) {
         if let url = UserDefaults.standard.string(forKey: USERDEFAULTS_ACL_WHITE_LIST_URL) {
             group.enter()
-            Network.sharedSession.request(url).responseString { response in
+            Network.session(useProxy: true).request(url).responseString { response in
                 do {
                     let value = try response.result.get()
                     try value.write(toFile: ACLWhiteListFilePath, atomically: true, encoding: String.Encoding.utf8)
@@ -277,7 +277,7 @@ func UpdateACL(){
     queue.async(group: group, qos: .default) {
         if let IPURL = UserDefaults.standard.string(forKey: USERDEFAULTS_ACL_AUTO_LIST_URL) {
             group.enter()
-            Network.sharedSession.request(IPURL).responseString { response in
+            Network.session(useProxy: true).request(IPURL).responseString { response in
                 do {
                     let value = try response.result.get()
                     try value.write(toFile: ACLGFWListFilePath, atomically: true, encoding: String.Encoding.utf8)
@@ -302,7 +302,7 @@ func UpdateACL(){
     queue.async(group: group, qos: .default) {
         if let backURL = UserDefaults.standard.string(forKey: USERDEFAULTS_ACL_PROXY_BACK_CHN_URL) {
             group.enter()
-            Network.sharedSession.request(backURL).responseString { response in
+            Network.session(useProxy: true).request(backURL).responseString { response in
                 do {
                     let value = try response.result.get()
                     try value.write(toFile: ACLBackCHNFilePath, atomically: true, encoding: String.Encoding.utf8)

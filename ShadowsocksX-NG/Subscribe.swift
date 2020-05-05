@@ -112,7 +112,7 @@ import Alamofire
         ret["autoUpdateEnable"] = data.autoUpdateEnable as AnyObject
         return ret
     }
-    fileprivate func sendRequest(url: String, options: Any, callback: @escaping (String) -> Void) {
+    fileprivate func sendRequest(url: String, options: Any, useProxy: Bool = true, callback: @escaping (String) -> Void) {
         if url.isEmpty { return }
         let headers: HTTPHeaders = [
             "Cache-control": "no-cache",
@@ -120,7 +120,7 @@ import Alamofire
             "User-Agent": "ShadowsocksX-NG-R " + (getLocalInfo()["CFBundleShortVersionString"] as! String) + " Version " + (getLocalInfo()["CFBundleVersion"] as! String)
         ]
         
-        Network.sharedSession.request(url, headers: headers).responseString{ response in
+        Network.session(useProxy: useProxy).request(url, headers: headers).responseString{ response in
             do {
                 let value = try response.result.get()
                 callback(value)
@@ -150,7 +150,7 @@ import Alamofire
             self.cache = resString
         })
     }
-    func updateServerFromFeed(handle: @escaping ()->()) {
+    func updateServerFromFeed(useProxy: Bool, handle: @escaping ()->()) {
         func updateServerHandler(resString: String) {
             let urls = self.getSSRURLsFromRes(resString: resString)
             // hold if user fill a maxCount larger then server return
@@ -228,7 +228,7 @@ import Alamofire
             return
         }
         
-        sendRequest(url: self.subscribeFeed, options: "", callback: { resString in
+        sendRequest(url: self.subscribeFeed, options: "", useProxy: useProxy, callback: { resString in
             if resString == "" {
                 handle()
                 return
