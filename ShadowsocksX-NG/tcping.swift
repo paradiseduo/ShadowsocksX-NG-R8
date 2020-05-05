@@ -100,6 +100,10 @@ class Tcping {
         
         neverSpeedTestBefore = false
         count = 5
+        if let _ = self.timer {
+            self.timer?.invalidate()
+            self.timer = nil
+        }
         self.timer = Timer(timeInterval: Tcping.timeout+0.1, repeats: true) { [weak self] (t) in
             guard let w = self else {return}
             if w.count > 0 {
