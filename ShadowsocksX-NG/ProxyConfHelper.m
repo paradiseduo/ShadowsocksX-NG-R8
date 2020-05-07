@@ -113,6 +113,21 @@ GCDWebServer *webServer = nil;
             }
         }
     }
+    
+    NSString* rawExceptions = [defaults stringForKey:USERDEFAULTS_PROXY_EXCEPTIONS];
+    if (rawExceptions) {
+        NSCharacterSet* whites = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+        NSMutableCharacterSet* seps = [NSMutableCharacterSet characterSetWithCharactersInString:@",、"];
+        [seps formUnionWithCharacterSet:whites];
+
+        NSArray* exceptions = [rawExceptions componentsSeparatedByCharactersInSet:seps];
+        for (NSString* domainOrHost in exceptions) {
+            if ([domainOrHost length] > 0) {
+                [args addObject:@"-x"];
+                [args addObject:domainOrHost];
+            }
+        }
+    }
 }
 
 + (void)enablePACProxy:(NSString*) PACFilePath {

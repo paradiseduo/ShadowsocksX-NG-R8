@@ -99,7 +99,8 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE:false,
             USERDEFAULTS_SPEED_TEST_AFTER_SUBSCRIPTION:true,
             USERDEFAULTS_FIXED_NETWORK_SPEED_VIEW_WIDTH:false,
-            USERDEFAULTS_REMOVE_NODE_AFTER_DELETE_SUBSCRIPTION:false
+            USERDEFAULTS_REMOVE_NODE_AFTER_DELETE_SUBSCRIPTION:false,
+            USERDEFAULTS_PROXY_EXCEPTIONS: "127.0.0.1,localhost,192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,timestamp.apple.com"
         ])
         
         let notifyCenter = NotificationCenter.default
@@ -758,9 +759,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             if speedMonitor == nil{
                 speedMonitor = NetSpeedMonitor()
             }
-            if let _ = speedTimer {
-                return
-            } else {
+            if speedTimer == nil {
                 speedTimer = Timer(timeInterval: repeatTimeinterval, repeats: true) {[weak self] (timer) in
                     guard let w = self else {return}
                     w.speedMonitor?.timeInterval(w.repeatTimeinterval, downloadAndUploadSpeed: { (down, up) in
