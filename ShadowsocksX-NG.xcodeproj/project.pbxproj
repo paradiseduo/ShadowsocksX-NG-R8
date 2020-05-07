@@ -31,7 +31,7 @@
 		9B2491B41D0ACC3A003BBECC /* PreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B2491B61D0ACC3A003BBECC /* PreferencesWindowController.xib */; };
 		9B2491B71D0ACC3E003BBECC /* AdvPreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9B2491B91D0ACC3E003BBECC /* AdvPreferencesWindowController.xib */; };
 		9B3FFF0D1D05FEB30019A709 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3FFF0C1D05FEB30019A709 /* Utils.swift */; };
-		9B3FFF141D0705810019A709 /* Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3FFF131D0705810019A709 /* Configure.swift */; };
+		9B3FFF141D0705810019A709 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3FFF131D0705810019A709 /* NotificationName.swift */; };
 		9B3FFF1E1D0732660019A709 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 9B3FFF1D1D0732660019A709 /* Utils.m */; };
 		9B3FFF211D08826E0019A709 /* PACUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3FFF201D08826E0019A709 /* PACUtils.swift */; };
 		9B3FFF231D088E8D0019A709 /* abp.js in Resources */ = {isa = PBXBuildFile; fileRef = 9B3FFF221D088E8D0019A709 /* abp.js */; };
@@ -170,7 +170,7 @@
 		9B2491B51D0ACC3A003BBECC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesWindowController.xib; sourceTree = "<group>"; };
 		9B2491B81D0ACC3E003BBECC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/AdvPreferencesWindowController.xib; sourceTree = "<group>"; };
 		9B3FFF0C1D05FEB30019A709 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		9B3FFF131D0705810019A709 /* Configure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configure.swift; sourceTree = "<group>"; };
+		9B3FFF131D0705810019A709 /* NotificationName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 		9B3FFF1D1D0732660019A709 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utils.m; sourceTree = "<group>"; };
 		9B3FFF1F1D0734060019A709 /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
 		9B3FFF201D08826E0019A709 /* PACUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PACUtils.swift; sourceTree = "<group>"; };
@@ -218,6 +218,7 @@
 		BEAA0EDC244B273A00809ADD /* MainMenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuManager.swift; sourceTree = "<group>"; };
 		BEE8F089245B11230088145C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/RuleSettingWindowController.strings"; sourceTree = "<group>"; };
 		BEE8F08B245B141F0088145C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/AdvPreferencesWindowController.strings"; sourceTree = "<group>"; };
+		BEFD0E63246441E600DA6510 /* Configure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Configure.h; sourceTree = "<group>"; };
 		C6D4298E1DA75988002A5711 /* install_privoxy.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = install_privoxy.sh; sourceTree = "<group>"; };
 		C6D4298F1DA75988002A5711 /* privoxy */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = privoxy; sourceTree = "<group>"; };
 		C6D429901DA75988002A5711 /* reload_conf_privoxy.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = reload_conf_privoxy.sh; sourceTree = "<group>"; };
@@ -371,8 +372,9 @@
 				9B3FFF0C1D05FEB30019A709 /* Utils.swift */,
 				9B3FFF201D08826E0019A709 /* PACUtils.swift */,
 				083BF8351D82742200831C68 /* PingClient.swift */,
-				9B3FFF131D0705810019A709 /* Configure.swift */,
+				9B3FFF131D0705810019A709 /* NotificationName.swift */,
 				E8B569892456C900001DA9A7 /* Network.swift */,
+				BEFD0E63246441E600DA6510 /* Configure.h */,
 				BE76C2CA24277EAB00FB3516 /* NetSpeedMonitor.h */,
 				BE76C2CB24277EAC00FB3516 /* NetSpeedMonitor.m */,
 				9B3FFF1F1D0734060019A709 /* Utils.h */,
@@ -735,7 +737,7 @@
 				BEAA0EDD244B273A00809ADD /* MainMenuManager.swift in Sources */,
 				9B3FFF211D08826E0019A709 /* PACUtils.swift in Sources */,
 				BE8448802459BEA900491046 /* SettingWindowController.swift in Sources */,
-				9B3FFF141D0705810019A709 /* Configure.swift in Sources */,
+				9B3FFF141D0705810019A709 /* NotificationName.swift in Sources */,
 				BE61A1E1245BFE8E0007FB64 /* SpeedTools.swift in Sources */,
 				9BEEF0701D04DDB100FC52B3 /* ServerProfileManager.swift in Sources */,
 				08635C771EF750FA00F1D25E /* SubscribeManager.swift in Sources */,
