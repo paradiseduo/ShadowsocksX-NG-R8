@@ -159,6 +159,7 @@ import Alamofire
             
             // 存一下原有group中的 profile ，为了计算下列数量
             let oldNodes = self.profileMgr.profiles.filter { $0.ssrGroup == self.getGroupName()}
+            let selectNode = self.profileMgr.getActiveProfile()
             // 原有的 group 中的 profile 全部清除
             self.profileMgr.profiles = self.profileMgr.profiles.filter { $0.ssrGroup != self.getGroupName()}
             
@@ -201,7 +202,15 @@ import Alamofire
             for item in newNodes {
                 self.profileMgr.profiles.append(item)
             }
-            
+            //更新完订阅默认选择上次选中的节点
+            if let n = selectNode {
+                for item in self.profileMgr.profiles {
+                    if n.isSame(profile: item) {
+                        self.profileMgr.setActiveProfiledId(item.uuid)
+                        break
+                    }
+                }
+            }
             self.profileMgr.save()
             DispatchQueue.main.async {
                 var message = "节点总数:\(maxN)"
