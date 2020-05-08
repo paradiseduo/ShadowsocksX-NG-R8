@@ -26,7 +26,6 @@ var isTesting:Bool = false
 var neverSpeedTestBefore:Bool = true
 
 class PingServers:NSObject{
-    static let instance = PingServers()
     
     func runCommand(cmd : String, args : String...) -> (output: [String], error: [String], exitCode: Int32) {
         
@@ -74,9 +73,10 @@ class PingServers:NSObject{
         return latency
     }
     
-    func ping(){
+    func ping(finish: @escaping ()->()){
         let SerMgr = ServerProfileManager.instance
         if SerMgr.profiles.count <= 0 {
+            finish()
             return
         }
         
@@ -119,22 +119,40 @@ class PingServers:NSObject{
                 UserDefaults.standard.synchronize()
                 
                 DispatchQueue.main.async {
-                    isTesting = false
-                    NotificationCenter.default.post(name: NOTIFY_UPDATE_MAINMENU, object: nil)
+                    finish()
                 }
             }
         }
     }
+    
+    deinit {
+        print("&&&&& PingServers deinit &&&&&")
+    }
 }
 
 class ConnectTestigManager {
-    static func start() {
+    static let shared = ConnectTestigManager()
+    
+    private var tcping: Tcping?
+    private var ping: PingServers?
+    
+    func start() {
         if !isTesting {
             isTesting = true
             if UserDefaults.standard.bool(forKey: USERDEFAULTS_TCP) {
-                Tcping.instance.ping()
+                self.tcping = Tcping()
+                self.tcping!.ping {
+                    isTesting = false
+                    NotificationCenter.default.post(name: NOTIFY_UPDATE_MAINMENU, object: nil)
+                    self.tcping = nil
+                }
             } else {
-                PingServers.instance.ping()
+                self.ping = PingServers()
+                self.ping!.ping {
+                    isTesting = false
+                    NotificationCenter.default.post(name: NOTIFY_UPDATE_MAINMENU, object: nil)
+                    self.ping = nil
+                }
             }
         }
     }

@@ -178,7 +178,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     }
     
     @objc private func updateSubAndVersion() {
-        DispatchQueue.main.async {
+        DispatchQueue.global().async {
             // Version Check!
             if UserDefaults.standard.bool(forKey: USERDEFAULTS_AUTO_CHECK_UPDATE) {
                 self.checkForUpdate(mustShowAlert: false)
@@ -487,7 +487,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     }
 
     @IBAction func connectionDelayTest(_ sender: NSMenuItem) {
-        ConnectTestigManager.start()
+        ConnectTestigManager.shared.start()
     }
     
     @IBAction func ascendingDelay(_ sender: NSMenuItem) {

@@ -86,7 +86,7 @@ class SubscribeManager:NSObject{
             //更新订阅后存一下组名
             self.save()
             if UserDefaults.standard.bool(forKey: USERDEFAULTS_SPEED_TEST_AFTER_SUBSCRIPTION) {
-                ConnectTestigManager.start()
+                ConnectTestigManager.shared.start()
             }
         }
     }

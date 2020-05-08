@@ -90,11 +90,10 @@ class Tcping {
     var speedStringDomain = [String: TcpCollection]()
     var pings = [tcping]()
     
-    static let instance = Tcping()
-    
-    func ping() {
+    func ping(finish: @escaping ()->()) {
         let SerMgr = ServerProfileManager.instance
         if SerMgr.profiles.count <= 0 {
+            finish()
             return
         }
         
@@ -105,7 +104,10 @@ class Tcping {
             self.timer = nil
         }
         self.timer = Timer(timeInterval: Tcping.timeout+0.1, repeats: true) { [weak self] (t) in
-            guard let w = self else {return}
+            guard let w = self else {
+                finish()
+                return
+            }
             if w.count > 0 {
                 print("Tcping Residual times \(w.count)")
                 for item in SerMgr.profiles {
@@ -148,9 +150,6 @@ class Tcping {
                     }
                 }
                 
-                //因为是个单例，数组不会释放，因此需要清空数据，以免下次测试混入前一次的数据
-                w.pings.removeAll()
-                w.speedStringDomain = [String: TcpCollection]()
                 if fastSpeed != Double.infinity {
                     let ft = NumberFormatter.three(SerMgr.profiles[fastID].latency)
                     let notice = NSUserNotification()
@@ -163,12 +162,15 @@ class Tcping {
                     UserDefaults.standard.synchronize()
                     
                     DispatchQueue.main.async {
-                        isTesting = false
-                        NotificationCenter.default.post(name: NOTIFY_UPDATE_MAINMENU, object: nil)
+                        finish()
                     }
                 }
             }
         }
         RunLoop.main.add(self.timer!, forMode: RunLoop.Mode.common)
+    }
+    
+    deinit {
+        print("&&&&& tcping deinit &&&&&")
     }
 }

@@ -58,7 +58,7 @@ class SubscribePreferenceWindowController: NSWindowController, NSTableViewDataSo
                 editingSubscribe.updateServerFromFeed(useProxy: true) {
                     DispatchQueue.main.async {
                         if UserDefaults.standard.bool(forKey: USERDEFAULTS_SPEED_TEST_AFTER_SUBSCRIPTION) {
-                            ConnectTestigManager.start()
+                            ConnectTestigManager.shared.start()
                         }
                     }
                 }
