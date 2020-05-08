@@ -46,3 +46,6 @@
 
 /* Class = "NSButtonCell"; title = "Fixed Network Speed View Width"; ObjectID = "zpW-0N-efE"; */
 "zpW-0N-efE.title" = "固定网速视图宽度";
+
+/* Class = "NSButtonCell"; title = "Auto Update Subscription With Proxy"; ObjectID = "MMs-xi-q91"; */
+"MMs-xi-q91.title" = "通过代理自动更新订阅";

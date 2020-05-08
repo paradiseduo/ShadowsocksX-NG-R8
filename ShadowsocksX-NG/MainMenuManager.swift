@@ -97,6 +97,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             USERDEFAULTS_ACL_FILE_NAME: "chn.acl",
             USERDEFAULTS_SUBSCRIBES: [],
             USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE:false,
+            USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE_WITH_PROXY:false,
             USERDEFAULTS_SPEED_TEST_AFTER_SUBSCRIPTION:true,
             USERDEFAULTS_FIXED_NETWORK_SPEED_VIEW_WIDTH:false,
             USERDEFAULTS_REMOVE_NODE_AFTER_DELETE_SUBSCRIPTION:false,
@@ -184,7 +185,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
                 self.checkForUpdate(mustShowAlert: false)
             }
             if UserDefaults.standard.bool(forKey: USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE) {
-                SubscribeManager.instance.updateAllServerFromSubscribe(auto: true)
+                SubscribeManager.instance.updateAllServerFromSubscribe(auto: true, useProxy: UserDefaults.standard.bool(forKey: USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE_WITH_PROXY))
             }
         }
     }

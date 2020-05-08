@@ -10,6 +10,7 @@
 #define Configure_h
 
 static NSString * const USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE = @"AutoUpdateSubscribe";
+static NSString * const USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE_WITH_PROXY = @"AutoUpdateSubscribeWithProxy";
 static NSString * const USERDEFAULTS_FASTEST_NODE = @"FastestNode";
 static NSString * const USERDEFAULTS_ASCENDING_DELAY = @"AscendingDelay";
 static NSString * const USERDEFAULTS_AUTO_CHECK_UPDATE = @"AutoCheckUpdate";
