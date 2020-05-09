@@ -126,6 +126,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             }
         }
         notifyCenter.addObserver(forName: NOTIFY_ADV_CONF_CHANGED, object: nil, queue: nil) { (noti) in
+            Network.refreshProxySession()
             SyncSSLocal { (suce) in
                 self.applyConfig { (s) in
                     self.refresh()
