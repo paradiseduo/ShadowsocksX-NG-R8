@@ -338,7 +338,7 @@ public extension HTTPHeaders {
 }
 
 extension HTTPHeader {
-    /// Returns Alamofire's default `Accept-Encoding` header, appropriate for the encodings supporte by particular OS
+    /// Returns Alamofire's default `Accept-Encoding` header, appropriate for the encodings supported by particular OS
     /// versions.
     ///
     /// See the [Accept-Encoding HTTP header documentation](https://tools.ietf.org/html/rfc7230#section-4.2.3) .
@@ -398,7 +398,7 @@ extension HTTPHeader {
                     return "\(osName) \(versionString)"
                 }()
 
-                let alamofireVersion = "Alamofire/\(AF.version)"
+                let alamofireVersion = "Alamofire/\(version)"
 
                 return "\(executable)/\(appVersion) (\(bundle); build:\(appBuild); \(osNameVersion)) \(alamofireVersion)"
             }

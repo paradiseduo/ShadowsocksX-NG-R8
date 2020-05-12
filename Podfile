@@ -6,8 +6,9 @@ target 'ShadowsocksX-NG' do
   use_frameworks!
 
   # Pods for ShadowsocksX-NG
-  pod 'Alamofire', '~> 5.0.0-rc.2'
-  pod 'GCDWebServer', '~> 3.0'
+  pod 'Alamofire'
+  pod 'GCDWebServer'
+  pod 'MASShortcut'
 
   target 'ShadowsocksX-NGTests' do
     inherit! :search_paths
@@ -17,7 +18,7 @@ target 'ShadowsocksX-NG' do
 end
 
 target 'proxy_conf_helper' do
-  pod 'BRLOptionParser', '~> 0.3.1'
+  pod 'BRLOptionParser'
 end
 
 post_install do |installer|

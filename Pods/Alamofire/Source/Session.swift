@@ -66,6 +66,8 @@ open class Session {
     var requestTaskMap = RequestTaskMap()
     /// Set of currently active `Request`s.
     var activeRequests: Set<Request> = []
+    /// Completion events awaiting `URLSessionTaskMetrics`.
+    var waitingCompletions: [URLSessionTask: () -> Void] = [:]
 
     /// Creates a `Session` from a `URLSession` and other parameters.
     ///
@@ -113,7 +115,7 @@ open class Session {
         precondition(session.configuration.identifier == nil,
                      "Alamofire does not support background URLSessionConfigurations.")
         precondition(session.delegateQueue.underlyingQueue === rootQueue,
-                     "Session(session:) intializer must be passed the DispatchQueue used as the delegateQueue's underlyingQueue as rootQueue.")
+                     "Session(session:) initializer must be passed the DispatchQueue used as the delegateQueue's underlyingQueue as rootQueue.")
 
         self.session = session
         self.delegate = delegate
@@ -811,9 +813,10 @@ open class Session {
     ///
     /// - Parameter request: The `Request` to perform.
     func perform(_ request: Request) {
+        // Leaf types must come first, otherwise they will cast as their superclass.
         switch request {
+        case let r as UploadRequest: perform(r) // UploadRequest must come before DataRequest due to subtype relationship.
         case let r as DataRequest: perform(r)
-        case let r as UploadRequest: perform(r)
         case let r as DownloadRequest: perform(r)
         default: fatalError("Attempted to perform unsupported Request subclass: \(type(of: request))")
         }
@@ -922,26 +925,21 @@ open class Session {
 
     func updateStatesForTask(_ task: URLSessionTask, request: Request) {
         request.withState { state in
-            switch (startRequestsImmediately, state) {
-            case (true, .initialized):
-                rootQueue.async { request.resume() }
-            case (false, .initialized):
+            switch state {
+            case .initialized, .finished:
                 // Do nothing.
                 break
-            case (_, .resumed):
+            case .resumed:
                 task.resume()
                 rootQueue.async { request.didResumeTask(task) }
-            case (_, .suspended):
+            case .suspended:
                 task.suspend()
                 rootQueue.async { request.didSuspendTask(task) }
-            case (_, .cancelled):
+            case .cancelled:
                 // Resume to ensure metrics are gathered.
                 task.resume()
                 task.cancel()
                 rootQueue.async { request.didCancelTask(task) }
-            case (_, .finished):
-                // Do nothing
-                break
             }
         }
     }
@@ -967,7 +965,11 @@ open class Session {
     // MARK: - Invalidation
 
     func finishRequestsForDeinit() {
-        requestTaskMap.requests.forEach { $0.finish(error: AFError.sessionDeinitialized) }
+        requestTaskMap.requests.forEach { request in
+            rootQueue.async {
+                request.finish(error: AFError.sessionDeinitialized)
+            }
+        }
     }
 }
 
@@ -977,6 +979,8 @@ extension Session: RequestDelegate {
     public var sessionConfiguration: URLSessionConfiguration {
         return session.configuration
     }
+
+    public var startImmediately: Bool { return startRequestsImmediately }
 
     public func cleanup(after request: Request) {
         activeRequests.remove(request)
@@ -1020,23 +1024,44 @@ extension Session: RequestDelegate {
 
 extension Session: SessionStateProvider {
     func request(for task: URLSessionTask) -> Request? {
+        dispatchPrecondition(condition: .onQueue(rootQueue))
+
         return requestTaskMap[task]
     }
 
     func didGatherMetricsForTask(_ task: URLSessionTask) {
-        requestTaskMap.disassociateIfNecessaryAfterGatheringMetricsForTask(task)
+        dispatchPrecondition(condition: .onQueue(rootQueue))
+
+        let didDisassociate = requestTaskMap.disassociateIfNecessaryAfterGatheringMetricsForTask(task)
+
+        if didDisassociate {
+            waitingCompletions[task]?()
+            waitingCompletions[task] = nil
+        }
     }
 
-    func didCompleteTask(_ task: URLSessionTask) {
-        requestTaskMap.disassociateIfNecessaryAfterCompletingTask(task)
+    func didCompleteTask(_ task: URLSessionTask, completion: @escaping () -> Void) {
+        dispatchPrecondition(condition: .onQueue(rootQueue))
+
+        let didDisassociate = requestTaskMap.disassociateIfNecessaryAfterCompletingTask(task)
+
+        if didDisassociate {
+            completion()
+        } else {
+            waitingCompletions[task] = completion
+        }
     }
 
     func credential(for task: URLSessionTask, in protectionSpace: URLProtectionSpace) -> URLCredential? {
+        dispatchPrecondition(condition: .onQueue(rootQueue))
+
         return requestTaskMap[task]?.credential ??
             session.configuration.urlCredentialStorage?.defaultCredential(for: protectionSpace)
     }
 
     func cancelRequestsForSessionInvalidation(with error: Error?) {
+        dispatchPrecondition(condition: .onQueue(rootQueue))
+
         requestTaskMap.requests.forEach { $0.finish(error: AFError.sessionInvalidated(error: error)) }
     }
 }

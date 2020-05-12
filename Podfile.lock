@@ -1,26 +1,30 @@
 PODS:
-  - Alamofire (5.0.0-rc.2)
+  - Alamofire (5.0.5)
   - BRLOptionParser (0.3.1)
-  - GCDWebServer (3.5.3):
-    - GCDWebServer/Core (= 3.5.3)
-  - GCDWebServer/Core (3.5.3)
+  - GCDWebServer (3.5.4):
+    - GCDWebServer/Core (= 3.5.4)
+  - GCDWebServer/Core (3.5.4)
+  - MASShortcut (2.4.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 5.0.0-rc.2)
-  - BRLOptionParser (~> 0.3.1)
-  - GCDWebServer (~> 3.0)
+  - Alamofire
+  - BRLOptionParser
+  - GCDWebServer
+  - MASShortcut
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - Alamofire
     - BRLOptionParser
     - GCDWebServer
+    - MASShortcut
 
 SPEC CHECKSUMS:
-  Alamofire: f9450d3c7f6bea2ad62e7a541c3e9b186c7991d6
+  Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
   BRLOptionParser: a03256a8ff003ca1f5376c55f55f210e085a3958
-  GCDWebServer: c0ab22c73e1b84f358d1e2f74bf6afd1c60829f2
+  GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
+  MASShortcut: d9e4909e878661cc42877cc9d6efbe638273ab57
 
-PODFILE CHECKSUM: 0ea5b8edb613859147366a888263c6a0772dd690
+PODFILE CHECKSUM: e325e141e4e638e1c7de18e5f325bdfed8616dc6
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.9.1
