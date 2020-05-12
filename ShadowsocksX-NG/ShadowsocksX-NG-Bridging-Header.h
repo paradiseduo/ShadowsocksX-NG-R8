@@ -3,7 +3,7 @@
 //
 
 #import <CommonCrypto/CommonCrypto.h>
-
+#import <MASShortcut/Shortcut.h>
 #import "SWBQRCodeWindowController.h"
 #import "Utils.h"
 #import "ProxyConfHelper.h"

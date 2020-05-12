@@ -2,7 +2,7 @@
 //  SettingWindowController.swift
 //  ShadowsocksX-NG
 //
-//  Created by YouShaoduo on 2020/4/29.
+//  Created by ParadiseDuo on 2020/4/29.
 //  Copyright © 2020 qiuyuzhou. All rights reserved.
 //
 

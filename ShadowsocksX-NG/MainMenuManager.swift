@@ -128,14 +128,14 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         notifyCenter.addObserver(forName: NOTIFY_ADV_CONF_CHANGED, object: nil, queue: nil) { (noti) in
             Network.refreshProxySession()
             SyncSSLocal { (suce) in
-                self.applyConfig { (s) in
+                MainMenuManager.applyConfig { (s) in
                     self.refresh()
                 }
             }
         }
         notifyCenter.addObserver(forName: NOTIFY_HTTP_CONF_CHANGED, object: nil, queue: nil) { (noti) in
             SyncPrivoxy {
-                self.applyConfig { (s) in
+                MainMenuManager.applyConfig { (s) in
                     self.refresh()
                 }
             }
@@ -150,6 +150,32 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             self.setUpMenu(UserDefaults.standard.bool(forKey: USERDEFAULTS_ENABLE_SHOW_SPEED))
             self.refresh()
         }
+        notifyCenter.addObserver(forName: NOTIFY_TOGGLE_RUNNING_SHORTCUT, object: nil, queue: OperationQueue.main) { (noti) in
+            self.toggle { (suc) in
+                self.refresh()
+            }
+        }
+        notifyCenter.addObserver(forName: NOTIFY_UPDATE_RUNNING_MODE_MENU, object: nil, queue: OperationQueue.main) { (noti) in
+            self.updateRunningModeMenu()
+        }
+        notifyCenter.addObserver(forName: NOTIFY_SWITCH_PAC_MODE_SHORTCUT, object: nil, queue: OperationQueue.main) { (noti) in
+            Mode.switchTo(.PAC)
+        }
+        notifyCenter.addObserver(forName: NOTIFY_SWITCH_GLOBAL_MODE_SHORTCUT, object: nil, queue: OperationQueue.main) { (noti) in
+            Mode.switchTo(.GLOBAL)
+        }
+        notifyCenter.addObserver(forName: NOTIFY_SWITCH_WHITELIST_MODE_SHORTCUT, object: nil, queue: OperationQueue.main) { (noti) in
+            Mode.switchTo(.WHITELIST)
+        }
+        notifyCenter.addObserver(forName: NOTIFY_SWITCH_MANUAL_MODE_SHORTCUT, object: nil, queue: OperationQueue.main) { (noti) in
+            Mode.switchTo(.MANUAL)
+        }
+        notifyCenter.addObserver(forName: NOTIFY_SWITCH_ACL_AUTO_MODE_SHORTCUT, object: nil, queue: OperationQueue.main) { (noti) in
+            Mode.switchTo(.ACLAUTO)
+        }
+        notifyCenter.addObserver(forName: NOTIFY_SWITCH_CHINA_MODE_SHORTCUT, object: nil, queue: OperationQueue.main) { (noti) in
+            Mode.switchTo(.CHINA)
+        }
         
         DispatchQueue.main.async {
             self.statusItem.image = NSImage(named: "menu_icon")
@@ -158,6 +184,8 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             
             self.setUpMenu(defaults.bool(forKey: USERDEFAULTS_ENABLE_SHOW_SPEED))
             self.refresh()
+            
+            Shortcuts.bindShortcuts()
             
             if defaults.bool(forKey: USERDEFAULTS_CONNECT_AT_LAUNCH) && ServerProfileManager.instance.getActiveProfileId() != "" {
                 defaults.set(false, forKey: USERDEFAULTS_SHADOWSOCKS_ON)
@@ -203,7 +231,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         let defaults = UserDefaults.standard
         defaults.set(!defaults.bool(forKey: USERDEFAULTS_SHADOWSOCKS_ON), forKey: USERDEFAULTS_SHADOWSOCKS_ON)
         defaults.synchronize()
-        self.applyConfig { (suc) in
+        MainMenuManager.applyConfig { (suc) in
             SyncSSLocal { (s) in
                 DispatchQueue.main.async {
                     finish(true)
@@ -354,75 +382,27 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     // MARK: Proxy submenu function
 
     @IBAction func selectPACMode(_ sender: NSMenuItem) {
-        let defaults = UserDefaults.standard
-        defaults.setValue("auto", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
-        defaults.setValue("", forKey: USERDEFAULTS_ACL_FILE_NAME)
-        defaults.synchronize()
-        SyncSSLocal { (suce) in
-            self.applyConfig { (suc) in
-                self.updateRunningModeMenu()
-            }
-        }
+        Mode.switchTo(.PAC)
     }
     
     @IBAction func selectGlobalMode(_ sender: NSMenuItem) {
-        let defaults = UserDefaults.standard
-        defaults.setValue("global", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
-        defaults.setValue("", forKey: USERDEFAULTS_ACL_FILE_NAME)
-        defaults.synchronize()
-        SyncSSLocal { (suce) in
-            self.applyConfig { (suc) in
-                self.updateRunningModeMenu()
-            }
-        }
+        Mode.switchTo(.GLOBAL)
     }
     
     @IBAction func selectManualMode(_ sender: NSMenuItem) {
-        let defaults = UserDefaults.standard
-        defaults.setValue("manual", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
-        defaults.setValue("", forKey: USERDEFAULTS_ACL_FILE_NAME)
-        defaults.synchronize()
-        SyncSSLocal { (suce) in
-            self.applyConfig { (suc) in
-                self.updateRunningModeMenu()
-            }
-        }
+        Mode.switchTo(.MANUAL)
     }
     
     @IBAction func selectACLAutoMode(_ sender: NSMenuItem) {
-        let defaults = UserDefaults.standard
-        defaults.setValue("whiteList", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
-        defaults.setValue("gfwlist.acl", forKey: USERDEFAULTS_ACL_FILE_NAME)
-        defaults.synchronize()
-        SyncSSLocal { (suce) in
-            self.applyConfig { (suc) in
-                self.updateRunningModeMenu()
-            }
-        }
+        Mode.switchTo(.ACLAUTO)
     }
     
     @IBAction func selectACLBackCHNMode(_ sender: NSMenuItem) {
-        let defaults = UserDefaults.standard
-        defaults.setValue("whiteList", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
-        defaults.setValue("backchn.acl", forKey: USERDEFAULTS_ACL_FILE_NAME)
-        defaults.synchronize()
-        SyncSSLocal { (suce) in
-            self.applyConfig { (suc) in
-                self.updateRunningModeMenu()
-            }
-        }
+        Mode.switchTo(.CHINA)
     }
     
     @IBAction func selectWhiteListMode(_ sender: NSMenuItem) {
-        let defaults = UserDefaults.standard
-        defaults.setValue("whiteList", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
-        defaults.setValue("chn.acl", forKey: USERDEFAULTS_ACL_FILE_NAME)
-        defaults.synchronize()
-        SyncSSLocal { (suce) in
-            self.applyConfig { (suc) in
-                self.updateRunningModeMenu()
-            }
-        }
+        Mode.switchTo(.WHITELIST)
     }
 
     @IBAction func editServerPreferences(_ sender: NSMenuItem) {
@@ -484,24 +464,12 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
                 self.updateRunningModeMenu()
             }
         } else {
-            updateRunningModeMenu()
+            self.updateRunningModeMenu()
         }
     }
 
     @IBAction func connectionDelayTest(_ sender: NSMenuItem) {
         ConnectTestigManager.shared.start()
-    }
-    
-    @IBAction func ascendingDelay(_ sender: NSMenuItem) {
-        if sender.state.rawValue == 0 {
-            sender.state = NSControl.StateValue(rawValue: 1)
-            UserDefaults.standard.set(true, forKey: USERDEFAULTS_ASCENDING_DELAY)
-            self.updateServersMenu()
-        } else {
-            sender.state = NSControl.StateValue(rawValue: 0)
-            UserDefaults.standard.set(false, forKey: USERDEFAULTS_ASCENDING_DELAY)
-        }
-        UserDefaults.standard.synchronize()
     }
 
     @IBAction func showLogs(_ sender: NSMenuItem) {
@@ -835,7 +803,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         }
     }
     
-    func applyConfig(finish: @escaping(_ success: Bool)->()) {
+    static func applyConfig(finish: @escaping(_ success: Bool)->()) {
         let defaults = UserDefaults.standard
         let isOn = defaults.bool(forKey: USERDEFAULTS_SHADOWSOCKS_ON)
         let mode = defaults.string(forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
