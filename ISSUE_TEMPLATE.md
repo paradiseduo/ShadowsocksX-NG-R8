@@ -1,7 +1,7 @@
 **System and Shadowsocksx-NG-R version:**
 
 - macOS 10.15.4 (19E287)
-- Shadowsocksx-NG-R 1.6.7
+- Shadowsocksx-NG-R 1.6.8
 
 **Expected behavior:**
 
