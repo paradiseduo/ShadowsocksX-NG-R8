@@ -210,7 +210,10 @@ import Cocoa
         if remark.isEmpty {
             return "\(serverHost):\(serverPort)"
         } else {
-            return "\(remark) (\(serverHost):\(serverPort))"
+            if UserDefaults.standard.bool(forKey: USERDEFAULTS_SERVERS_LIST_SHOW_SERVER_AND_PORT) {
+                return "\(remark) (\(serverHost):\(serverPort))"
+            }
+            return "\(remark)"
         }
     }
     

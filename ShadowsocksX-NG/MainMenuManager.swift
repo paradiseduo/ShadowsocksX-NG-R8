@@ -101,6 +101,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             USERDEFAULTS_SPEED_TEST_AFTER_SUBSCRIPTION:true,
             USERDEFAULTS_FIXED_NETWORK_SPEED_VIEW_WIDTH:false,
             USERDEFAULTS_REMOVE_NODE_AFTER_DELETE_SUBSCRIPTION:false,
+            USERDEFAULTS_SERVERS_LIST_SHOW_SERVER_AND_PORT:true,
             USERDEFAULTS_PROXY_EXCEPTIONS: "127.0.0.1,localhost,192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,timestamp.apple.com"
         ])
         
