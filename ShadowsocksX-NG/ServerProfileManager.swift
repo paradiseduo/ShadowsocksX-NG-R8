@@ -14,6 +14,28 @@ class ServerProfileManager: NSObject {
     
     var profiles:[ServerProfile] = [ServerProfile]()
     var activeProfileId: String?
+    var nameLengthCachedMap = [String: CGFloat]()
+    
+    lazy var maxProxyNameLength: CGFloat = {
+        let rect = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 20)
+
+        let lengths = self.profiles.compactMap({ profile -> CGFloat in
+            let name = profile.title()
+            if let length = ServerProfileManager.instance.nameLengthCachedMap[name] {
+                return length
+            }
+
+            let rects = CGSize(width: CGFloat.greatestFiniteMagnitude, height: 20)
+            let attr = [NSAttributedString.Key.font: NSFont.menuBarFont(ofSize: 14)]
+            let length = (name as NSString)
+                .boundingRect(with: rect,
+                              options: .usesLineFragmentOrigin,
+                              attributes: attr).width
+            ServerProfileManager.instance.nameLengthCachedMap[name] = length
+            return length
+        })
+        return lengths.max() ?? 0
+    }()
     
     fileprivate override init() {
         profiles = [ServerProfile]()
@@ -85,6 +107,7 @@ class ServerProfileManager: NSObject {
     }
     
     func reload() {
+        let oldProfiles = profiles
         profiles.removeAll()
         
         let defaults = UserDefaults.standard
@@ -92,6 +115,11 @@ class ServerProfileManager: NSObject {
             for _profile in _profiles {
                 let profile = ServerProfile.fromDictionary(_profile as! [String : AnyObject])
                 profiles.append(profile)
+                if let p = oldProfiles.first(where: { (p) -> Bool in
+                    return p.uuid == profile.uuid
+                }) {
+                    profile.latency = p.latency
+                }
             }
         }
         activeProfileId = defaults.string(forKey: USERDEFAULTS_ACTIVE_SERVER_PROFILE_ID)

@@ -75,4 +75,6 @@
 "zpW-0N-efE.title" = "固定网速视图宽度";
 
 /* Class = "NSButtonCell"; title = "Servers List Show Server And Port"; ObjectID = "lZD-Ch-7Ow"; */
-"lZD-Ch-7Ow.title" = "节点列表显示服务器与端口";
+"lZD-Ch-7Ow.title" = "服务器列表显示服务器与端口";
+
+"u2z-vr-4Tc.title" = "开启服务器列表Pro视图";

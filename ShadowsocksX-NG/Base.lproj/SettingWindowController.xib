@@ -18,14 +18,14 @@
         <window title="Setting" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="380" height="728"/>
+            <rect key="contentRect" x="196" y="240" width="380" height="758"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="380" height="728"/>
+                <rect key="frame" x="0.0" y="0.0" width="380" height="758"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ApX-zr-Hxj">
-                        <rect key="frame" x="18" y="592" width="266" height="18"/>
+                        <rect key="frame" x="18" y="622" width="266" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Check Updates At Launch" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="JIh-ld-QtD">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -36,7 +36,7 @@
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sbA-Rm-Yzj">
-                        <rect key="frame" x="18" y="562" width="266" height="18"/>
+                        <rect key="frame" x="18" y="592" width="266" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Update Subscribe At Launch" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="VXf-Uj-d7Q">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -47,7 +47,7 @@
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zw0-5u-BG7">
-                        <rect key="frame" x="18" y="491" width="274" height="18"/>
+                        <rect key="frame" x="18" y="521" width="274" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Ascending By Delay" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Ska-dR-4WB">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -58,7 +58,7 @@
                         </buttonCell>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ttk-CP-3m5">
-                        <rect key="frame" x="18" y="687" width="274" height="21"/>
+                        <rect key="frame" x="18" y="717" width="274" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Login Options :" id="sLG-9D-rDI">
                             <font key="font" metaFont="system" size="18"/>
@@ -67,11 +67,11 @@
                         </textFieldCell>
                     </textField>
                     <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="CGV-hh-S5W">
-                        <rect key="frame" x="12" y="674" width="356" height="5"/>
+                        <rect key="frame" x="12" y="704" width="356" height="5"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </box>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p07-qD-Vse">
-                        <rect key="frame" x="18" y="526" width="274" height="21"/>
+                        <rect key="frame" x="18" y="556" width="274" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Network Speed Test Options :" id="OdI-7U-Q5G">
                             <font key="font" metaFont="system" size="18"/>
@@ -80,15 +80,15 @@
                         </textFieldCell>
                     </textField>
                     <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="HoF-pP-BWt">
-                        <rect key="frame" x="12" y="553" width="356" height="5"/>
+                        <rect key="frame" x="12" y="583" width="356" height="5"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </box>
                     <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="C2S-GM-4C9">
-                        <rect key="frame" x="12" y="513" width="356" height="5"/>
+                        <rect key="frame" x="12" y="543" width="356" height="5"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </box>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q0N-W0-0Hu">
-                        <rect key="frame" x="18" y="461" width="117" height="16"/>
+                        <rect key="frame" x="18" y="491" width="117" height="16"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Delay Test Method" id="VL7-AA-WMw">
                             <font key="font" usesAppearanceFont="YES"/>
@@ -97,7 +97,7 @@
                         </textFieldCell>
                     </textField>
                     <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a1U-WX-e0O">
-                        <rect key="frame" x="284" y="455" width="79" height="25"/>
+                        <rect key="frame" x="284" y="485" width="79" height="25"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" completes="NO" numberOfVisibleItems="5" id="sm6-oM-OMv">
                             <font key="font" metaFont="system"/>
@@ -110,11 +110,11 @@
                         </comboBoxCell>
                     </comboBox>
                     <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="ZbU-b3-ysQ">
-                        <rect key="frame" x="12" y="422" width="356" height="5"/>
+                        <rect key="frame" x="12" y="452" width="356" height="5"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </box>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vpo-Qg-zhg">
-                        <rect key="frame" x="18" y="622" width="266" height="18"/>
+                        <rect key="frame" x="18" y="652" width="266" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Connect At Launch" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Dg5-tb-PKg">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -125,7 +125,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ySe-v6-cb8">
-                        <rect key="frame" x="18" y="652" width="266" height="18"/>
+                        <rect key="frame" x="18" y="682" width="266" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Launch At Login" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="TxB-im-9BP">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -133,7 +133,7 @@
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L0y-jm-3i3">
-                        <rect key="frame" x="18" y="431" width="274" height="18"/>
+                        <rect key="frame" x="18" y="461" width="274" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Speed ​​Test After Subscription" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="jet-3h-th2">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -144,7 +144,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="acw-Gv-luy">
-                        <rect key="frame" x="18" y="360" width="274" height="18"/>
+                        <rect key="frame" x="18" y="390" width="274" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Show Network Speed" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Tku-Zl-wRg">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -155,7 +155,7 @@
                         </buttonCell>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7YF-rx-e3g">
-                        <rect key="frame" x="18" y="395" width="274" height="21"/>
+                        <rect key="frame" x="18" y="425" width="274" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" lineBreakMode="clipping" title="Other Options :" id="dNk-UW-dxA">
                             <font key="font" metaFont="system" size="18"/>
@@ -164,11 +164,11 @@
                         </textFieldCell>
                     </textField>
                     <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="527-cH-9vG">
-                        <rect key="frame" x="12" y="382" width="356" height="5"/>
+                        <rect key="frame" x="12" y="412" width="356" height="5"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </box>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LjK-Pe-Rw1">
-                        <rect key="frame" x="18" y="330" width="274" height="18"/>
+                        <rect key="frame" x="18" y="360" width="274" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Fixed Network Speed View Width" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="zpW-0N-efE">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -182,7 +182,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SLN-WX-aW8">
-                        <rect key="frame" x="18" y="300" width="274" height="18"/>
+                        <rect key="frame" x="18" y="330" width="274" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Remove Node After Delete Subscription" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="K8N-Yn-gyR">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -193,7 +193,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OOv-9e-pT0">
-                        <rect key="frame" x="18" y="270" width="247" height="18"/>
+                        <rect key="frame" x="18" y="300" width="247" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Auto Update Subscription With Proxy" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="MMs-xi-q91">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -204,7 +204,7 @@
                         </buttonCell>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Y2-d1-Zxk">
-                        <rect key="frame" x="18" y="240" width="230" height="18"/>
+                        <rect key="frame" x="18" y="270" width="230" height="18"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="check" title="Servers List Show Server And Port" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="lZD-Ch-7Ow">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -212,6 +212,17 @@
                         </buttonCell>
                         <connections>
                             <binding destination="n1P-Gw-nhM" name="value" keyPath="values.SERVERS_LIST_SHOW_SERVER_AND_PORT" id="A53-9p-Dun"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nYJ-hH-PcJ">
+                        <rect key="frame" x="18" y="240" width="187" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="Open Servers List Pro View" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="u2z-vr-4Tc">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <binding destination="n1P-Gw-nhM" name="value" keyPath="values.USERDEFAULTS_OPEN_SERVERS_LIST_PRO_VIEW" id="gRh-bZ-HVX"/>
                         </connections>
                     </button>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jPR-sG-9bo">
@@ -348,7 +359,7 @@
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
             </connections>
-            <point key="canvasLocation" x="-75" y="283"/>
+            <point key="canvasLocation" x="-75" y="298"/>
         </window>
         <userDefaultsController id="IAL-Qp-E20"/>
         <userDefaultsController representsSharedInstance="YES" id="n1P-Gw-nhM"/>

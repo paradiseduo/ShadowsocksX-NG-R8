@@ -102,6 +102,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             USERDEFAULTS_FIXED_NETWORK_SPEED_VIEW_WIDTH:false,
             USERDEFAULTS_REMOVE_NODE_AFTER_DELETE_SUBSCRIPTION:false,
             USERDEFAULTS_SERVERS_LIST_SHOW_SERVER_AND_PORT:true,
+            USERDEFAULTS_OPEN_SERVERS_LIST_PRO_VIEW:false,
             USERDEFAULTS_PROXY_EXCEPTIONS: "127.0.0.1,localhost,192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,timestamp.apple.com"
         ])
         
@@ -637,34 +638,47 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             serversMenuItem.submenu?.addItem(NSMenuItem.separator())
         }
         
-        var i = 0
-        var serverMenuItems = [NSMenuItem]()
+        if !neverSpeedTestBefore {
+            if UserDefaults.standard.bool(forKey: USERDEFAULTS_ASCENDING_DELAY) {
+                mgr.profiles = mgr.profiles.sorted { (p1, p2) -> Bool in
+                    return p1.latency.doubleValue <= p2.latency.doubleValue
+                }
+            } else {
+                mgr.reload()
+            }
+        }
+
+        if UserDefaults.standard.bool(forKey: USERDEFAULTS_OPEN_SERVERS_LIST_PRO_VIEW) {
+            self.serverMenuItemPro(mgr)
+        } else {
+            self.serverMenuItemNormal(mgr)
+        }
+    }
+    
+    private func serverMenuItemNormal(_ mgr: ServerProfileManager) {
         var fastTime = ""
+        var i = 0
         if let t = UserDefaults.standard.object(forKey: USERDEFAULTS_FASTEST_NODE) as? String {
             fastTime = t
         }
-        if !neverSpeedTestBefore && UserDefaults.standard.bool(forKey: USERDEFAULTS_ASCENDING_DELAY) {
-            mgr.profiles = mgr.profiles.sorted { (p1, p2) -> Bool in
-                return p1.latency.doubleValue <= p2.latency.doubleValue
-            }
-        }
         for p in mgr.profiles {
-            let item = NSMenuItem()
+            let item = NSMenuItem(title: p.title(), action: #selector(MainMenuManager.selectServer), keyEquivalent: "")
             item.tag = i //+ kProfileMenuItemIndexBase
-            item.title = p.title()
+            item.target = self
+            
             let latency = p.latency
             let nf = NumberFormatter.three(latency)
             if latency.doubleValue != Double.infinity {
-                item.title += "  - \(nf) ms"
+                item.title += "  - \(nf)ms"
                 if nf == fastTime {
-                    let dic = [NSAttributedString.Key.foregroundColor : NSColor.green]
+                    let dic = [NSAttributedString.Key.foregroundColor : NSColor.good]
                     let attStr = NSAttributedString(string: item.title, attributes: dic)
                     item.attributedTitle = attStr
                 }
             }else{
                 if !neverSpeedTestBefore {
                     item.title += "  - failed"
-                    let dic = [NSAttributedString.Key.foregroundColor : NSColor.red]
+                    let dic = [NSAttributedString.Key.foregroundColor : NSColor.fail]
                     let attStr = NSAttributedString(string: item.title, attributes: dic)
                     item.attributedTitle = attStr
                 }
@@ -676,8 +690,6 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
                 item.isEnabled = false
             }
             
-            item.action = #selector(MainMenuManager.selectServer)
-            
             if !p.ssrGroup.isEmpty {
                 if((serversMenuItem.submenu?.item(withTitle: p.ssrGroup)) == nil){
                     let groupSubmenu = NSMenu()
@@ -686,7 +698,6 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
                     serversMenuItem.submenu?.addItem(groupSubmenuItem)
                     serversMenuItem.submenu?.setSubmenu(groupSubmenu, for: groupSubmenuItem)
                     if mgr.getActiveProfileId() == p.uuid {
-                        item.state = NSControl.StateValue(rawValue: 1)
                         groupSubmenuItem.state = NSControl.StateValue(rawValue: 1)
                     }
                     groupSubmenuItem.submenu?.addItem(item)
@@ -695,7 +706,6 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
                 }
                 else{
                     if mgr.getActiveProfileId() == p.uuid {
-                        item.state = NSControl.StateValue(rawValue: 1)
                         serversMenuItem.submenu?.item(withTitle: p.ssrGroup)?.state = NSControl.StateValue(rawValue: 1)
                     }
                     serversMenuItem.submenu?.item(withTitle: p.ssrGroup)?.submenu?.addItem(item)
@@ -704,12 +714,27 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
                 }
             }
             
-            serverMenuItems.append(item)
+            serversMenuItem.submenu?.addItem(item)
             i += 1
         }
-        // 把没有分组的放到最下面，如果有100个服务器的时候对用户很有用
-        for item in serverMenuItems {
+    }
+    
+    private func serverMenuItemPro(_ mgr: ServerProfileManager) {
+        var i = 0
+        for p in mgr.profiles {
+            let item = ProxyMenuItem(proxy: p, action: #selector(MainMenuManager.selectServer))
+            item.target = self
+            item.tag = i //+ kProfileMenuItemIndexBase
+            if !p.isValid() {
+                item.isEnabled = false
+            }
             serversMenuItem.submenu?.addItem(item)
+            i += 1
+        }
+        if neverSpeedTestBefore {
+            serversMenuItem.submenu?.minimumWidth = mgr.maxProxyNameLength
+        } else {
+            serversMenuItem.submenu?.minimumWidth = mgr.maxProxyNameLength + ProxyItemView.fixedPlaceHolderWidth
         }
     }
     
