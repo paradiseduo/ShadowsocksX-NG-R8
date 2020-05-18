@@ -1,0 +1,212 @@
+
+/* Class = "NSButtonCell"; title = "Enable Verbose Mode"; ObjectID = "08h-Vy-lwo"; */
+"08h-Vy-lwo.title" = "启用 Verbose 模式";
+
+/* Class = "NSTextFieldCell"; title = "Local PAC Listen Address:"; ObjectID = "3Mm-G2-f8g"; */
+"3Mm-G2-f8g.title" = "本地 PAC 监听地址:";
+
+/* Class = "NSToolbarItem"; label = "Other"; ObjectID = "63Z-89-8Hk"; */
+"63Z-89-8Hk.label" = "其他设置";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Other"; ObjectID = "63Z-89-8Hk"; */
+"63Z-89-8Hk.paletteLabel" = "其他设置";
+
+/* Class = "NSToolbarItem"; label = "Update"; ObjectID = "7bq-Kd-ZzF"; */
+"7bq-Kd-ZzF.label" = "规则设置";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Update"; ObjectID = "7bq-Kd-ZzF"; */
+"7bq-Kd-ZzF.paletteLabel" = "规则设置";
+
+/* Class = "NSTabViewItem"; label = "Advanced"; ObjectID = "89p-8l-Uxg"; */
+"89p-8l-Uxg.label" = "高级设置";
+
+/* Class = "NSTextFieldCell"; title = "Switch To ACL Auto Mode:"; ObjectID = "8aG-TZ-tAg"; */
+"8aG-TZ-tAg.title" = "ACL自动模式快捷键:";
+
+/* Class = "NSButtonCell"; title = "Save"; ObjectID = "99V-14-mK8"; */
+"99V-14-mK8.title" = "保存";
+
+/* Class = "NSButtonCell"; title = "Save"; ObjectID = "B9U-aK-NNj"; */
+"B9U-aK-NNj.title" = "保存";
+
+/* Class = "NSButtonCell"; title = "HTTP Proxy Enable"; ObjectID = "CXZ-Hq-GQQ"; */
+"CXZ-Hq-GQQ.title" = "开启 HTTP 代理";
+
+/* Class = "NSTextFieldCell"; title = "Timeout:"; ObjectID = "Cjn-Kv-zQg"; */
+"Cjn-Kv-zQg.title" = "超时:";
+
+/* Class = "NSButtonCell"; title = "Auto Configure"; ObjectID = "CtD-y4-yxh"; */
+"CtD-y4-yxh.title" = "自动设置";
+
+/* Class = "NSButtonCell"; title = "Ascending By Delay"; ObjectID = "EZP-q3-JHP"; */
+"EZP-q3-JHP.title" = "延迟按升序排序";
+
+/* Class = "NSWindow"; title = "Setting"; ObjectID = "F0z-JX-Cv5"; */
+"F0z-JX-Cv5.title" = "应用设置";
+
+/* Class = "NSTextFieldCell"; title = "Local Socks5 Listen Address:"; ObjectID = "Ks1-zg-TtE"; */
+"Ks1-zg-TtE.title" = "本地 Socks5 监听地址:";
+
+/* Class = "NSTextFieldCell"; title = "Local Socks5 Listen Port:"; ObjectID = "LqX-MT-2pM"; */
+"LqX-MT-2pM.title" = "本地 Socks5 监听端口:";
+
+/* Class = "NSTabViewItem"; label = "HTTP"; ObjectID = "MFd-Rl-0zu"; */
+"MFd-Rl-0zu.label" = "HTTP";
+
+/* Class = "NSTextFieldCell"; title = "Login Options :"; ObjectID = "MSA-rS-Fji"; */
+"MSA-rS-Fji.title" = "登录选项 :";
+
+/* Class = "NSTextFieldCell"; title = "HTTP Proxy Listen Port:"; ObjectID = "Mf0-HP-koA"; */
+"Mf0-HP-koA.title" = "HTTP 代理监听端口:";
+
+/* Class = "NSButtonCell"; title = "Enable Udp Replay"; ObjectID = "Mkk-VI-Ghc"; */
+"Mkk-VI-Ghc.title" = "开启 Udp Replay";
+
+/* Class = "NSButtonCell"; title = "Auto Update Subscription With Proxy"; ObjectID = "OO0-N2-l9l"; */
+"OO0-N2-l9l.title" = "通过代理自动更新订阅";
+
+/* Class = "NSButtonCell"; title = "Servers List Show Server And Port"; ObjectID = "PH6-7d-hO8"; */
+"PH6-7d-hO8.title" = "服务器列表显示服务器与端口";
+
+/* Class = "NSTextFieldCell"; title = "Switch To Manual Mode:"; ObjectID = "R4F-Gp-eOq"; */
+"R4F-Gp-eOq.title" = "手动模式快捷键:";
+
+/* Class = "NSComboBoxCell"; TgX-b9-ytJ.ibShadowedObjectValues[0] = "ICMP"; ObjectID = "TgX-b9-ytJ"; */
+"TgX-b9-ytJ.ibShadowedObjectValues[0]" = "ICMP";
+
+/* Class = "NSComboBoxCell"; TgX-b9-ytJ.ibShadowedObjectValues[1] = "TCP"; ObjectID = "TgX-b9-ytJ"; */
+"TgX-b9-ytJ.ibShadowedObjectValues[1]" = "TCP";
+
+/* Class = "NSToolbarItem"; label = "HTTP"; ObjectID = "UbZ-Ci-teR"; */
+"UbZ-Ci-teR.label" = "HTTP";
+
+/* Class = "NSToolbarItem"; paletteLabel = "HTTP"; ObjectID = "UbZ-Ci-teR"; */
+"UbZ-Ci-teR.paletteLabel" = "HTTP";
+
+/* Class = "NSTextFieldCell"; title = "Other Options :"; ObjectID = "V0z-8h-am2"; */
+"V0z-8h-am2.title" = "其它选项 :";
+
+/* Class = "NSButtonCell"; title = "Check"; ObjectID = "Vft-I6-KQf"; */
+"Vft-I6-KQf.title" = "Check";
+
+/* Class = "NSButtonCell"; title = "Open Servers List Pro View"; ObjectID = "YVO-ny-0Ka"; */
+"YVO-ny-0Ka.title" = "开启服务器列表Pro视图";
+
+/* Class = "NSTabViewItem"; label = "Hardware"; ObjectID = "Yi7-u3-2ju"; */
+"Yi7-u3-2ju.label" = "硬件设置";
+
+/* Class = "NSTextFieldCell"; title = "Switch To Global Mode:"; ObjectID = "ZDH-sv-HWf"; */
+"ZDH-sv-HWf.title" = "全局模式快捷键:";
+
+/* Class = "NSTextFieldCell"; title = "HTTP Proxy Listen Address:"; ObjectID = "ZKw-UU-29H"; */
+"ZKw-UU-29H.title" = "HTTP 代理监听地址:";
+
+/* Class = "NSTextFieldCell"; title = "Don't change these preferences if you have no idea what they are."; ObjectID = "a3m-14-Ylw"; */
+"a3m-14-Ylw.title" = "如果你不明白这些选项的作用，请不要修改！";
+
+/* Class = "NSTextFieldCell"; title = "Switch To PAC Mode:"; ObjectID = "acg-vD-SS1"; */
+"acg-vD-SS1.title" = "PAC模式快捷键:";
+
+/* Class = "NSTabViewItem"; label = "Other"; ObjectID = "bC1-aW-nxd"; */
+"bC1-aW-nxd.label" = "其他设置";
+
+/* Class = "NSButtonCell"; title = "Update Subscribe At Launch"; ObjectID = "bH8-Ib-NwG"; */
+"bH8-Ib-NwG.title" = "打开后自动更新订阅";
+
+/* Class = "NSButtonCell"; title = "Connect At Launch"; ObjectID = "d3q-3O-V8q"; */
+"d3q-3O-V8q.title" = "打开后自动连接";
+
+/* Class = "NSTabViewItem"; label = "Update"; ObjectID = "dKi-ch-l5g"; */
+"dKi-ch-l5g.label" = "规则设置";
+
+/* Class = "NSTextFieldCell"; title = "ACL White List URL:"; ObjectID = "dTG-xh-fjV"; */
+"dTG-xh-fjV.title" = "ACL 白名单更新地址:";
+
+/* Class = "NSTextFieldCell"; title = "ACL Back China URL:"; ObjectID = "eFX-gh-xCk"; */
+"eFX-gh-xCk.title" = "ACL 国内代理名单更新地址:";
+
+/* Class = "NSTextFieldCell"; title = "Bypass proxy settings for these Hosts & Domains:"; ObjectID = "fQa-8a-rwc"; */
+"fQa-8a-rwc.title" = "忽略这些主机与域的代理设置:";
+
+/* Class = "NSTextFieldCell"; title = "Switch To WhiteList Mode:"; ObjectID = "g7d-HW-K5l"; */
+"g7d-HW-K5l.title" = "白名单模式快捷键:";
+
+/* Class = "NSButtonCell"; title = "Speed ​​Test After Subscription"; ObjectID = "hes-KD-3Ms"; */
+"hes-KD-3Ms.title" = "更新订阅后自动测试延迟";
+
+/* Class = "NSButtonCell"; title = "Follow Global Mode"; ObjectID = "iMv-Y5-e2F"; */
+"iMv-Y5-e2F.title" = "跟随全局模式";
+
+/* Class = "NSToolbarItem"; label = "Hardware"; ObjectID = "ixm-C5-Vp1"; */
+"ixm-C5-Vp1.label" = "硬件设置";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Hardware"; ObjectID = "ixm-C5-Vp1"; */
+"ixm-C5-Vp1.paletteLabel" = "硬件设置";
+
+/* Class = "NSTextFieldCell"; title = "Network Speed Test Options :"; ObjectID = "jY8-PA-A9U"; */
+"jY8-PA-A9U.title" = "网络延迟测试选项 :";
+
+/* Class = "NSButtonCell"; title = "Save"; ObjectID = "jy0-B8-kTJ"; */
+"jy0-B8-kTJ.title" = "保存";
+
+/* Class = "NSButtonCell"; title = "Remove Node After Delete Subscription"; ObjectID = "k84-Yv-ZeI"; */
+"k84-Yv-ZeI.title" = "删除订阅时删除相应节点";
+
+/* Class = "NSToolbarItem"; label = "Advanced"; ObjectID = "kbd-0t-ip1"; */
+"kbd-0t-ip1.label" = "高级设置";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Advanced"; ObjectID = "kbd-0t-ip1"; */
+"kbd-0t-ip1.paletteLabel" = "高级设置";
+
+/* Class = "NSButtonCell"; title = "Check Updates At Launch"; ObjectID = "lJH-Oy-FC3"; */
+"lJH-Oy-FC3.title" = "打开后自动检查更新";
+
+/* Class = "NSTextFieldCell"; title = "Seconds"; ObjectID = "ltX-jC-jst"; */
+"ltX-jC-jst.title" = "秒";
+
+/* Class = "NSTextFieldCell"; title = "Shortcuts Options :"; ObjectID = "nVU-tW-NRQ"; */
+"nVU-tW-NRQ.title" = "快捷键选项 :";
+
+/* Class = "NSButtonCell"; title = "Show Network Speed"; ObjectID = "pMa-Yv-8Ge"; */
+"pMa-Yv-8Ge.title" = "显示网速";
+
+/* Class = "NSTextFieldCell"; title = "Toggle Shadowsocks On/Off:"; ObjectID = "rTu-ur-Wd0"; */
+"rTu-ur-Wd0.title" = "打开/关闭 Shadowsocks快捷键:";
+
+/* Class = "NSTextFieldCell"; title = "PAC GFW List URL:"; ObjectID = "rvB-gv-JKm"; */
+"rvB-gv-JKm.title" = "PAC GFW List 更新地址:";
+
+/* Class = "NSTextFieldCell"; title = "Delay Test Method"; ObjectID = "tHX-Lc-DLi"; */
+"tHX-Lc-DLi.title" = "延迟测试方式";
+
+/* Class = "NSTextFieldCell"; title = "Switch To Proxy Back China Mode:"; ObjectID = "uDU-UN-AhL"; */
+"uDU-UN-AhL.title" = "代理大陆IP快捷键:";
+
+/* Class = "NSTabViewItem"; label = "General"; ObjectID = "uNf-rx-gUG"; */
+"uNf-rx-gUG.label" = "常规设置";
+
+/* Class = "NSButtonCell"; title = "Fixed Network Speed View Width"; ObjectID = "vGI-Wr-YvU"; */
+"vGI-Wr-YvU.title" = "固定网速视图宽度";
+
+/* Class = "NSButtonCell"; title = "Launch At Login"; ObjectID = "vXz-hQ-FUf"; */
+"vXz-hQ-FUf.title" = "登录后自动启动";
+
+/* Class = "NSToolbarItem"; label = "General"; ObjectID = "w0N-kL-X0c"; */
+"w0N-kL-X0c.label" = "常规设置";
+
+/* Class = "NSToolbarItem"; paletteLabel = "General"; ObjectID = "w0N-kL-X0c"; */
+"w0N-kL-X0c.paletteLabel" = "常规设置";
+
+/* Class = "NSTextFieldCell"; title = "Local PAC Listen Port:"; ObjectID = "wdw-cm-QdI"; */
+"wdw-cm-QdI.title" = "本地 PAC 监听端口:";
+
+/* Class = "NSTextFieldCell"; title = "ACL Auto List URL:"; ObjectID = "xro-0Z-IGS"; */
+"xro-0Z-IGS.title" = "ACL 黑名单更新地址:";
+
+"Z8S-VK-lq8.title" = "用户自定义PAC规则:";
+
+"Vdf-8c-Ddk.title" = "更新ACL名单";
+
+"jYU-Av-0dE.title" = "更新PAC名单";
+
+"yjA-ES-vS8.title" = "保存用户规则";

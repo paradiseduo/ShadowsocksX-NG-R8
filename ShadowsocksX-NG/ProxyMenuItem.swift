@@ -2,7 +2,7 @@
 //  MenuItemBaseView.swift
 //  ShadowsocksX-NG
 //
-//  Created by YouShaoduo on 2020/5/16.
+//  Created by ParadiseDuo on 2020/5/16.
 //  Copyright © 2020 qiuyuzhou. All rights reserved.
 //
 

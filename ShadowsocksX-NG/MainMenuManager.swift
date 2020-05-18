@@ -18,7 +18,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     var httpPreferencesWinCtrl : HTTPPreferencesWindowController!
     var subscribePreferenceWinCtrl: SubscribePreferenceWindowController!
     var toastWindowCtrl: ToastWindowController!
-    var settingWindowCtrl: SettingWindowController!
+    var settingWindowCtrl: SettingsWindowController!
     
     // MARK: Outlets
     @IBOutlet weak var statusMenu: NSMenu!
@@ -243,11 +243,15 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     }
 
     @IBAction func updateGFWList(_ sender: NSMenuItem) {
-        UpdatePACFromGFWList()
+        UpdatePACFromGFWList {
+            
+        }
     }
     
     @IBAction func updateWhiteList(_ sender: NSMenuItem) {
-        UpdateACL()
+        UpdateACL {
+            
+        }
     }
     
     @IBAction func editUserRulesForPAC(_ sender: NSMenuItem) {
@@ -487,7 +491,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         if settingWindowCtrl != nil {
             settingWindowCtrl.close()
         }
-        let ctrl = SettingWindowController(windowNibName: "SettingWindowController")
+        let ctrl = SettingsWindowController(windowNibName: "SettingsWindowController")
         settingWindowCtrl = ctrl
         
         ctrl.showWindow(self)

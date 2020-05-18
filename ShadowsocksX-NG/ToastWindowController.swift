@@ -2,7 +2,7 @@
 //  ToastWindowController.swift
 //  ShadowsocksX-NG
 //
-//  Created by Youssef on 2019/11/6.
+//  Created by ParadiseDuo on 2019/11/6.
 //  Copyright © 2019 qiuyuzhou. All rights reserved.
 //
 

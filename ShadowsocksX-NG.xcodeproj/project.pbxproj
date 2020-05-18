@@ -60,6 +60,7 @@
 		A40EFDAD315FA9A6DEAFB357 /* Pods_ShadowsocksX_NG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2DEA085109C9B200E36DA0A /* Pods_ShadowsocksX_NG.framework */; };
 		BE492025242F412900A6C78E /* tcping.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE492022242F412900A6C78E /* tcping.swift */; };
 		BE492026242F412900A6C78E /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = BE492024242F412900A6C78E /* GCDAsyncSocket.m */; };
+		BE5F992F2472C3F40087A065 /* SettingsWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE5F99312472C3F40087A065 /* SettingsWindowController.xib */; };
 		BE61A1E1245BFE8E0007FB64 /* SpeedTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE61A1E0245BFE8E0007FB64 /* SpeedTools.swift */; };
 		BE6B3C87246AD950000286B0 /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B3C86246AD950000286B0 /* Shortcuts.swift */; };
 		BE6B3C8A246AE294000286B0 /* ModeSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B3C89246AE294000286B0 /* ModeSwitcher.swift */; };
@@ -68,6 +69,7 @@
 		BE8448822459C6B500491046 /* SettingWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BE8448842459C6B500491046 /* SettingWindowController.xib */; };
 		BE9B190C247024EE0052665C /* ProxyMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9B190B247024EE0052665C /* ProxyMenuItem.swift */; };
 		BEAA0EDD244B273A00809ADD /* MainMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAA0EDC244B273A00809ADD /* MainMenuManager.swift */; };
+		BEAE65F02471614900995D48 /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAE65EE2471614900995D48 /* SettingsWindowController.swift */; };
 		C6D429931DA75988002A5711 /* install_privoxy.sh in Resources */ = {isa = PBXBuildFile; fileRef = C6D4298E1DA75988002A5711 /* install_privoxy.sh */; };
 		C6D429941DA75988002A5711 /* privoxy in Resources */ = {isa = PBXBuildFile; fileRef = C6D4298F1DA75988002A5711 /* privoxy */; };
 		C6D429951DA75988002A5711 /* reload_conf_privoxy.sh in Resources */ = {isa = PBXBuildFile; fileRef = C6D429901DA75988002A5711 /* reload_conf_privoxy.sh */; };
@@ -211,6 +213,8 @@
 		BE492022242F412900A6C78E /* tcping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tcping.swift; sourceTree = "<group>"; };
 		BE492023242F412900A6C78E /* GCDAsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDAsyncSocket.h; sourceTree = "<group>"; };
 		BE492024242F412900A6C78E /* GCDAsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDAsyncSocket.m; sourceTree = "<group>"; };
+		BE5F99302472C3F40087A065 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SettingsWindowController.xib; sourceTree = "<group>"; };
+		BE5F99342472C3F90087A065 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SettingsWindowController.strings"; sourceTree = "<group>"; };
 		BE61A1E0245BFE8E0007FB64 /* SpeedTools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTools.swift; sourceTree = "<group>"; };
 		BE61A1E5245C1D010007FB64 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MainMenu.strings"; sourceTree = "<group>"; };
 		BE6B3C86246AD950000286B0 /* Shortcuts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shortcuts.swift; sourceTree = "<group>"; };
@@ -222,6 +226,7 @@
 		BE8448832459C6B500491046 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SettingWindowController.xib; sourceTree = "<group>"; };
 		BE9B190B247024EE0052665C /* ProxyMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyMenuItem.swift; sourceTree = "<group>"; };
 		BEAA0EDC244B273A00809ADD /* MainMenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuManager.swift; sourceTree = "<group>"; };
+		BEAE65EE2471614900995D48 /* SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
 		BEE8F089245B11230088145C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/RuleSettingWindowController.strings"; sourceTree = "<group>"; };
 		BEE8F08B245B141F0088145C /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/AdvPreferencesWindowController.strings"; sourceTree = "<group>"; };
 		BEFD0E63246441E600DA6510 /* Configure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Configure.h; sourceTree = "<group>"; };
@@ -430,6 +435,8 @@
 				BE84487E2459BEA900491046 /* SettingWindowController.swift */,
 				BE8448842459C6B500491046 /* SettingWindowController.xib */,
 				BE9B190B247024EE0052665C /* ProxyMenuItem.swift */,
+				BEAE65EE2471614900995D48 /* SettingsWindowController.swift */,
+				BE5F99312472C3F40087A065 /* SettingsWindowController.xib */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -618,6 +625,7 @@
 				08F162C21EBEEC0F00C52869 /* gfwlist.acl in Resources */,
 				08F162C01EBEE6F800C52869 /* backchn.acl in Resources */,
 				C6D429951DA75988002A5711 /* reload_conf_privoxy.sh in Resources */,
+				BE5F992F2472C3F40087A065 /* SettingsWindowController.xib in Resources */,
 				9B0BFFEB1D0460A70040E62B /* Assets.xcassets in Resources */,
 				9B2491B71D0ACC3E003BBECC /* AdvPreferencesWindowController.xib in Resources */,
 				9B3FFF271D0898EB0019A709 /* gfwlist.txt in Resources */,
@@ -742,6 +750,7 @@
 				E83546612416034200D7776E /* RuleSettingWindowController.swift in Sources */,
 				9B3FFF321D08CEE40019A709 /* SWBQRCodeWindowController.m in Sources */,
 				08BDBB481E2361BD00C4BBC2 /* VersionChecker.swift in Sources */,
+				BEAE65F02471614900995D48 /* SettingsWindowController.swift in Sources */,
 				083BF8371D82742200831C68 /* PingClient.swift in Sources */,
 				E8B5698A2456C900001DA9A7 /* Network.swift in Sources */,
 				BE492025242F412900A6C78E /* tcping.swift in Sources */,
@@ -845,6 +854,15 @@
 				BEE8F08B245B141F0088145C /* zh-Hans */,
 			);
 			name = AdvPreferencesWindowController.xib;
+			sourceTree = "<group>";
+		};
+		BE5F99312472C3F40087A065 /* SettingsWindowController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BE5F99302472C3F40087A065 /* Base */,
+				BE5F99342472C3F90087A065 /* zh-Hans */,
+			);
+			name = SettingsWindowController.xib;
 			sourceTree = "<group>";
 		};
 		BE8448842459C6B500491046 /* SettingWindowController.xib */ = {

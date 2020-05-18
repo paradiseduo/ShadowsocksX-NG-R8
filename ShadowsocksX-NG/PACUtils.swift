@@ -170,13 +170,13 @@ func GeneratePACFile() -> Bool {
     return false
 }
 
-func UpdatePACFromGFWList() {
+func UpdatePACFromGFWList(finish:@escaping()->()) {
     // Make the dir if rulesDirPath is not exesited.
     if !FileManager.default.fileExists(atPath: PACRulesDirPath) {
         do {
-            try FileManager.default.createDirectory(atPath: PACRulesDirPath
-                , withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: PACRulesDirPath, withIntermediateDirectories: true, attributes: nil)
         } catch {
+            
         }
     }
     
@@ -191,14 +191,17 @@ func UpdatePACFromGFWList() {
                 notification.title = "PAC has been updated by latest GFW List.".localized
                 NSUserNotificationCenter.default.deliver(notification)
             }
+            finish()
         } catch {
             // Popup a user notification
             let notification = NSUserNotification()
             notification.title = "Failed to download latest GFW List.".localized
             NSUserNotificationCenter.default.deliver(notification)
+            finish()
         }
     }
 }
+
 func ACLFromUserRule(userRuleLines:[String]){
     do {
         var AutoACL = try String(contentsOfFile: ACLGFWListFilePath, encoding: String.Encoding.utf8)
@@ -238,12 +241,13 @@ func ACLFromUserRule(userRuleLines:[String]){
         
     }
 }
-func UpdateACL(){
+
+func UpdateACL(finish:@escaping()->()) {
     if !FileManager.default.fileExists(atPath: PACRulesDirPath) {
         do {
-            try FileManager.default.createDirectory(atPath: PACRulesDirPath
-                , withIntermediateDirectories: true, attributes: nil)
+            try FileManager.default.createDirectory(atPath: PACRulesDirPath, withIntermediateDirectories: true, attributes: nil)
         } catch {
+            
         }
     }
     let timeout = DispatchTime.now()+2
@@ -323,5 +327,8 @@ func UpdateACL(){
             }
             let _ = group.wait(timeout: timeout)
         }
+    }
+    group.notify(queue: DispatchQueue.main) {
+        finish()
     }
 }
