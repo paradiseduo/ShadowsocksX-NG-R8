@@ -105,7 +105,10 @@
 
 "Servers" = "服务器";
 
-"Export Command Copied." = "Export 命令已复制至剪贴板";
+"Export Command Copied." = "命令已复制至剪贴板";
 
+"Export Command Copied Failed." = "命令复制至剪贴板失败";
 
-"Export Command Copied Failed." = "Export 命令复制至剪贴板失败";
+"Failed to Add Server Profile" = "添加服务器配置失败";
+
+"Address can not be recognized" = "未找到有效的服务器配置";

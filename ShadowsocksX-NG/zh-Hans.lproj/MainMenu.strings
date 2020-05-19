@@ -1,12 +1,21 @@
 
-/* Class = "NSMenuItem"; title = "Export All Server To Json"; ObjectID = "6k0-gn-DQv"; */
-"6k0-gn-DQv.title" = "导出全部服务器配置";
+/* Class = "NSMenuItem"; title = "Import Bunch Json File"; ObjectID = "15a-D6-JJo"; */
+"15a-D6-JJo.title" = "导入服务器配置文件";
+
+/* Class = "NSMenuItem"; title = "Scan QR Code From Screen"; ObjectID = "7zm-wP-7va"; */
+"7zm-wP-7va.title" = "扫描屏幕上的二维码";
 
 /* Class = "NSMenuItem"; title = "Manual Mode"; ObjectID = "8PR-gs-c5N"; */
 "8PR-gs-c5N.title" = "手动模式";
 
 /* Class = "NSMenu"; title = "Servers"; ObjectID = "9Y1-db-3HK"; */
-"9Y1-db-3HK.title" = "服务器";
+"9Y1-db-3HK.title" = "服务器列表";
+
+/* Class = "NSMenuItem"; title = "Import Server"; ObjectID = "ALY-Ox-N1x"; */
+"ALY-Ox-N1x.title" = "导入/导出";
+
+/* Class = "NSMenuItem"; title = "Import Server URLs From Pasteboard"; ObjectID = "BQT-kh-cxJ"; */
+"BQT-kh-cxJ.title" = "从剪贴板导入服务器配置链接";
 
 /* Class = "NSMenuItem"; title = "Close"; ObjectID = "GON-fS-emF"; */
 "GON-fS-emF.title" = "关闭";
@@ -32,59 +41,44 @@
 /* Class = "NSMenuItem"; title = "Global Mode"; ObjectID = "Mw3-Jm-eXA"; */
 "Mw3-Jm-eXA.title" = "全局模式";
 
+/* Class = "NSMenuItem"; title = "Show QR Code For Current Server"; ObjectID = "Mxc-As-nOw"; */
+"QUb-tM-Aok.title" = "显示当前服务器的二维码";
+
 /* Class = "NSMenuItem"; title = "Manual Update Subscribe"; ObjectID = "NnE-Ad-1An"; */
 "NnE-Ad-1An.title" = "手动更新订阅";
+
+/* Class = "NSMenuItem"; title = "Update Subscription With Proxy"; ObjectID = "P8g-TD-nT5"; */
+"P8g-TD-nT5.title" = "更新订阅（通过代理）";
 
 /* Class = "NSMenuItem"; title = "⚙ Edit Subscribe Feed"; ObjectID = "QJ6-eg-mzv"; */
 "QJ6-eg-mzv.title" = "⚙ 订阅设置";
 
-/* Class = "NSMenuItem"; title = "Scan QR Code From Screen"; ObjectID = "Qe6-bF-paT"; */
-"Qe6-bF-paT.title" = "扫描屏幕上的二维码";
-
-/* Class = "NSMenuItem"; title = "Show QR Code For Current Server"; ObjectID = "R6A-96-Zcb"; */
-"R6A-96-Zcb.title" = "显示当前服务器的二维码";
-
 /* Class = "NSMenuItem"; title = "White List Mode"; ObjectID = "RvZ-Zn-29U"; */
 "RvZ-Zn-29U.title" = "白名单模式";
-
-/* Class = "NSMenuItem"; title = "Import Bunch Json File"; ObjectID = "T9g-gy-gvv"; */
-"T9g-gy-gvv.title" = "导入服务器配置文件";
-
-/* Class = "NSMenuItem"; title = "Update PAC File"; ObjectID = "TFc-Ec-duM"; */
-"TFc-Ec-duM.title" = "更新PAC名单";
 
 /* Class = "NSMenuItem"; title = "Feedback"; ObjectID = "W7u-7g-Gv4"; */
 "W7u-7g-Gv4.title" = "问题反馈";
 
-/* Class = "NSMenu"; title = "Rule List Settings"; ObjectID = "YZp-bf-L40"; */
-"YZp-bf-L40.title" = "规则名单设置";
-
 /* Class = "NSMenuItem"; title = "ACL Mode"; ObjectID = "Yub-b0-bni"; */
 "Yub-b0-bni.title" = "ACL模式";
-
-/* Class = "NSMenuItem"; title = "⚙ Advanced Proxy Settings"; ObjectID = "bZ3-fy-34d"; */
-"bZ3-fy-34d.title" = "⚙ 高级代理设置";
-
-/* Class = "NSMenuItem"; title = "Rule List Settings"; ObjectID = "diI-fB-Rss"; */
-"diI-fB-Rss.title" = "规则名单设置";
 
 /* Class = "NSMenuItem"; title = "Showsocks: On"; ObjectID = "fzk-mE-CEV"; */
 "fzk-mE-CEV.title" = "Showsocks: On";
 
-/* Class = "NSMenuItem"; title = "Import Server URLs From Pasteboard"; ObjectID = "gM9-ym-4L0"; */
-"gM9-ym-4L0.title" = "从剪贴板导入服务器配置链接";
-
-/* Class = "NSMenuItem"; title = "Update ACL File"; ObjectID = "gde-ZE-086"; */
-"gde-ZE-086.title" = "更新ACL名单";
+/* Class = "NSMenuItem"; title = "Fixed Width"; ObjectID = "hcf-sD-udd"; */
+"hcf-sD-udd.title" = "固定宽度";
 
 /* Class = "NSMenuItem"; title = "⚙ Application Setting"; ObjectID = "hgj-kn-XcH"; */
 "hgj-kn-XcH.title" = "⚙ 应用设置";
 
+/* Class = "NSMenuItem"; title = "Export All Server To Json"; ObjectID = "i0E-Y8-KFz"; */
+"6dB-Bx-QzE.title" = "导出全部服务器配置";
+
+/* Class = "NSMenuItem"; title = "Show Bunch Json Example File"; ObjectID = "k0G-aN-QS8"; */
+"D8D-F7-IMv.title" = "导出示例服务器配置";
+
 /* Class = "NSMenuItem"; title = "Proxy Back China"; ObjectID = "lam-el-r4I"; */
 "lam-el-r4I.title" = "代理大陆IP";
-
-/* Class = "NSMenuItem"; title = "Show Bunch Json Example File"; ObjectID = "pdy-JE-50Q"; */
-"pdy-JE-50Q.title" = "显示示例服务器配置文件";
 
 /* Class = "NSMenuItem"; title = "Connection delay test"; ObjectID = "q2r-Fr-g0n"; */
 "q2r-Fr-g0n.title" = "服务器延迟测试";
@@ -92,35 +86,23 @@
 /* Class = "NSMenuItem"; title = "Auto Mode By PAC"; ObjectID = "r07-Gu-aEz"; */
 "r07-Gu-aEz.title" = "PAC自动模式";
 
-/* Class = "NSMenuItem"; title = "⚙ Edit User Rules For PAC"; ObjectID = "rms-p0-CvB"; */
-"rms-p0-CvB.title" = "⚙ 编辑PAC用户自定规则";
-
 /* Class = "NSMenuItem"; title = "ACL Auto"; ObjectID = "sDG-YV-yuQ"; */
 "sDG-YV-yuQ.title" = "ACL自动";
 
-/* Class = "NSMenuItem"; title = "⚙ Rule Update Settings"; ObjectID = "sbx-yz-3lO"; */
-"sbx-yz-3lO.title" = "⚙ 规则更新设置";
+/* Class = "NSMenu"; title = "Manual Update Subscribe"; ObjectID = "t8r-6p-BLb"; */
+"t8r-6p-BLb.title" = "手动更新订阅";
 
 /* Class = "NSMenu"; title = "ACL Mode"; ObjectID = "tEB-59-fCx"; */
 "tEB-59-fCx.title" = "ACL模式";
 
 /* Class = "NSMenuItem"; title = "Servers"; ObjectID = "u5M-hQ-VSc"; */
-"u5M-hQ-VSc.title" = "Servers";
+"u5M-hQ-VSc.title" = "服务器";
 
-/* Class = "NSMenuItem"; title = "⚙ HTTP Proxy Settings"; ObjectID = "uEp-Gz-cu0"; */
-"uEp-Gz-cu0.title" = "⚙ HTTP 代理设置";
+/* Class = "NSMenuItem"; title = "Update Subscription Without Proxy"; ObjectID = "uez-5p-93R"; */
+"uez-5p-93R.title" = "更新订阅（不通过代理）";
 
 /* Class = "NSMenuItem"; title = "Quit"; ObjectID = "vJS-JW-byz"; */
 "vJS-JW-byz.title" = "退出";
 
 /* Class = "NSMenuItem"; title = "Check Updates"; ObjectID = "wyZ-4G-qg9"; */
 "wyZ-4G-qg9.title" = "检查更新";
-
-/* Class = "NSMenuItem"; title = "Fixed Width"; ObjectID = "hcf-sD-udd"; */
-"hcf-sD-udd.title" = "固定宽度";
-
-/* Class = "NSMenuItem"; title = "Update Subscription With Proxy"; ObjectID = "P8g-TD-nT5"; */
-"P8g-TD-nT5.title" = "更新订阅（通过代理）";
-
-/* Class = "NSMenuItem"; title = "Update Subscription Without Proxy"; ObjectID = "uez-5p-93R"; */
-"uez-5p-93R.title" = "更新订阅（不通过代理）";

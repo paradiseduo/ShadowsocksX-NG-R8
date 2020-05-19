@@ -22,22 +22,15 @@
                 <outlet property="checkUpdateMenuItem" destination="wyZ-4G-qg9" id="Sva-xA-VQY"/>
                 <outlet property="connectionDelayTestMenuItem" destination="q2r-Fr-g0n" id="gOE-gQ-cYS"/>
                 <outlet property="copyCommandLine" destination="Lod-lA-Gfa" id="ivF-xD-08g"/>
-                <outlet property="copyHttpProxyExportCmdLineMenuItem" destination="gM9-ym-4L0" id="62x-pY-NaN"/>
+                <outlet property="copyHttpProxyExportCmdLineMenuItem" destination="Lod-lA-Gfa" id="R2y-sp-Mej"/>
                 <outlet property="editSubscribeMenuItem" destination="QJ6-eg-mzv" id="KC0-uH-8q0"/>
-                <outlet property="exportAllServerProfileItem" destination="6k0-gn-DQv" id="1xA-cd-5Ia"/>
                 <outlet property="fixedWidth" destination="hcf-sD-udd" id="SoW-fQ-fYj"/>
                 <outlet property="globalModeMenuItem" destination="Mw3-Jm-eXA" id="ar5-Yx-3ze"/>
-                <outlet property="importBunchJsonFileItem" destination="T9g-gy-gvv" id="GW7-ii-U1j"/>
-                <outlet property="importServerFromPasteboard" destination="gM9-ym-4L0" id="O9j-AY-BXM"/>
                 <outlet property="manualModeMenuItem" destination="8PR-gs-c5N" id="9qz-mU-5kt"/>
                 <outlet property="manualUpdateSubscribeMenuItem" destination="NnE-Ad-1An" id="2Vf-Br-EnF"/>
-                <outlet property="proxyMenuItem" destination="diI-fB-Rss" id="Qjk-9U-3Qy"/>
                 <outlet property="runningStatusMenuItem" destination="fzk-mE-CEV" id="Vwm-Rg-Ykn"/>
-                <outlet property="scanQRCodeMenuItem" destination="Qe6-bF-paT" id="XHa-pa-nCa"/>
                 <outlet property="serversMenuItem" destination="u5M-hQ-VSc" id="8gp-SY-Y4U"/>
                 <outlet property="serversPreferencesMenuItem" destination="M5r-E7-44f" id="voe-SX-k6a"/>
-                <outlet property="showBunchJsonExampleFileItem" destination="pdy-JE-50Q" id="aWi-DB-deq"/>
-                <outlet property="showQRCodeMenuItem" destination="R6A-96-Zcb" id="XHz-pz-nCz"/>
                 <outlet property="speedMenu" destination="yeJ-HT-sBl" id="fYv-Vc-e6P"/>
                 <outlet property="statusMenu" destination="Hob-KD-bx9" id="Z0D-Ny-SwF"/>
                 <outlet property="toggleRunningMenuItem" destination="GSu-Tf-StS" id="XHw-pU-nCa"/>
@@ -100,45 +93,6 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="Rule List Settings" id="diI-fB-Rss">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Rule List Settings" id="YZp-bf-L40">
-                        <items>
-                            <menuItem title="Update PAC File" id="TFc-Ec-duM">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="updateGFWList:" target="Voe-Tx-rLC" id="Ztt-PS-F3T"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Update ACL File" id="gde-ZE-086">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="updateWhiteList:" target="Voe-Tx-rLC" id="2Iv-M4-k9C"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="⚙ Edit User Rules For PAC" id="rms-p0-CvB">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="editUserRulesForPAC:" target="Voe-Tx-rLC" id="ZtK-2d-Pcl"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="bMX-qn-Qwi"/>
-                            <menuItem title="⚙ Rule Update Settings" id="sbx-yz-3lO">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="editProxyPreferences:" target="Voe-Tx-rLC" id="Jji-Ea-Sy8"/>
-                                </connections>
-                            </menuItem>
-                        </items>
-                    </menu>
-                </menuItem>
-                <menuItem isSeparatorItem="YES" id="WcX-Th-4eP"/>
-                <menuItem title="Connection delay test" id="q2r-Fr-g0n">
-                    <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="connectionDelayTest:" target="Voe-Tx-rLC" id="1Sn-Bi-8Np"/>
-                    </connections>
-                </menuItem>
                 <menuItem isSeparatorItem="YES" id="X5a-zf-B8u"/>
                 <menuItem title="Servers" id="u5M-hQ-VSc">
                     <modifierMask key="keyEquivalentModifierMask" shift="YES"/>
@@ -169,42 +123,6 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Show QR Code For Current Server" id="R6A-96-Zcb">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="showQRCodeForCurrentServer:" target="Voe-Tx-rLC" id="t45-Zk-cai"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Scan QR Code From Screen" id="Qe6-bF-paT">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="scanQRCodeFromScreen:" target="Voe-Tx-rLC" id="zQZ-IT-H4a"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Import Server URLs From Pasteboard" id="gM9-ym-4L0">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="importProfileURLFromPasteboard:" target="Voe-Tx-rLC" id="JhJ-zi-fSV"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Show Bunch Json Example File" id="pdy-JE-50Q">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="showBunchJsonExampleFile:" target="Voe-Tx-rLC" id="2fR-af-bNb"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Import Bunch Json File" id="T9g-gy-gvv">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="importBunchJsonFile:" target="Voe-Tx-rLC" id="ptm-YK-H93"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Export All Server To Json" id="6k0-gn-DQv">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="exportAllServerProfile:" target="Voe-Tx-rLC" id="C5A-Pp-tYo"/>
-                                </connections>
-                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="6sL-A4-S7N"/>
                             <menuItem title="⚙ Server Settings" id="M5r-E7-44f">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -215,17 +133,55 @@
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem title="⚙ Advanced Proxy Settings" id="bZ3-fy-34d">
+                <menuItem title="Test Connection Delay" id="q2r-Fr-g0n">
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <connections>
-                        <action selector="editAdvPreferences:" target="Voe-Tx-rLC" id="mEF-XS-HJE"/>
+                        <action selector="connectionDelayTest:" target="Voe-Tx-rLC" id="1Sn-Bi-8Np"/>
                     </connections>
                 </menuItem>
-                <menuItem title="⚙ HTTP Proxy Settings" id="uEp-Gz-cu0">
+                <menuItem title="Import/Export" id="ALY-Ox-N1x">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="editHTTPPreferences:" target="Voe-Tx-rLC" id="tkC-e3-PH9"/>
-                    </connections>
+                    <menu key="submenu" title="Import/Export" id="3db-Kd-VwF">
+                        <items>
+                            <menuItem title="Scan QR Code From Screen" id="7zm-wP-7va">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="scanQRCodeFromScreen:" target="Voe-Tx-rLC" id="Zg3-zF-0HH"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Import Server URLs From Pasteboard" id="BQT-kh-cxJ">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="importProfileURLFromPasteboard:" target="Voe-Tx-rLC" id="hRs-Wb-Bwz"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Import Bunch Json File" id="15a-D6-JJo">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="importBunchJsonFile:" target="Voe-Tx-rLC" id="Vm5-zu-6Hv"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="Ya7-bT-2ao"/>
+                            <menuItem title="Show QR Code For Current Server" id="QUb-tM-Aok">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="showQRCodeForCurrentServer:" target="Voe-Tx-rLC" id="QPj-ps-YSm"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Show Bunch Json Example File" id="D8D-F7-IMv">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="showBunchJsonExampleFile:" target="Voe-Tx-rLC" id="x2f-Yd-Upw"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Export All Server To Json" id="6dB-Bx-QzE">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="exportAllServerProfile:" target="Voe-Tx-rLC" id="5Zj-Xy-zZJ"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                 </menuItem>
                 <menuItem title="HTTP Proxy Export Line To Pasteboard" id="Lod-lA-Gfa">
                     <modifierMask key="keyEquivalentModifierMask"/>

@@ -12,10 +12,6 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     // MARK: Controllers
     var qrcodeWinCtrl: SWBQRCodeWindowController!
     var preferencesWinCtrl: PreferencesWindowController!
-    var advPreferencesWinCtrl: AdvPreferencesWindowController!
-    var ruleSettingWinCtrl: RuleSettingWindowController!
-    var editUserRulesWinCtrl: UserRulesController!
-    var httpPreferencesWinCtrl : HTTPPreferencesWindowController!
     var subscribePreferenceWinCtrl: SubscribePreferenceWindowController!
     var toastWindowCtrl: ToastWindowController!
     var settingWindowCtrl: SettingsWindowController!
@@ -26,7 +22,6 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     
     @IBOutlet weak var runningStatusMenuItem: NSMenuItem!
     @IBOutlet weak var toggleRunningMenuItem: NSMenuItem!
-    @IBOutlet weak var proxyMenuItem: NSMenuItem!
     @IBOutlet weak var autoModeMenuItem: NSMenuItem!
     @IBOutlet weak var globalModeMenuItem: NSMenuItem!
     @IBOutlet weak var manualModeMenuItem: NSMenuItem!
@@ -37,15 +32,8 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     
     @IBOutlet weak var serversMenuItem: NSMenuItem!
     @IBOutlet var connectionDelayTestMenuItem: NSMenuItem!
-    @IBOutlet var showQRCodeMenuItem: NSMenuItem!
-    @IBOutlet var scanQRCodeMenuItem: NSMenuItem!
-    @IBOutlet var showBunchJsonExampleFileItem: NSMenuItem!
-    @IBOutlet var importBunchJsonFileItem: NSMenuItem!
-    @IBOutlet var exportAllServerProfileItem: NSMenuItem!
     @IBOutlet var serversPreferencesMenuItem: NSMenuItem!
-    @IBOutlet var importServerFromPasteboard: NSMenuItem!
-    
-    @IBOutlet var copyHttpProxyExportCmdLineMenuItem: NSMenuItem!
+    @IBOutlet weak var copyHttpProxyExportCmdLineMenuItem: NSMenuItem!
     
     @IBOutlet weak var checkUpdateMenuItem: NSMenuItem!
     @IBOutlet var manualUpdateSubscribeMenuItem: NSMenuItem!
@@ -241,30 +229,6 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             }
         }
     }
-
-    @IBAction func updateGFWList(_ sender: NSMenuItem) {
-        UpdatePACFromGFWList {
-            
-        }
-    }
-    
-    @IBAction func updateWhiteList(_ sender: NSMenuItem) {
-        UpdateACL {
-            
-        }
-    }
-    
-    @IBAction func editUserRulesForPAC(_ sender: NSMenuItem) {
-        if editUserRulesWinCtrl != nil {
-            editUserRulesWinCtrl.close()
-        }
-        let ctrl = UserRulesController(windowNibName: "UserRulesController")
-        editUserRulesWinCtrl = ctrl
-
-        ctrl.showWindow(self)
-        NSApp.activate(ignoringOtherApps: true)
-        ctrl.window?.makeKeyAndOrderFront(self)
-    }
     
     @IBAction func editSubscribeFeed(_ sender: NSMenuItem) {
         if subscribePreferenceWinCtrl != nil {
@@ -280,22 +244,26 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     
     @IBAction func toggleCopyCommandLine(_ sender: NSMenuItem) {
         // Get the Http proxy config.
-        let defaults = UserDefaults.standard
-        let address = defaults.string(forKey: USERDEFAULTS_LOCAL_HTTP_LISTEN_ADDRESS)
-        let port = defaults.integer(forKey: USERDEFAULTS_LOCAL_HTTP_LISTEN_PORT)
+        let d = UserDefaults.standard
+        let address = d.string(forKey: USERDEFAULTS_LOCAL_HTTP_LISTEN_ADDRESS)
+        let port = d.integer(forKey: USERDEFAULTS_LOCAL_HTTP_LISTEN_PORT)
+        let s5address = d.string(forKey: USERDEFAULTS_LOCAL_SOCKS5_LISTEN_ADDRESS)
+        let s5port = d.integer(forKey: USERDEFAULTS_LOCAL_SOCKS5_LISTEN_PORT)
         
-        if let a = address {
-            let command = "export http_proxy=http://\(a):\(port);export https_proxy=http://\(a):\(port);"
-            
-            // Copy to paste board.
-            NSPasteboard.general.clearContents()
-            NSPasteboard.general.setString(command, forType: NSPasteboard.PasteboardType.string)
-            
-            // Show a toast notification.
-            self.makeToast("Export Command Copied.".localized)
-        } else {
-            self.makeToast("Export Command Copied Failed.".localized)
+        var command = "export ALL_PROXY=socks5://\(s5address ?? "127.0.0.1"):\(s5port);export no_proxy=localhost;"
+        
+        if d.bool(forKey: USERDEFAULTS_LOCAL_HTTP_ON) {
+            if let a = address {
+                command = "export http_proxy=http://\(a):\(port);export https_proxy=http://\(a):\(port);"
+            } else {
+                makeToast("Export Command Copied Failed.".localized)
+            }
         }
+        // Copy to paste board.
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(command, forType: NSPasteboard.PasteboardType.string)
+        // Show a toast notification.
+        makeToast("Export Command Copied.".localized)
     }
     
     // MARK: Server submenu function
@@ -375,6 +343,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     
     @IBAction func exportAllServerProfile(_ sender: NSMenuItem) {
         ServerProfileManager.instance.exportConfigFile()
+        NSApp.becomeFirstResponder()
     }
     
     @IBAction func updateSubscribeWithProxy(_ sender: NSMenuItem) {
@@ -417,42 +386,6 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         }
         let ctrl = PreferencesWindowController(windowNibName: "PreferencesWindowController")
         preferencesWinCtrl = ctrl
-        
-        ctrl.showWindow(self)
-        NSApp.activate(ignoringOtherApps: true)
-        ctrl.window?.makeKeyAndOrderFront(self)
-    }
-    
-    @IBAction func editAdvPreferences(_ sender: NSMenuItem) {
-        if advPreferencesWinCtrl != nil {
-            advPreferencesWinCtrl.close()
-        }
-        let ctrl = AdvPreferencesWindowController(windowNibName: "AdvPreferencesWindowController")
-        advPreferencesWinCtrl = ctrl
-        
-        ctrl.showWindow(self)
-        NSApp.activate(ignoringOtherApps: true)
-        ctrl.window?.makeKeyAndOrderFront(self)
-    }
-    
-    @IBAction func editHTTPPreferences(_ sender: NSMenuItem) {
-        if httpPreferencesWinCtrl != nil {
-            httpPreferencesWinCtrl.close()
-        }
-        let ctrl = HTTPPreferencesWindowController(windowNibName: "HTTPPreferencesWindowController")
-        httpPreferencesWinCtrl = ctrl
-        
-        ctrl.showWindow(self)
-        NSApp.activate(ignoringOtherApps: true)
-        ctrl.window?.makeKeyAndOrderFront(self)
-    }
-    
-    @IBAction func editProxyPreferences(_ sender: NSMenuItem) {
-        if ruleSettingWinCtrl != nil {
-            ruleSettingWinCtrl.close()
-        }
-        let ctrl = RuleSettingWindowController(windowNibName: "RuleSettingWindowController")
-        ruleSettingWinCtrl = ctrl
         
         ctrl.showWindow(self)
         NSApp.activate(ignoringOtherApps: true)
@@ -609,7 +542,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             toggleRunningMenuItem.title = "Turn Shadowsocks On".localized
             copyCommandLine.isHidden = true
         }
-        copyHttpProxyExportCmdLineMenuItem.isHidden = !defaults.bool(forKey: USERDEFAULTS_LOCAL_HTTP_ON)
+        copyHttpProxyExportCmdLineMenuItem.isHidden = !defaults.bool(forKey: USERDEFAULTS_SHADOWSOCKS_ON)
         updateStatusItemUI()
     }
     
@@ -617,24 +550,13 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     func updateServersMenu() {
         let mgr = ServerProfileManager.instance
         serversMenuItem.submenu?.removeAllItems()
-        let showQRItem = showQRCodeMenuItem
-        let scanQRItem = scanQRCodeMenuItem
+       
         let preferencesItem = serversPreferencesMenuItem
-        let showBunch = showBunchJsonExampleFileItem
-        let importBuntch = importBunchJsonFileItem
-        let exportAllServer = exportAllServerProfileItem
         let updateSubscribeItem = manualUpdateSubscribeMenuItem
         let editSubscribeItem = editSubscribeMenuItem
-        let importServerFromP = importServerFromPasteboard
         
         serversMenuItem.submenu?.addItem(editSubscribeItem!)
         serversMenuItem.submenu?.addItem(updateSubscribeItem!)
-        serversMenuItem.submenu?.addItem(showQRItem!)
-        serversMenuItem.submenu?.addItem(scanQRItem!)
-        serversMenuItem.submenu?.addItem(importServerFromP!)
-        serversMenuItem.submenu?.addItem(showBunch!)
-        serversMenuItem.submenu?.addItem(importBuntch!)
-        serversMenuItem.submenu?.addItem(exportAllServer!)
         serversMenuItem.submenu?.addItem(NSMenuItem.separator())
         serversMenuItem.submenu?.addItem(preferencesItem!)
         
@@ -795,12 +717,21 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     }
     
     private func foundSSRURL(_ note: Notification) {
+        func failedNotification() {
+            let userNote = NSUserNotification()
+            userNote.title = "Failed to Add Server Profile".localized
+            userNote.subtitle = "Address can not be recognized".localized
+            NSUserNotificationCenter.default.deliver(userNote)
+        }
         if let userInfo = (note as NSNotification).userInfo {
             let urls: [URL] = userInfo["urls"] as! [URL]
             
             let mgr = ServerProfileManager.instance
             var isChanged = false
-            
+            if urls.count == 0 {
+                failedNotification()
+                return
+            }
             for url in urls {
                 let profielDict = ParseAppURLSchemes(url)//ParseSSURL(url)
                 if let profielDict = profielDict {
@@ -818,12 +749,9 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
                     userNote.informativeText = "Host: \(profile.serverHost)\n Port: \(profile.serverPort)\n Encription Method: \(profile.method)".localized
                     userNote.soundName = NSUserNotificationDefaultSoundName
                     
-                    NSUserNotificationCenter.default.deliver(userNote);
+                    NSUserNotificationCenter.default.deliver(userNote)
                 }else{
-                    let userNote = NSUserNotification()
-                    userNote.title = "Failed to Add Server Profile".localized
-                    userNote.subtitle = "Address can not be recognized".localized
-                    NSUserNotificationCenter.default.deliver(userNote);
+                    failedNotification()
                 }
             }
             if isChanged {
@@ -901,6 +829,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         toastWindowCtrl.message = message
         toastWindowCtrl.showWindow(self)
         NSApp.activate(ignoringOtherApps: true)
+        NSApp.becomeFirstResponder()
         toastWindowCtrl.window?.makeKeyAndOrderFront(self)
         toastWindowCtrl.fadeInHud()
     }
