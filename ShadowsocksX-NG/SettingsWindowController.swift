@@ -30,6 +30,9 @@ class SettingsWindowController: NSWindowController, NSWindowDelegate, NSTableVie
     
     @IBOutlet var userRuleTestView: NSTextView!
     
+    @IBOutlet weak var aclLoading: NSProgressIndicator!
+    @IBOutlet weak var pacLoading: NSProgressIndicator!
+    
     private var hardwareChanged = false
     private var advancedChanged = false
     private var httpChanged = false
@@ -241,15 +244,33 @@ class SettingsWindowController: NSWindowController, NSWindowDelegate, NSTableVie
     
     @IBAction func updateACLTap(_ sender: NSButton) {
         sender.isEnabled = false
+        progress(aclLoading)
         UpdateACL {
             sender.isEnabled = true
+            self.progress(self.aclLoading, false)
         }
     }
     
     @IBAction func updatePACTap(_ sender: NSButton) {
         sender.isEnabled = false
+        progress(pacLoading)
         UpdatePACFromGFWList {
             sender.isEnabled = true
+            self.progress(self.pacLoading, false)
+        }
+    }
+    
+    private func progress(_ p: NSProgressIndicator, _ show: Bool = true) {
+        if show {
+            p.isHidden = false
+            p.isIndeterminate = true
+            p.usesThreadedAnimation = true
+            p.startAnimation(nil)
+        } else {
+            p.isHidden = true
+            p.isIndeterminate = false
+            p.usesThreadedAnimation = false
+            p.stopAnimation(nil)
         }
     }
     

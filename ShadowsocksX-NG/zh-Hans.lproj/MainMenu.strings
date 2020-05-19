@@ -27,10 +27,10 @@
 "Hob-KD-bx9.title" = "ShadowsocksX-NG";
 
 /* Class = "NSMenuItem"; title = "Show Logs"; ObjectID = "Jfy-sf-Fhl"; */
-"Jfy-sf-Fhl.title" = "显示日志";
+"FhN-hv-jX3.title" = "显示日志";
 
 /* Class = "NSMenuItem"; title = "About"; ObjectID = "LgB-6g-Gba"; */
-"LgB-6g-Gba.title" = "关于";
+"17d-3X-vV4.title" = "关于";
 
 /* Class = "NSMenuItem"; title = "HTTP Proxy Export Line To Pasteboard"; ObjectID = "Lod-lA-Gfa"; */
 "Lod-lA-Gfa.title" = "复制终端代理命令";
@@ -45,19 +45,19 @@
 "QUb-tM-Aok.title" = "显示当前服务器的二维码";
 
 /* Class = "NSMenuItem"; title = "Manual Update Subscribe"; ObjectID = "NnE-Ad-1An"; */
-"NnE-Ad-1An.title" = "手动更新订阅";
+"y1d-RF-NOg.title" = "服务器订阅";
 
 /* Class = "NSMenuItem"; title = "Update Subscription With Proxy"; ObjectID = "P8g-TD-nT5"; */
-"P8g-TD-nT5.title" = "更新订阅（通过代理）";
+"Dme-gv-yDg.title" = "更新订阅（通过代理）";
 
 /* Class = "NSMenuItem"; title = "⚙ Edit Subscribe Feed"; ObjectID = "QJ6-eg-mzv"; */
-"QJ6-eg-mzv.title" = "⚙ 订阅设置";
+"h7h-M2-FDZ.title" = "⚙ 订阅设置";
 
 /* Class = "NSMenuItem"; title = "White List Mode"; ObjectID = "RvZ-Zn-29U"; */
 "RvZ-Zn-29U.title" = "白名单模式";
 
 /* Class = "NSMenuItem"; title = "Feedback"; ObjectID = "W7u-7g-Gv4"; */
-"W7u-7g-Gv4.title" = "问题反馈";
+"zvv-36-bAg.title" = "问题反馈";
 
 /* Class = "NSMenuItem"; title = "ACL Mode"; ObjectID = "Yub-b0-bni"; */
 "Yub-b0-bni.title" = "ACL模式";
@@ -89,9 +89,6 @@
 /* Class = "NSMenuItem"; title = "ACL Auto"; ObjectID = "sDG-YV-yuQ"; */
 "sDG-YV-yuQ.title" = "ACL自动";
 
-/* Class = "NSMenu"; title = "Manual Update Subscribe"; ObjectID = "t8r-6p-BLb"; */
-"t8r-6p-BLb.title" = "手动更新订阅";
-
 /* Class = "NSMenu"; title = "ACL Mode"; ObjectID = "tEB-59-fCx"; */
 "tEB-59-fCx.title" = "ACL模式";
 
@@ -99,10 +96,12 @@
 "u5M-hQ-VSc.title" = "服务器";
 
 /* Class = "NSMenuItem"; title = "Update Subscription Without Proxy"; ObjectID = "uez-5p-93R"; */
-"uez-5p-93R.title" = "更新订阅（不通过代理）";
+"AC9-IX-pzM.title" = "更新订阅（不通过代理）";
 
 /* Class = "NSMenuItem"; title = "Quit"; ObjectID = "vJS-JW-byz"; */
 "vJS-JW-byz.title" = "退出";
 
 /* Class = "NSMenuItem"; title = "Check Updates"; ObjectID = "wyZ-4G-qg9"; */
-"wyZ-4G-qg9.title" = "检查更新";
+"v33-t5-s50.title" = "检查更新";
+
+"5PC-XX-qij.title" = "帮助";

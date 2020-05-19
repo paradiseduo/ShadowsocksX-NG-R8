@@ -34,11 +34,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     @IBOutlet var connectionDelayTestMenuItem: NSMenuItem!
     @IBOutlet var serversPreferencesMenuItem: NSMenuItem!
     @IBOutlet weak var copyHttpProxyExportCmdLineMenuItem: NSMenuItem!
-    
-    @IBOutlet weak var checkUpdateMenuItem: NSMenuItem!
-    @IBOutlet var manualUpdateSubscribeMenuItem: NSMenuItem!
-    @IBOutlet var editSubscribeMenuItem: NSMenuItem!
-    
+        
     @IBOutlet weak var copyCommandLine: NSMenuItem!
     
     @IBOutlet weak var fixedWidth: NSMenuItem!
@@ -552,12 +548,6 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
         serversMenuItem.submenu?.removeAllItems()
        
         let preferencesItem = serversPreferencesMenuItem
-        let updateSubscribeItem = manualUpdateSubscribeMenuItem
-        let editSubscribeItem = editSubscribeMenuItem
-        
-        serversMenuItem.submenu?.addItem(editSubscribeItem!)
-        serversMenuItem.submenu?.addItem(updateSubscribeItem!)
-        serversMenuItem.submenu?.addItem(NSMenuItem.separator())
         serversMenuItem.submenu?.addItem(preferencesItem!)
         
         if !mgr.profiles.isEmpty {
@@ -643,6 +633,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             serversMenuItem.submenu?.addItem(item)
             i += 1
         }
+        serversMenuItem.submenu?.minimumWidth = 0
     }
     
     private func serverMenuItemPro(_ mgr: ServerProfileManager) {

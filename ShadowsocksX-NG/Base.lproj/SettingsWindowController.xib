@@ -8,12 +8,14 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="SettingsWindowController" customModule="ShadowsocksX_NG" customModuleProvider="target">
             <connections>
+                <outlet property="aclLoading" destination="wBt-7P-6Ty" id="s2v-Aw-bzk"/>
                 <outlet property="bypassProxyTextView" destination="wF7-r5-Hji" id="EWi-lK-San"/>
                 <outlet property="delayTestMethod" destination="y8o-bO-KiP" id="Q4y-Qg-gfY"/>
                 <outlet property="httpAddress" destination="wLh-IS-djV" id="6tN-2r-oqI"/>
                 <outlet property="httpPort" destination="aZc-Ie-bEU" id="9bg-HX-swp"/>
                 <outlet property="launchAtLoginButton" destination="5Hw-hW-slK" id="QQS-Id-YeJ"/>
                 <outlet property="pacAddress" destination="Yhk-0c-Tp7" id="qVA-Ut-Wk2"/>
+                <outlet property="pacLoading" destination="3G1-Ub-x5L" id="Eci-RQ-TX9"/>
                 <outlet property="pacPort" destination="N7E-Bq-Bzc" id="XbH-pO-BmG"/>
                 <outlet property="socks5Address" destination="8De-MC-nD0" id="MsJ-nn-W31"/>
                 <outlet property="socks5Port" destination="d0b-8c-eCK" id="jte-fO-Ql1"/>
@@ -827,6 +829,14 @@ DQ
                                                 <action selector="saveUserRuleTap:" target="-2" id="X8v-0g-0Xn"/>
                                             </connections>
                                         </button>
+                                        <progressIndicator hidden="YES" wantsLayer="YES" fixedFrame="YES" maxValue="100" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="3G1-Ub-x5L">
+                                            <rect key="frame" x="158" y="23" width="16" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        </progressIndicator>
+                                        <progressIndicator hidden="YES" wantsLayer="YES" fixedFrame="YES" maxValue="100" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="wBt-7P-6Ty">
+                                            <rect key="frame" x="22" y="23" width="16" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        </progressIndicator>
                                     </subviews>
                                 </view>
                             </tabViewItem>
@@ -1012,7 +1022,7 @@ DQ
                             <action selector="toolbarAction:" target="-2" id="F2K-jj-knT"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="23E00532-75A5-4908-BBD8-0CD96E2A9F04" explicitItemIdentifier="Hardware" label="Hardware" paletteLabel="Hardware" tag="-1" image="NSColorPanel" selectable="YES" id="ixm-C5-Vp1">
+                    <toolbarItem implicitItemIdentifier="23E00532-75A5-4908-BBD8-0CD96E2A9F04" explicitItemIdentifier="Hardware" label="System" paletteLabel="System" tag="-1" image="NSComputer" selectable="YES" id="ixm-C5-Vp1">
                         <connections>
                             <action selector="toolbarAction:" target="-2" id="wEA-rP-AFe"/>
                         </connections>
@@ -1051,7 +1061,7 @@ DQ
     <resources>
         <image name="NSAdvanced" width="32" height="32"/>
         <image name="NSBonjour" width="32" height="32"/>
-        <image name="NSColorPanel" width="32" height="32"/>
+        <image name="NSComputer" width="32" height="32"/>
         <image name="NSEveryone" width="32" height="32"/>
         <image name="NSInfo" width="32" height="32"/>
         <image name="NSPreferencesGeneral" width="32" height="32"/>

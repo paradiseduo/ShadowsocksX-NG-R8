@@ -93,7 +93,7 @@
 "YVO-ny-0Ka.title" = "开启服务器列表Pro视图";
 
 /* Class = "NSTabViewItem"; label = "Hardware"; ObjectID = "Yi7-u3-2ju"; */
-"Yi7-u3-2ju.label" = "硬件设置";
+"Yi7-u3-2ju.label" = "系统设置";
 
 /* Class = "NSTextFieldCell"; title = "Switch To Global Mode:"; ObjectID = "ZDH-sv-HWf"; */
 "ZDH-sv-HWf.title" = "全局模式快捷键:";
@@ -138,10 +138,10 @@
 "iMv-Y5-e2F.title" = "跟随全局模式";
 
 /* Class = "NSToolbarItem"; label = "Hardware"; ObjectID = "ixm-C5-Vp1"; */
-"ixm-C5-Vp1.label" = "硬件设置";
+"ixm-C5-Vp1.label" = "系统设置";
 
 /* Class = "NSToolbarItem"; paletteLabel = "Hardware"; ObjectID = "ixm-C5-Vp1"; */
-"ixm-C5-Vp1.paletteLabel" = "硬件设置";
+"ixm-C5-Vp1.paletteLabel" = "系统设置";
 
 /* Class = "NSTextFieldCell"; title = "Network Speed Test Options :"; ObjectID = "jY8-PA-A9U"; */
 "jY8-PA-A9U.title" = "网络延迟测试选项 :";
