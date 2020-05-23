@@ -62,8 +62,8 @@
 /* Class = "NSMenuItem"; title = "ACL Mode"; ObjectID = "Yub-b0-bni"; */
 "Yub-b0-bni.title" = "ACL模式";
 
-/* Class = "NSMenuItem"; title = "Showsocks: On"; ObjectID = "fzk-mE-CEV"; */
-"fzk-mE-CEV.title" = "Showsocks: On";
+/* Class = "NSMenuItem"; title = "Shadowsocks: On"; ObjectID = "fzk-mE-CEV"; */
+"fzk-mE-CEV.title" = "Shadowsocks: On";
 
 /* Class = "NSMenuItem"; title = "Fixed Width"; ObjectID = "hcf-sD-udd"; */
 "hcf-sD-udd.title" = "固定宽度";

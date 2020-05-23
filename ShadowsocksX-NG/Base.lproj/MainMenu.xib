@@ -20,7 +20,6 @@
                 <outlet property="RunningStatusMenuItem" destination="fzk-mE-CEV" id="R4x-gK-Qcw"/>
                 <outlet property="autoModeMenuItem" destination="r07-Gu-aEz" id="9aH-pQ-Rgi"/>
                 <outlet property="connectionDelayTestMenuItem" destination="q2r-Fr-g0n" id="gOE-gQ-cYS"/>
-                <outlet property="copyCommandLine" destination="Lod-lA-Gfa" id="ivF-xD-08g"/>
                 <outlet property="copyHttpProxyExportCmdLineMenuItem" destination="Lod-lA-Gfa" id="R2y-sp-Mej"/>
                 <outlet property="fixedWidth" destination="hcf-sD-udd" id="SoW-fQ-fYj"/>
                 <outlet property="globalModeMenuItem" destination="Mw3-Jm-eXA" id="ar5-Yx-3ze"/>
@@ -37,7 +36,7 @@
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
         <menu title="ShadowsocksX-NG" id="Hob-KD-bx9">
             <items>
-                <menuItem title="Showsocks: On" enabled="NO" id="fzk-mE-CEV">
+                <menuItem title="Shadowsocks: On" enabled="NO" id="fzk-mE-CEV">
                     <modifierMask key="keyEquivalentModifierMask"/>
                 </menuItem>
                 <menuItem title="Turn ShadowsocksX On" id="GSu-Tf-StS">

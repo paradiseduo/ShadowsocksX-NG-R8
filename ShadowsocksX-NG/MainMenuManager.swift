@@ -34,9 +34,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     @IBOutlet var connectionDelayTestMenuItem: NSMenuItem!
     @IBOutlet var serversPreferencesMenuItem: NSMenuItem!
     @IBOutlet weak var copyHttpProxyExportCmdLineMenuItem: NSMenuItem!
-        
-    @IBOutlet weak var copyCommandLine: NSMenuItem!
-    
+            
     @IBOutlet weak var fixedWidth: NSMenuItem!
     
     // MARK: Variables
@@ -531,14 +529,15 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             runningStatusMenuItem.title = "Shadowsocks: On".localized
             runningStatusMenuItem.image = NSImage(named: NSImage.statusAvailableName)
             toggleRunningMenuItem.title = "Turn Shadowsocks Off".localized
-            copyCommandLine.isHidden = false
+            if ServerProfileManager.instance.profiles.count > 0 {
+                copyHttpProxyExportCmdLineMenuItem.isHidden = false
+            }
         } else {
             runningStatusMenuItem.title = "Shadowsocks: Off".localized
             runningStatusMenuItem.image = NSImage(named: NSImage.statusUnavailableName)
             toggleRunningMenuItem.title = "Turn Shadowsocks On".localized
-            copyCommandLine.isHidden = true
+            copyHttpProxyExportCmdLineMenuItem.isHidden = true
         }
-        copyHttpProxyExportCmdLineMenuItem.isHidden = !defaults.bool(forKey: USERDEFAULTS_SHADOWSOCKS_ON)
         updateStatusItemUI()
     }
     
