@@ -18,34 +18,50 @@ enum Mode {
     case CHINA
     
     static func switchTo(_ mode: Mode) {
-        let defaults = UserDefaults.standard
+        let d = UserDefaults.standard
+        if let currentMode = d.string(forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE), let acl = d.string(forKey: USERDEFAULTS_ACL_FILE_NAME) {
+            switch mode {
+            case .PAC:
+                if currentMode == "auto" { return }
+            case .GLOBAL:
+                if currentMode == "global" { return }
+            case .ACLAUTO:
+                if currentMode == "whiteList" && acl == "gfwlist.acl" { return }
+            case .WHITELIST:
+                if currentMode == "whiteList" && acl == "chn.acl" { return }
+            case .MANUAL:
+                if currentMode == "manual" { return }
+            case .CHINA:
+                if currentMode == "whiteList" && acl == "backchn.acl" { return }
+            }
+        }
         switch mode {
         case .PAC:
-            defaults.setValue("auto", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
-            defaults.setValue("", forKey: USERDEFAULTS_ACL_FILE_NAME)
+            d.setValue("auto", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
+            d.setValue("", forKey: USERDEFAULTS_ACL_FILE_NAME)
             break
         case .GLOBAL:
-            defaults.setValue("global", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
-            defaults.setValue("", forKey: USERDEFAULTS_ACL_FILE_NAME)
+            d.setValue("global", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
+            d.setValue("", forKey: USERDEFAULTS_ACL_FILE_NAME)
             break
         case .ACLAUTO:
-            defaults.setValue("whiteList", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
-            defaults.setValue("gfwlist.acl", forKey: USERDEFAULTS_ACL_FILE_NAME)
+            d.setValue("whiteList", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
+            d.setValue("gfwlist.acl", forKey: USERDEFAULTS_ACL_FILE_NAME)
             break
         case .WHITELIST:
-            defaults.setValue("whiteList", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
-            defaults.setValue("chn.acl", forKey: USERDEFAULTS_ACL_FILE_NAME)
+            d.setValue("whiteList", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
+            d.setValue("chn.acl", forKey: USERDEFAULTS_ACL_FILE_NAME)
             break
         case .MANUAL:
-            defaults.setValue("manual", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
-            defaults.setValue("", forKey: USERDEFAULTS_ACL_FILE_NAME)
+            d.setValue("manual", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
+            d.setValue("", forKey: USERDEFAULTS_ACL_FILE_NAME)
             break
         case .CHINA:
-            defaults.setValue("whiteList", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
-            defaults.setValue("backchn.acl", forKey: USERDEFAULTS_ACL_FILE_NAME)
+            d.setValue("whiteList", forKey: USERDEFAULTS_SHADOWSOCKS_RUNNING_MODE)
+            d.setValue("backchn.acl", forKey: USERDEFAULTS_ACL_FILE_NAME)
             break
         }
-        defaults.synchronize()
+        d.synchronize()
         SyncSSLocal { (suc) in
             MainMenuManager.applyConfig { (suc) in
                 NotificationCenter.default.post(name: NOTIFY_UPDATE_RUNNING_MODE_MENU, object: nil)
