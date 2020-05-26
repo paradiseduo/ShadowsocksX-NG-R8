@@ -10,11 +10,6 @@ target 'ShadowsocksX-NG' do
   pod 'GCDWebServer'
   pod 'MASShortcut'
 
-  target 'ShadowsocksX-NGTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
 end
 
 target 'proxy_conf_helper' do

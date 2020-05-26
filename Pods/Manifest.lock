@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (5.0.5)
+  - Alamofire (5.1.0)
   - BRLOptionParser (0.3.1)
   - GCDWebServer (3.5.4):
     - GCDWebServer/Core (= 3.5.4)
@@ -20,11 +20,11 @@ SPEC REPOS:
     - MASShortcut
 
 SPEC CHECKSUMS:
-  Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
+  Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
   BRLOptionParser: a03256a8ff003ca1f5376c55f55f210e085a3958
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   MASShortcut: d9e4909e878661cc42877cc9d6efbe638273ab57
 
-PODFILE CHECKSUM: e325e141e4e638e1c7de18e5f325bdfed8616dc6
+PODFILE CHECKSUM: 792d8c67824b0535b32a805cf6aaaea8661a601e
 
 COCOAPODS: 1.9.1
