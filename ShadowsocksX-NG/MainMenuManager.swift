@@ -562,8 +562,8 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
                 mgr.reload()
             }
         }
-
-        if UserDefaults.standard.bool(forKey: USERDEFAULTS_OPEN_SERVERS_LIST_PRO_VIEW) {
+        
+        if UserDefaults.standard.bool(forKey: USERDEFAULTS_OPEN_SERVERS_LIST_PRO_VIEW) && AppDelegate.isAboveMacOS153 {
             self.serverMenuItemPro(mgr)
         } else {
             self.serverMenuItemNormal(mgr)
