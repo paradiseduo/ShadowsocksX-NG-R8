@@ -84,7 +84,6 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             USERDEFAULTS_FIXED_NETWORK_SPEED_VIEW_WIDTH:false,
             USERDEFAULTS_REMOVE_NODE_AFTER_DELETE_SUBSCRIPTION:false,
             USERDEFAULTS_SERVERS_LIST_SHOW_SERVER_AND_PORT:true,
-            USERDEFAULTS_OPEN_SERVERS_LIST_PRO_VIEW:false,
             USERDEFAULTS_PROXY_EXCEPTIONS: "127.0.0.1,localhost,192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,timestamp.apple.com"
         ])
         
@@ -562,12 +561,7 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
                 mgr.reload()
             }
         }
-        
-        if UserDefaults.standard.bool(forKey: USERDEFAULTS_OPEN_SERVERS_LIST_PRO_VIEW) && AppDelegate.isAboveMacOS153 {
-            self.serverMenuItemPro(mgr)
-        } else {
-            self.serverMenuItemNormal(mgr)
-        }
+        self.serverMenuItemNormal(mgr)
     }
     
     private func serverMenuItemNormal(_ mgr: ServerProfileManager) {
@@ -586,14 +580,14 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             if latency.doubleValue != Double.infinity {
                 item.title += "  - \(nf)ms"
                 if nf == fastTime {
-                    let dic = [NSAttributedString.Key.foregroundColor : NSColor.good]
+                    let dic = [NSAttributedString.Key.foregroundColor : NSColor.green]
                     let attStr = NSAttributedString(string: item.title, attributes: dic)
                     item.attributedTitle = attStr
                 }
             }else{
                 if !neverSpeedTestBefore {
                     item.title += "  - failed"
-                    let dic = [NSAttributedString.Key.foregroundColor : NSColor.fail]
+                    let dic = [NSAttributedString.Key.foregroundColor : NSColor.red]
                     let attStr = NSAttributedString(string: item.title, attributes: dic)
                     item.attributedTitle = attStr
                 }
@@ -633,25 +627,6 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             i += 1
         }
         serversMenuItem.submenu?.minimumWidth = 0
-    }
-    
-    private func serverMenuItemPro(_ mgr: ServerProfileManager) {
-        var i = 0
-        for p in mgr.profiles {
-            let item = ProxyMenuItem(proxy: p, action: #selector(MainMenuManager.selectServer))
-            item.target = self
-            item.tag = i //+ kProfileMenuItemIndexBase
-            if !p.isValid() {
-                item.isEnabled = false
-            }
-            serversMenuItem.submenu?.addItem(item)
-            i += 1
-        }
-        if neverSpeedTestBefore {
-            serversMenuItem.submenu?.minimumWidth = mgr.maxProxyNameLength
-        } else {
-            serversMenuItem.submenu?.minimumWidth = mgr.maxProxyNameLength + ProxyItemView.fixedPlaceHolderWidth
-        }
     }
     
     func setUpMenu(_ showSpeed:Bool){

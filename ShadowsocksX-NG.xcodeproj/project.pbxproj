@@ -61,7 +61,6 @@
 		BE6B3C87246AD950000286B0 /* Shortcuts.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B3C86246AD950000286B0 /* Shortcuts.swift */; };
 		BE6B3C8A246AE294000286B0 /* ModeSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE6B3C89246AE294000286B0 /* ModeSwitcher.swift */; };
 		BE76C2CC24277EAC00FB3516 /* NetSpeedMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = BE76C2CB24277EAC00FB3516 /* NetSpeedMonitor.m */; };
-		BE9B190C247024EE0052665C /* ProxyMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9B190B247024EE0052665C /* ProxyMenuItem.swift */; };
 		BEAA0EDD244B273A00809ADD /* MainMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAA0EDC244B273A00809ADD /* MainMenuManager.swift */; };
 		BEAE65F02471614900995D48 /* SettingsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEAE65EE2471614900995D48 /* SettingsWindowController.swift */; };
 		C6D429931DA75988002A5711 /* install_privoxy.sh in Resources */ = {isa = PBXBuildFile; fileRef = C6D4298E1DA75988002A5711 /* install_privoxy.sh */; };
@@ -197,7 +196,6 @@
 		BE6B3C89246AE294000286B0 /* ModeSwitcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModeSwitcher.swift; sourceTree = "<group>"; };
 		BE76C2CA24277EAB00FB3516 /* NetSpeedMonitor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetSpeedMonitor.h; sourceTree = "<group>"; };
 		BE76C2CB24277EAC00FB3516 /* NetSpeedMonitor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetSpeedMonitor.m; sourceTree = "<group>"; };
-		BE9B190B247024EE0052665C /* ProxyMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProxyMenuItem.swift; sourceTree = "<group>"; };
 		BEAA0EDC244B273A00809ADD /* MainMenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuManager.swift; sourceTree = "<group>"; };
 		BEAE65EE2471614900995D48 /* SettingsWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWindowController.swift; sourceTree = "<group>"; };
 		BEFD0E63246441E600DA6510 /* Configure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Configure.h; sourceTree = "<group>"; };
@@ -368,7 +366,6 @@
 				9B2491B61D0ACC3A003BBECC /* PreferencesWindowController.xib */,
 				E8CD016B23726D14006CB1F6 /* ToastWindowController.swift */,
 				E8CD016D23726D6C006CB1F6 /* ToastWindowController.xib */,
-				BE9B190B247024EE0052665C /* ProxyMenuItem.swift */,
 				BEAE65EE2471614900995D48 /* SettingsWindowController.swift */,
 				BE5F99312472C3F40087A065 /* SettingsWindowController.xib */,
 			);
@@ -617,7 +614,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE9B190C247024EE0052665C /* ProxyMenuItem.swift in Sources */,
 				9B3FFF4F1D09D9D50019A709 /* ProxyConfHelper.m in Sources */,
 				9BB706A71D1B982300551F0E /* SWBApplication.m in Sources */,
 				BE6B3C8A246AE294000286B0 /* ModeSwitcher.swift in Sources */,

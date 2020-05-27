@@ -64,11 +64,4 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     static func setLauncherStatus(open: Bool) {
         SMLoginItemSetEnabled(LAUNCHER_APPID as CFString, open)
     }
-    
-    static var isAboveMacOS153: Bool {
-        if #available(macOS 10.15.3, *) {
-            return true
-        }
-        return false
-    }
 }
