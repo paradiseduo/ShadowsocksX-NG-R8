@@ -165,7 +165,7 @@ class PreferencesWindowController: NSWindowController
     }
     
     @IBAction func duplicateProfile(_ sender: NSButton) {
-        //读取当前profile，并且保存
+        //读取当前profile，并且复制
         if editingProfile != nil && !editingProfile.isValid(){
             return
         }
@@ -184,8 +184,6 @@ class PreferencesWindowController: NSWindowController
             self.profilesTableView.selectRowIndexes(index, byExtendingSelection: false)
             profilesTableView.endUpdates()
             updateProfileBoxVisible()
-            NotificationCenter.default
-                .post(name: NOTIFY_SERVER_PROFILES_CHANGED, object: nil)
         }
     }
     
