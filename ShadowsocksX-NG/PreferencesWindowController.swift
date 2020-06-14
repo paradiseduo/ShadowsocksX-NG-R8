@@ -271,6 +271,9 @@ class PreferencesWindowController: NSWindowController
     }
     
     func getDataAtRow(_ index:Int) -> (String, Bool) {
+        if index >= profileMgr.profiles.count {
+            return ("新服务器", false)
+        }
         let profile = profileMgr.profiles[index]
         let isActive = (profileMgr.getActiveProfileId() == profile.uuid)
         if !profile.remark.isEmpty {
