@@ -10,7 +10,7 @@ import Cocoa
 
 class SubscribePreferenceWindowController: NSWindowController, NSTableViewDataSource, NSTableViewDelegate {
 
-    @IBOutlet weak var FeedLabel: NSTextField!
+    @IBOutlet weak var FilterTextField: NSTextField!
     @IBOutlet weak var OKButton: NSButton!
 
     @IBOutlet weak var ActiveButton: NSButton!
@@ -68,6 +68,11 @@ class SubscribePreferenceWindowController: NSWindowController, NSTableViewDataSo
         window?.performClose(self)
     }
     
+    @IBAction func onCalcel(_ sender: NSButton) {
+        sbMgr.reload()
+        window?.performClose(self)
+    }
+    
     @IBAction func onActive(_ sender: NSButton){
         if editingSubscribe != nil {
             if sender.state == .off {
@@ -97,7 +102,7 @@ class SubscribePreferenceWindowController: NSWindowController, NSTableViewDataSo
             return
         }
         SubscribeTableView.beginUpdates()
-        let subscribe = Subscribe(initUrlString: "", initGroupName: "", initToken: "", initMaxCount: -1, initActive: true,initAutoUpdate: true)
+        let subscribe = Subscribe(initUrlString: "", initGroupName: "", initToken: "", initFilter: "", initMaxCount: -1, initActive: true,initAutoUpdate: true)
         sbMgr.subscribes.append(subscribe)
         
         let index = IndexSet(integer: sbMgr.subscribes.count-1)
@@ -150,6 +155,7 @@ class SubscribePreferenceWindowController: NSWindowController, NSTableViewDataSo
             MaxCountTextField.isEnabled = false
             ActiveButton.isEnabled = false
             AutoUpdateButton.isEnabled = false
+            FilterTextField.isEnabled = false
         }else{
             DeleteSubscribeBtn.isEnabled = true
             FeedTextField.isEnabled = true
@@ -158,6 +164,7 @@ class SubscribePreferenceWindowController: NSWindowController, NSTableViewDataSo
             MaxCountTextField.isEnabled = true
             ActiveButton.isEnabled = true
             AutoUpdateButton.isEnabled = true
+            FilterTextField.isEnabled = true
         }
     }
     
@@ -171,7 +178,7 @@ class SubscribePreferenceWindowController: NSWindowController, NSTableViewDataSo
             MaxCountTextField.bind(NSBindingName(rawValue: "value"), to: editingSubscribe!, withKeyPath: "maxCount", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
             ActiveButton.bind(NSBindingName(rawValue: "value"), to: editingSubscribe!, withKeyPath: "isActive", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
             AutoUpdateButton.bind(NSBindingName(rawValue: "value"), to: editingSubscribe!, withKeyPath: "autoUpdateEnable", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
-
+            FilterTextField.bind(NSBindingName(rawValue: "value"), to: editingSubscribe!, withKeyPath: "filter", options: convertToOptionalNSBindingOptionDictionary([convertFromNSBindingOption(NSBindingOption.continuouslyUpdatesValue): true]))
             
         } else {
             editingSubscribe = nil
@@ -181,10 +188,14 @@ class SubscribePreferenceWindowController: NSWindowController, NSTableViewDataSo
             MaxCountTextField.unbind(convertToNSBindingName("value"))
             ActiveButton.unbind(convertToNSBindingName("value"))
             AutoUpdateButton.unbind(convertToNSBindingName("value"))
+            FilterTextField.unbind(convertToNSBindingName("value"))
         }
     }
     
     func getDataAtRow(_ index:Int) -> String {
+        if index >= sbMgr.subscribes.count {
+            return ""
+        }
         if sbMgr.subscribes[index].groupName != "" {
             return sbMgr.subscribes[index].groupName
         }
@@ -306,6 +317,7 @@ class SubscribePreferenceWindowController: NSWindowController, NSTableViewDataSo
         TokenTextField.stringValue = ""
         GroupTextField.stringValue = ""
         MaxCountTextField.stringValue = ""
+        FilterTextField.stringValue = ""
     }
     
     func shakeWindows(){

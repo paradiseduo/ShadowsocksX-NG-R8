@@ -18,15 +18,16 @@ import Alamofire
     var groupName = ""
     var token = ""
     var cache = ""
+    var filter = ""
     
     var profileMgr: ServerProfileManager!
     
-    init(initUrlString:String, initGroupName: String, initToken: String, initMaxCount: Int, initActive: Bool, initAutoUpdate:Bool){
+    init(initUrlString:String, initGroupName: String, initToken: String, initFilter: String, initMaxCount: Int, initActive: Bool, initAutoUpdate:Bool){
         super.init()
         subscribeFeed = initUrlString
 
         token = initToken
-        
+        filter = initFilter
         isActive = initActive
         
         autoUpdateEnable = initAutoUpdate
@@ -35,26 +36,41 @@ import Alamofire
         setGroupName(newGroupName: initGroupName)
         profileMgr = ServerProfileManager.instance
     }
+    
     func getFeed() -> String{
         return subscribeFeed
     }
+    
     func setFeed(newFeed: String){
         subscribeFeed = newFeed
     }
+    
     func diactivateSubscribe(){
         isActive = false
     }
+    
     func activateSubscribe(){
         isActive = true
     }
+    
     func enableAutoUpdate(){
         autoUpdateEnable = true
     }
+    
     func disableAutoUpdate(){
         autoUpdateEnable = false
     }
+    
     func getAutoUpdateEnable() -> Bool {
         return autoUpdateEnable
+    }
+    
+    func getFilter() -> String {
+        return filter
+    }
+    
+    func setFilter(filter: String) {
+        self.filter = filter.trimmingCharacters(in: CharacterSet.whitespaces)
     }
     
     func setGroupName(newGroupName: String) {
@@ -67,12 +83,15 @@ import Alamofire
             return
         }
     }
+    
     func getGroupName() -> String {
         return groupName
     }
+    
     func getMaxCount() -> Int {
         return maxCount
     }
+    
     static func fromDictionary(_ data:[String:AnyObject]) -> Subscribe {
         var feed:String = ""
         var group:String = ""
@@ -80,7 +99,7 @@ import Alamofire
         var maxCount:Int = -1
         var isActive:Bool = true
         var autoUpdateEnable:Bool = true
-        
+        var filter:String = ""
         
         for (key, value) in data {
             switch key {
@@ -96,12 +115,15 @@ import Alamofire
                 isActive = value as! Bool
             case "autoUpdateEnable":
                 autoUpdateEnable = value as! Bool
+            case "filter":
+                filter = value as! String
             default:
                 print("")
             }
         }
-        return Subscribe(initUrlString: feed, initGroupName: group, initToken: token, initMaxCount: maxCount,initActive: isActive,initAutoUpdate: autoUpdateEnable)
+        return Subscribe(initUrlString: feed, initGroupName: group, initToken: token, initFilter: filter, initMaxCount: maxCount,initActive: isActive,initAutoUpdate: autoUpdateEnable)
     }
+    
     static func toDictionary(_ data: Subscribe) -> [String: AnyObject] {
         var ret : [String: AnyObject] = [:]
         ret["feed"] = data.subscribeFeed as AnyObject
@@ -110,8 +132,10 @@ import Alamofire
         ret["maxCount"] = data.maxCount as AnyObject
         ret["isActive"] = data.isActive as AnyObject
         ret["autoUpdateEnable"] = data.autoUpdateEnable as AnyObject
+        ret["filter"] = data.filter as AnyObject
         return ret
     }
+    
     fileprivate func sendRequest(url: String, options: Any, useProxy: Bool = true, callback: @escaping (String) -> Void) {
         if url.isEmpty { return }
         let headers: HTTPHeaders = [
@@ -130,6 +154,7 @@ import Alamofire
             }
         }
     }
+    
     func setMaxCount(initMaxCount:Int) {
         func getMaxFromRes(resString: String) {
             let maxCountReg = "MAX=[0-9]+"
@@ -150,6 +175,7 @@ import Alamofire
             self.cache = resString
         })
     }
+    
     func updateServerFromFeed(useProxy: Bool, handle: @escaping ()->()) {
         func updateServerHandler(resString: String) {
             let urls = self.getSSRURLsFromRes(resString: resString)
@@ -172,6 +198,7 @@ import Alamofire
             var addCount = 0
             var dupCount = 0
             var existCount = 0
+            var filterCount = 0
             //这里处理后三种情况
             var newNodes = [ServerProfile]()
             for index in 0..<maxN {
@@ -202,6 +229,26 @@ import Alamofire
             for item in newNodes {
                 self.profileMgr.profiles.append(item)
             }
+            //用户添加了过滤条件的话，在这里过滤
+            var regex: NSRegularExpression?
+            if self.filter.count > 0 {
+                do {
+                    regex = try NSRegularExpression(pattern: self.filter, options:.caseInsensitive)
+                }catch{
+                    regex = nil
+                }
+            }
+            self.profileMgr.profiles = self.profileMgr.profiles.filter { (p) -> Bool in
+                let remark = p.title()
+                let result = regex?.numberOfMatches(in: remark, options: .reportCompletion, range: NSMakeRange(0, remark.count))
+                if let r = result, r > 0 {
+                    if p.ssrGroup == self.groupName {
+                        filterCount += 1
+                        return false
+                    }
+                }
+                return true
+            }
             //更新完订阅默认选择上次选中的节点
             if let n = selectNode {
                 for item in self.profileMgr.profiles {
@@ -225,6 +272,9 @@ import Alamofire
                 }
                 if subCount > 0 {
                     message += " 删除:\(subCount)"
+                }
+                if filterCount > 0 {
+                    message += " 过滤:\(filterCount)"
                 }
                 self.pushNotification(title: "成功更新订阅", subtitle: message, info: "更新来自\(self.subscribeFeed)的订阅")
                 NotificationCenter.default.post(name: NOTIFY_UPDATE_MAINMENU, object: nil)
@@ -266,18 +316,20 @@ import Alamofire
         let feedRegExp = "http[s]?://[A-Za-z0-9-_/.=?]*"
         return subscribeFeed.range(of:feedRegExp, options: .regularExpression) != nil
     }
+    
     fileprivate func pushNotification(title: String, subtitle: String, info: String){
         let userNote = NSUserNotification()
         userNote.title = title
         userNote.subtitle = subtitle
         userNote.informativeText = info
         userNote.soundName = NSUserNotificationDefaultSoundName
-        NSUserNotificationCenter.default
-            .deliver(userNote);
+        NSUserNotificationCenter.default.deliver(userNote);
     }
+    
     class func isSame(source: Subscribe, target: Subscribe) -> Bool {
         return source.subscribeFeed == target.subscribeFeed && source.token == target.token && source.maxCount == target.maxCount
     }
+    
     func isExist(_ target: Subscribe) -> Bool {
         return self.subscribeFeed == target.subscribeFeed
     }

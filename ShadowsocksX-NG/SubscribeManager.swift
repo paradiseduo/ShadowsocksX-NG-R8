@@ -24,6 +24,7 @@ class SubscribeManager:NSObject{
             }
         }
     }
+    
     func addSubscribe(oneSubscribe: Subscribe) -> Bool {
         for (index, value) in subscribes.enumerated() {
             if Subscribe.isSame(source: oneSubscribe, target: value) {
@@ -37,13 +38,26 @@ class SubscribeManager:NSObject{
         subscribes.append(oneSubscribe)
         return true
     }
+    
     func deleteSubscribe(atIndex: Int) -> Subscribe {
         return subscribes.remove(at: atIndex)
     }
+    
     func save() {
         defaults.set(subscribesToDefaults(data: subscribes), forKey: USERDEFAULTS_SUBSCRIBES)
         defaults.synchronize()
     }
+    
+    func reload() {
+        subscribes.removeAll()
+        
+        if let subscribesDefault = defaults.array(forKey: "Subscribes") {
+            for value in subscribesDefault{
+                subscribes.append(Subscribe.fromDictionary(value as! [String : AnyObject]))
+            }
+        }
+    }
+    
     fileprivate func subscribesToDefaults(data: [Subscribe]) -> [[String: AnyObject]]{
         var ret : [[String: AnyObject]] = []
         for value in data {
@@ -51,6 +65,7 @@ class SubscribeManager:NSObject{
         }
         return ret
     }
+    
     fileprivate func DefaultsToSubscribes(data:[[String: AnyObject]]) -> [Subscribe] {
         var ret : [Subscribe] = []
         for value in data{
@@ -58,6 +73,7 @@ class SubscribeManager:NSObject{
         }
         return ret
     }
+    
     func updateAllServerFromSubscribe(auto: Bool, useProxy: Bool = true) {
         let group = DispatchGroup()
         let queue = DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive)
