@@ -130,10 +130,11 @@ class SubscribePreferenceWindowController: NSWindowController, NSTableViewDataSo
         self.SubscribeTableView.selectRowIndexes(IndexSet(integer: index - 1), byExtendingSelection: false)
         updateSubscribeBoxVisible()
         if UserDefaults.standard.bool(forKey: USERDEFAULTS_REMOVE_NODE_AFTER_DELETE_SUBSCRIPTION) {
-            print(deleteGroupName)
             for g in deleteGroupName {
-                ServerProfileManager.instance.profiles = ServerProfileManager.instance.profiles.filter { $0.ssrGroup != g}
-                print(g, ServerProfileManager.instance.profiles.count)
+                if g.count > 0 {
+                    ServerProfileManager.instance.profiles = ServerProfileManager.instance.profiles.filter { $0.ssrGroup != g}
+                    print(g, ServerProfileManager.instance.profiles.count)
+                }
             }
             ServerProfileManager.instance.save()
             NotificationCenter.default.post(name: NOTIFY_UPDATE_MAINMENU, object: nil)
