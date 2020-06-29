@@ -75,8 +75,18 @@ class SettingsWindowController: NSWindowController, NSWindowDelegate, NSTableVie
         
         let fileMgr = FileManager.default
         if !fileMgr.fileExists(atPath: PACUserRuleFilePath) {
-            let src = Bundle.main.path(forResource: "user-rule", ofType: "txt")
-            try! fileMgr.copyItem(atPath: src!, toPath: PACUserRuleFilePath)
+            if let src = Bundle.main.path(forResource: "user-rule", ofType: "txt") {
+                do {
+                    try fileMgr.copyItem(atPath: src, toPath: PACUserRuleFilePath)
+                } catch {
+                    do {
+                        try fileMgr.createDirectory(atPath: PACRulesDirPath, withIntermediateDirectories: true, attributes: nil)
+                        try fileMgr.copyItem(atPath: src, toPath: PACUserRuleFilePath)
+                    } catch {
+                        
+                    }
+                }
+            }
         }
 
         let str = try? String(contentsOfFile: PACUserRuleFilePath, encoding: String.Encoding.utf8)

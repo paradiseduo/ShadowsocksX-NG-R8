@@ -205,6 +205,10 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     // MARK: Mainmenu functions
     
     @IBAction func toggleRunning(_ sender: NSMenuItem) {
+        if ServerProfileManager.instance.profiles.count == 0 {
+            ServerProfileManager.noService()
+            return
+        }
         self.toggle { (s) in
             self.updateMainMenu()
         }
