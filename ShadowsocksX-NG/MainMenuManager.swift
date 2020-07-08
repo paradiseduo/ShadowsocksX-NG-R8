@@ -47,6 +47,8 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
     let repeatTimeinterval: TimeInterval = 2.0
     
     override func awakeFromNib() {
+        NSAppleEventManager.shared().setEventHandler(self, andSelector: #selector(self.handleURLEvent), forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
+        
         NSUserNotificationCenter.default.delegate = self
         // Prepare ss-local
         InstallSSLocal { (s) in
@@ -198,6 +200,19 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             }
             if UserDefaults.standard.bool(forKey: USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE) {
                 SubscribeManager.instance.updateAllServerFromSubscribe(auto: true, useProxy: UserDefaults.standard.bool(forKey: USERDEFAULTS_AUTO_UPDATE_SUBSCRIBE_WITH_PROXY))
+            }
+        }
+    }
+    
+    @objc func handleURLEvent(_ event: NSAppleEventDescriptor, withReplyEvent replyEvent: NSAppleEventDescriptor) {
+        if let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue {
+            if URL(string: urlString) != nil {
+                NotificationCenter.default.post(name: NOTIFY_FOUND_SS_URL, object: nil, userInfo: [
+                        "urls": splitProfile(url: urlString, max: 5).map({ (item: String) -> URL in
+                            return URL(string: item)!
+                        }),
+                        "source": "url",
+                    ])
             }
         }
     }

@@ -40,7 +40,7 @@
 			<key>CFBundleURLIconFile</key>
 			<string>menu_icon@2x</string>
 			<key>CFBundleURLName</key>
-			<string>shadowsocks</string>
+			<string>shadowsocksr</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>ssr</string>

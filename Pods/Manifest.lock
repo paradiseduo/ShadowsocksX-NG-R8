@@ -13,7 +13,7 @@ DEPENDENCIES:
   - MASShortcut
 
 SPEC REPOS:
-  trunk:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - BRLOptionParser
     - GCDWebServer
@@ -25,6 +25,6 @@ SPEC CHECKSUMS:
   GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   MASShortcut: d9e4909e878661cc42877cc9d6efbe638273ab57
 
-PODFILE CHECKSUM: e10c929073f0d8624e9adc5e32d27e170d1af137
+PODFILE CHECKSUM: ed7a92298b4b5f28317e60d7d4e3f607a94ae211
 
 COCOAPODS: 1.9.3

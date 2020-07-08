@@ -18,25 +18,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Handle ss url scheme
-        NSAppleEventManager.shared().setEventHandler(self, andSelector: #selector(self.handleURLEvent), forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
         
         let runningApps = NSWorkspace.shared.runningApplications
         let isRunning = !runningApps.filter { $0.bundleIdentifier == LAUNCHER_APPID }.isEmpty
         if isRunning {
             DistributedNotificationCenter.default().post(name: KILL_LAUNCHER, object: Bundle.main.bundleIdentifier!)
-        }
-    }
-    
-    @objc func handleURLEvent(_ event: NSAppleEventDescriptor, withReplyEvent replyEvent: NSAppleEventDescriptor) {
-        if let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue {
-            if URL(string: urlString) != nil {
-                NotificationCenter.default.post(name: NOTIFY_FOUND_SS_URL, object: nil, userInfo: [
-                        "urls": splitProfile(url: urlString, max: 5).map({ (item: String) -> URL in
-                            return URL(string: item)!
-                        }),
-                        "source": "url",
-                    ])
-            }
         }
     }
     
