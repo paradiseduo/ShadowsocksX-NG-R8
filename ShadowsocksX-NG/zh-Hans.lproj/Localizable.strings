@@ -52,6 +52,8 @@
 
 " Encription Method: \(profile.method)" = " 加密方法: \(profile.method)";
 
+"repeated" = "个节点重复";
+
 "Current server profile is not valid." = "当前服务器配置无效";
 
 "No current server profile." = "未设置当前服务器配置";

@@ -205,7 +205,7 @@ import Alamofire
                 if let profileDict = ParseAppURLSchemes(URL(string: urls[index])) {
                     let profile = ServerProfile.fromDictionary(profileDict as [String : AnyObject])
                     newNodes.append(profile)
-                    let (exists, duplicated) = ServerProfileManager.isDuplicatedOrExists(oldNodes, profile)
+                    let (exists, duplicated, _) = ServerProfileManager.isDuplicatedOrExists(oldNodes, profile)
                     if duplicated {
                         dupCount += 1
                     } else if exists {

@@ -707,6 +707,19 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
             userNote.subtitle = "Address can not be recognized".localized
             NSUserNotificationCenter.default.deliver(userNote)
         }
+        func successNotification(userInfo:[AnyHashable : Any], text: String) {
+            let userNote = NSUserNotification()
+            userNote.title = "Add Shadowsocks Server Profile".localized
+            if userInfo["source"] as! String == "qrcode" {
+                userNote.subtitle = "By scan QR Code".localized
+            } else if userInfo["source"] as! String == "url" {
+                userNote.subtitle = "By Handle SS URL".localized
+            }
+            userNote.informativeText = text
+            userNote.soundName = NSUserNotificationDefaultSoundName
+            
+            NSUserNotificationCenter.default.deliver(userNote)
+        }
         if let userInfo = (note as NSNotification).userInfo {
             let urls: [URL] = userInfo["urls"] as! [URL]
             
@@ -716,31 +729,38 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
                 failedNotification()
                 return
             }
+            var sarray = [ServerProfile]()
             for url in urls {
                 let profielDict = ParseAppURLSchemes(url)//ParseSSURL(url)
                 if let profielDict = profielDict {
                     let profile = ServerProfile.fromDictionary(profielDict as [String : AnyObject])
-                    mgr.profiles.append(profile)
-                    isChanged = true
-                    
-                    let userNote = NSUserNotification()
-                    userNote.title = "Add Shadowsocks Server Profile".localized
-                    if userInfo["source"] as! String == "qrcode" {
-                        userNote.subtitle = "By scan QR Code".localized
-                    } else if userInfo["source"] as! String == "url" {
-                        userNote.subtitle = "By Handle SS URL".localized
-                    }
-                    userNote.informativeText = "Host: \(profile.serverHost)\n Port: \(profile.serverPort)\n Encription Method: \(profile.method)".localized
-                    userNote.soundName = NSUserNotificationDefaultSoundName
-                    
-                    NSUserNotificationCenter.default.deliver(userNote)
+                    sarray.append(profile)
                 }else{
                     failedNotification()
                 }
             }
+            var repeatCount = 0
+            for profile in sarray {
+                let (exists, duplicated, index) = ServerProfileManager.isDuplicatedOrExists(mgr.profiles, profile)
+                if exists && duplicated {
+                    repeatCount += 1
+                    continue
+                } else if exists && !duplicated {
+                    isChanged = true
+                    mgr.profiles[index] = profile
+                } else {
+                    isChanged = true
+                    mgr.profiles.append(profile)
+                }
+                successNotification(userInfo: userInfo, text: "Host: \(profile.serverHost)\n Port: \(profile.serverPort)\n Encription Method: \(profile.method)".localized)
+            }
             if isChanged {
                 mgr.save()
                 self.updateServersMenu()
+            } else {
+                if repeatCount > 0 {
+                    successNotification(userInfo: userInfo, text: "\(repeatCount)"+"repeated".localized)
+                }
             }
         }
     }

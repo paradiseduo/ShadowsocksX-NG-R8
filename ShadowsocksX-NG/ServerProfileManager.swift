@@ -140,17 +140,17 @@ class ServerProfileManager: NSObject {
         return nil
     }
     
-    class func isDuplicatedOrExists(_ profiles: [ServerProfile], _ profile: ServerProfile) -> (Bool, Bool){
-        for value in profiles {
+    class func isDuplicatedOrExists(_ profiles: [ServerProfile], _ profile: ServerProfile) -> (Bool, Bool, Int){
+        for (i, value) in profiles.enumerated() {
             if value.isSame(profile: profile) {
                 //相同节点(不需要更新配置)
-                return (true, true)
+                return (true, true, i)
             } else if (value.serverHost == profile.serverHost && value.serverPort == profile.serverPort) {
                 //存在节点(但是更新了配置)
-                return (true, false)
+                return (true, false, i)
             }
         }
-        return (false, false)
+        return (false, false, -1)
     }
 
     func importConfigFile() {
