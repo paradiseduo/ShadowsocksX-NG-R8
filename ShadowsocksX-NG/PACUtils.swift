@@ -35,6 +35,18 @@ func SyncPac() {
     let fileMgr = FileManager.default
     if !fileMgr.fileExists(atPath: PACRulesDirPath) {
         needGenerate = true
+    } else {
+        if let oldSha1Sum = UserDefaults.standard.object(forKey: USERDEFAULTS_SERVERS_USER_RULE_FILE_SHA1) as? String {
+            let newSha1 = getFileSHA1Sum(PACUserRuleFilePath)
+            if newSha1 != oldSha1Sum {
+                needGenerate = true
+                UserDefaults.standard.set(newSha1, forKey: USERDEFAULTS_SERVERS_USER_RULE_FILE_SHA1)
+                UserDefaults.standard.synchronize()
+            }
+        } else {
+            UserDefaults.standard.set(getFileSHA1Sum(PACUserRuleFilePath), forKey: USERDEFAULTS_SERVERS_USER_RULE_FILE_SHA1)
+            UserDefaults.standard.synchronize()
+        }
     }
     
     if !fileMgr.fileExists(atPath: ACLWhiteListFilePath) && !fileMgr.fileExists(atPath: ACLBackCHNFilePath) {
@@ -101,6 +113,8 @@ func GeneratePACFile() -> Bool {
             var lines = str!.components(separatedBy: CharacterSet.newlines)
             
             do {
+                UserDefaults.standard.set(getFileSHA1Sum(PACUserRuleFilePath), forKey: USERDEFAULTS_SERVERS_USER_RULE_FILE_SHA1)
+                UserDefaults.standard.synchronize()
                 let userRuleStr = try String(contentsOfFile: PACUserRuleFilePath, encoding: String.Encoding.utf8)
                 let userRuleLines = userRuleStr.components(separatedBy: CharacterSet.newlines)
                 
