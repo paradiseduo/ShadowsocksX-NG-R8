@@ -9,7 +9,7 @@
 
 - 请勿在本项目的Issues里进行任何购买梯子或者搭建梯子的讨论
 
-- 本项目所提供编译好的App程序不保证一定可用（特别是macOS 10.15），请各位技术大牛自行下载编译运行，提高使用门槛（在Xcode11.4.1上可以直接编译运行）
+- 本项目所提供编译好的App程序不保证一定可用（特别是macOS 10.15），请各位技术大牛自行下载编译运行，提高使用门槛（在Xcode11.6上可以直接编译运行）
 
 - 如果你需要使用kcptun，那么你可以看一下[这个项目](https://github.com/paradiseduo/Kcptun)
 
@@ -32,9 +32,9 @@ rm -rf ~/Library/Caches/com.qiuyuzhou.ShadowsocksX-NG
 
 # ShadowsocksX-NG-R
 
-Current version is 1.7.1
+Current version is 1.7.2
 
-Continuesly release under 1.7.1
+Continuesly release under 1.7.2
 
 [![Build Status](https://travis-ci.org/shadowsocksr/ShadowsocksX-NG.svg?branches=develop)](https://travis-ci.org/shadowsocksr/ShadowsocksX-NG)
 [![Swift](https://img.shields.io/badge/swift-5.2-orange.svg)](https://www.python.org/downloads/)
@@ -73,8 +73,8 @@ Then I rewrite the GUI code by swift.
 
 ### Building
 
-- Xcode 11.4.1+
-- cocoapod 1.8.4+
+- Xcode 11.6
+- cocoapod 1.9.3
 
 ## Fetures
 
