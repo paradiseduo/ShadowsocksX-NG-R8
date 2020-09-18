@@ -777,7 +777,9 @@ class MainMenuManager: NSObject, NSUserNotificationCenterDelegate {
                         if ss {
                             if mode == "auto" {
                                 ProxyConfHelper.disableProxy("hi")
-                                ProxyConfHelper.enablePACProxy("hi")
+                                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.5) {
+                                    ProxyConfHelper.enablePACProxy("hi")
+                                }
                             } else if mode == "global" {
                                 ProxyConfHelper.disableProxy("hi")
                                 ProxyConfHelper.enableGlobalProxy()
